@@ -1,18 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from posts.models import Post
 
 
-class Post(models.Model):
+class Comment(models.Model):
     """
-    Post model related to the User instance
+    Comment model related to the User and Post instances
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    content = models.TextField(blank=True)
-    image = models.ImageField(
-        upload_to='images/',
-        blank=True,
-    )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    body = models.TextField(blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -22,4 +19,4 @@ class Post(models.Model):
 
     
     def __str__(self):
-        return f"{self.title}"
+        return f'{self.owner} commented on {self.post}'
