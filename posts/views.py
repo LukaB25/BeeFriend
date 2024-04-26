@@ -35,16 +35,20 @@ class PostList(APIView):
     
 
 class PostDetail(APIView):
+    """
+    Retrieve, update or delete a post instance. 
+    """
     serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]
+
     def get_object(self, pk):
         try:
-            post=Post.objects.get(pk=pk)
+            post = Post.objects.get(pk=pk)
             self.check_object_permissions(self.request, post)
             return post
         except Post.DoesNotExist:
             raise Http404
-        
+
     def get(self, request, pk):
         post = self.get_object(pk)
         serializer = PostSerializer(
@@ -52,7 +56,7 @@ class PostDetail(APIView):
             context={'request': request}
         )
         return Response(serializer.data)
-    
+
     def put(self, request, pk):
         post = self.get_object(pk)
         serializer = PostSerializer(
@@ -65,7 +69,7 @@ class PostDetail(APIView):
         return Response(
             serializer.errors, status=status.HTTP_400_BAD_REQUEST
         )
-    
+
     def delete(self, request, pk):
         post = self.get_object(pk)
         post.delete()
