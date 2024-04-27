@@ -8,6 +8,7 @@ class LikeSerializer(serializers.ModelSerializer):
     Like serializer related to the User and Post instances
     """
     owner = serializers.ReadOnlyField(source='owner.username')
+    title = serializers.ReadOnlyField(source='post.title')
 
 
     class Meta:
@@ -16,6 +17,7 @@ class LikeSerializer(serializers.ModelSerializer):
             'id',
             'owner',
             'post',
+            'title',
             'created_at',
         ]
 

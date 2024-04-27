@@ -15,7 +15,7 @@ class Friend(models.Model):
         )
     friend = models.ForeignKey(
         User, on_delete=models.CASCADE,
-        related_name='requested_user'
+        related_name='friend'
     )
     accepted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

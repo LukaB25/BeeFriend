@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrFriendOtherwiseReadOnly
 from .models import Friend
@@ -12,6 +13,14 @@ class FriendList(generics.ListCreateAPIView):
     serializer_class = FriendSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
+    ]
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'owner',
+        'owner__friend__owner',
+        'accepted',
     ]
 
     def perform_create(self, serializer):
