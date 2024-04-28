@@ -4,6 +4,12 @@ from friends.models import Friend
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Profile model serializer.
+    If the user is the owner of the profile, 'is_owner' will be True.
+    'friends' will be True if the user is friends with the owner of
+    the profile.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     friends = serializers.SerializerMethodField()

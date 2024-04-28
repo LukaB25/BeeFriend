@@ -5,7 +5,11 @@ from .models import Friend
 
 class FriendSerializer(serializers.ModelSerializer):
     """
-
+    Friend model serializer.
+    If the user sent the friend request, 'is_owner' will be True.
+    Validates that the user can't send a friend request to themselves,
+    can't send a friend request to the same user twice, and can't
+    send a friend request to a user they are already friends with.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -66,7 +70,10 @@ class FriendSerializer(serializers.ModelSerializer):
 
 class FriendDetailSerializer(FriendSerializer):
     """
-    
+    Friend model serializer.
+    If the user received the friend request, 'is_friend' will be True.
+    Validates that the user can't accept a friend request they sent
+    and can't accept a friend request that has already been accepted.
     """
     friend = serializers.ReadOnlyField(source='friend.username')
     is_friend = serializers.SerializerMethodField()

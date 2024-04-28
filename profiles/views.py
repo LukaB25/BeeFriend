@@ -39,7 +39,7 @@ class ProfileList(generics.ListAPIView):
         'bio',
     ]
     filterset_fields =[
-        'owner__requesting_user__owner',
+        'owner__owner__owner',
         'owner__friend__owner',
     ]
 

@@ -11,7 +11,7 @@ class Friend(models.Model):
     """
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE,
-        related_name='requesting_user'
+        related_name='owner'
         )
     friend = models.ForeignKey(
         User, on_delete=models.CASCADE,
