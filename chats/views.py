@@ -47,7 +47,8 @@ class ChatDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Chat.objects.filter(sender=user) | Chat.objects.filter(receiver=user)
+        return Chat.objects.filter(sender=user) | Chat.objects.filter(
+            receiver=user)
 
 
 class MessageList(generics.ListCreateAPIView):
@@ -62,15 +63,27 @@ class MessageList(generics.ListCreateAPIView):
     ]
 
     def get_queryset(self):
+        user = self.request.user
         chat_id = self.kwargs['pk']
-        return Chat.objects.get(pk=chat_id).messages.all()
+        try:
+            chat = Chat.objects.get(id=chat_id)
+            if chat.sender == user or chat.receiver == user:
+                return chat.messages.all()
+            else:
+                raise ValidationError({'detail': 'You cannot access this chat.'})
+        except Chat.DoesNotExist:
+            raise ValidationError({'detail': 'Chat does not exist.'})
 
     
     def perform_create(self, serializer):
         chat_id = self.kwargs['pk']
         chat = Chat.objects.get(id=chat_id)
+        user = self.request.user
 
-        serializer.save(chat=chat, sender=self.request.user)
+        if chat.sender == user or chat.receiver == user:
+            serializer.save(chat=chat, sender=user)
+        else:
+            raise ValidationError({'detail': 'You cannot access this chat.'})
 
 
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -85,19 +98,32 @@ class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     ]
 
     def get_queryset(self):
+        user = self.request.user
         chat_id = self.kwargs['pk']
-        message_id = self.kwargs['message_pk']
-        return Chat.objects.get(id=chat_id).messages.filter(id=message_id)
-    
-    def get_object(self):
-        chat_id = self.kwargs['pk']
+        chat = Chat.objects.get(id=chat_id)
         message_id = self.kwargs['message_pk']
         try:
-            message = Chat.objects.get(pk=chat_id).messages.get(pk=message_id)
-            receiver = message.chat.receiver
-            return message
+            if chat.sender == user or chat.receiver == user:
+                return chat.messages.filter(pk=message_id)
+            else:
+                raise ValidationError({'detail': 'You cannot access this chat.'})
+        except Chat.DoesNotExist:
+            raise ValidationError({'detail': 'Chat does not exist.'})
+    
+    def get_object(self):
+        user = self.request.user
+        chat_id = self.kwargs['pk']
+        chat = Chat.objects.get(pk=chat_id)
+        message_id = self.kwargs['message_pk']
+        try:
+            if chat.sender == user or chat.receiver == user:
+                message = chat.messages.get(pk=message_id)
+                receiver = message.chat.receiver
+                return message
+            else:
+                raise ValidationError({'detail': 'You cannot access this chat.'})
         except (Chat.DoesNotExist, Message.DoesNotExist):
-            return None
+            raise ValidationError({'detail': 'Chat does not exist.'})
     
     def perform_update(self, serializer):
         user = self.request.user
