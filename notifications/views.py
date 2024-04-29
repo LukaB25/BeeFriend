@@ -1,9 +1,12 @@
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import generics, permissions
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, MethodNotAllowed
 from drf_api.permissions import IsOwner
 from .models import Notification
+from likes.models import Like
+from comments.models import Comment
+from chats.models import Message
 from .serializers import (
     FriendRequestNotificationSerializer,
     LikeNotificationSerializer,
@@ -45,7 +48,7 @@ class NotificationList(generics.ListCreateAPIView):
             notification_data.append(serializer.data)
         return notification_data
 
-    def create_notification(notification_type, request_data):
+    def create_notification(self, notification_type, request_data):
         request = self.context['request']
         owner = None
         if notification_type == 'friend_request':
@@ -90,7 +93,7 @@ class NotificationList(generics.ListCreateAPIView):
         )
 
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer, create_notification):
         request = self.context['request']
         if request.method == 'POST':
             if 'friend' in request.data:
