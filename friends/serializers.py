@@ -51,12 +51,12 @@ class FriendSerializer(serializers.ModelSerializer):
         model = Friend
         fields = [
             'id',
-            'created_at',
             'owner',
             'is_owner',
             'owner_profile_id',
             'owner_profile_image',
             'friend',
+            'created_at',
         ]
         read_only_fields = [
             'id',

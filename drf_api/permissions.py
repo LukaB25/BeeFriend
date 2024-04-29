@@ -19,6 +19,10 @@ class IsSenderOrReceiver(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.sender == request.user or obj.chat.receiver == request.user
 
+
+class IsOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.owner == request.user if obj.owner else False
     
 
 # class IsFriendOrReadOnly(permissions.BasePermission):
