@@ -2,6 +2,33 @@ from rest_framework import serializers
 from .models import Notification
 
 
+class NotificationSerializer(serializers.ModelSerializer):
+    """
+    Notification model serializer.
+    """
+    owner = serializers.ReadOnlyField(source='owner.username')
+    seen = serializers.ReadOnlyField()
+    notification_type = serializers.ReadOnlyField()
+
+
+    class Meta:
+        model = Notification
+        fields = [
+            'id',
+            'owner',
+            'seen',
+            'notification_type',
+            'created_at',
+        ]
+        read_only_fields = [
+            'id',
+            'created_at',
+            'owner',
+            'notification_type',
+            'created_at',
+        ]
+
+
 class FriendRequestNotificationSerializer(serializers.ModelSerializer):
     """
     Friend request notification model serializer.

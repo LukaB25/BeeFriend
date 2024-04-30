@@ -8,6 +8,7 @@ from likes.models import Like
 from comments.models import Comment
 from chats.models import Message
 from .serializers import (
+    NotificationSerializer,
     FriendRequestNotificationSerializer,
     LikeNotificationSerializer,
     CommentNotificationSerializer,
@@ -26,10 +27,12 @@ class NotificationList(generics.ListCreateAPIView):
         permissions.IsAuthenticated,
         IsOwner
     ]
+    serializer_class = NotificationSerializer
 
     def get(self,request, *args, **kwargs):
         notifications = self.get_queryset().filter(owner=request.user)
         notification_data = self.serializer_notifications(notifications)
+        notifications.update(seen=True)
         return Response(notification_data)
 
     def serializer_notifications(self, notifications):

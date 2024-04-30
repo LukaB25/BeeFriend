@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 from posts.models import Post
 
@@ -21,3 +22,8 @@ class Like(models.Model):
 
     def __str__(self):
         return f'{self.owner} liked {self.post}'
+
+    def save(self, *args, **kwargs):
+        if Like.objects.filter(owner=self.owner, post=self.post).exists():
+            raise IntegrityError({'detail': 'You have already liked this post.'})
+        super().save(*args, **kwargs)
