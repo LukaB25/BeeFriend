@@ -1,0 +1,34 @@
+.NavBar {
+    background-color: rgba(244, 234, 234, 0.9);
+}
+
+.Logo {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--orange--color) !important;
+}
+
+.LogoIcon {
+    color: var(--charcoal--color) !important;
+    font-size: 4rem;
+}
+
+.NavLink {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0 0.25rem;
+    color: var(--dark--grey--color) !important;
+}
+
+.NavLink:hover {
+    color: var(--orange--color) !important;
+}
+
+.Active {
+    color: var(--charcoal--color) !important;
+    text-decoration: underline;
+}
+
+.Acive i {
+    color: var(--orange--color) !important;
+}
