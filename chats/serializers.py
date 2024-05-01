@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Chat, Message
 
@@ -16,6 +17,7 @@ class ChatSerializer(serializers.ModelSerializer):
     receiver_username = serializers.ReadOnlyField(source='receiver.username')
     last_message = serializers.SerializerMethodField()
     unread_message_count = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
 
     def get_last_message(self, obj):
         last_message = obj.messages.order_by('-created_at').first()
@@ -25,6 +27,9 @@ class ChatSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         message_count = obj.messages.filter(chat=obj, chat__receiver=user, seen=False).count()
         return message_count
+    
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
     
 
     class Meta:
@@ -43,6 +48,10 @@ class ChatSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.ReadOnlyField(source='sender.username')
     receiver = serializers.ReadOnlyField(source='get_receiver_username')
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
 
     class Meta:

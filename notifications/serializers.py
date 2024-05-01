@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Notification
 
@@ -9,6 +10,10 @@ class NotificationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     seen = serializers.ReadOnlyField()
     notification_type = serializers.ReadOnlyField()
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
 
     class Meta:
@@ -37,6 +42,10 @@ class FriendRequestNotificationSerializer(serializers.ModelSerializer):
     friend = serializers.ReadOnlyField(source='friend.friend.username')
     notification_type = serializers.ReadOnlyField()
     friend_accepted = serializers.BooleanField()
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
     
 
 
@@ -70,6 +79,10 @@ class LikeNotificationSerializer(serializers.ModelSerializer):
     liked_post = serializers.ReadOnlyField(source='like.post.title')
     liked_post_id = serializers.ReadOnlyField(source='like.post.id')
     notification_type = serializers.ReadOnlyField()
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
 
     class Meta:
@@ -104,6 +117,10 @@ class CommentNotificationSerializer(serializers.ModelSerializer):
     commented_post = serializers.ReadOnlyField(source='comment.post.title')
     commented_post_id = serializers.ReadOnlyField(source='comment.post.id')
     notification_type = serializers.ReadOnlyField()
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
 
     class Meta:
@@ -137,6 +154,10 @@ class MessageNotificationSerializer(serializers.ModelSerializer):
     message_sender = serializers.ReadOnlyField(source='message.sender.username')
     message_chat = serializers.ReadOnlyField(source='message.chat.id')
     notification_type = serializers.ReadOnlyField()
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
 
     class Meta:

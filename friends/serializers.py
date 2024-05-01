@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.db import IntegrityError
 from rest_framework import serializers
 from .models import Friend
@@ -15,10 +16,14 @@ class FriendSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     owner_profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     owner_profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    created_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context.get('request')
         return obj.owner == request.user
+    
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
     def create(self, validated_data):
         user = self.context.get('request').user
@@ -79,10 +84,18 @@ class FriendDetailSerializer(FriendSerializer):
     is_friend = serializers.SerializerMethodField()
     friend_profile_id = serializers.ReadOnlyField(source='friend.profile.id')
     friend_profile_image = serializers.ReadOnlyField(source='friend.profile.image.url')
+    created_at = serializers.SerializerMethodField()
 
     def get_is_friend(self, obj):
         request = self.context.get('request')
-        return obj.friend == request.user
+        if obj.accepted:
+            return True
+        else:
+            return False
+
+    def create(self, validated_data):
+        user = self.context.get('request').user
+        friend = validated_data.get('friend')
     
     def validate(self, data):
         request = self.context.get('request')
