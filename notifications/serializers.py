@@ -36,7 +36,7 @@ class FriendRequestNotificationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     friend = serializers.ReadOnlyField(source='friend.friend.username')
     notification_type = serializers.ReadOnlyField()
-    friend_accepted = serializers.ReadOnlyField(source='friend.accepted')
+    friend_accepted = serializers.BooleanField()
     
 
 
