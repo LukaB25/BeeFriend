@@ -1,0 +1,22 @@
+.Button {
+    font-size: 1.4rem;
+    align-self: center;
+    width: 7.5rem;
+    border-radius: 1.5rem;
+    border-color: var(--charcoal--color);
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    background-color: var(--yellow--color);
+    color: var(--charcoal--color);
+    transition: background-color ease-in-out 0.5s;
+    transition: color ease-in-out 0.5s;
+    transition: border ease-in-out 0.5s;
+    transition: transform ease-in-out 0.5s;
+}
+
+.Button:hover {
+    background-color: var(--orange--color);
+    color: var(--offwhite--color);
+    border-color: var(--offwhite--color);
+    transform: scale(1.2);
+}

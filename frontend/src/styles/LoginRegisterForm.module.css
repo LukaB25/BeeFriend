@@ -1,0 +1,55 @@
+.FormCol {
+  background-color: var(--charcoal--color) !important;
+  color: var(--offwhite--color) !important;
+  margin-top: 15rem;
+  border-radius: 2.5rem;
+  border: 2px solid var(--offwhite--color);
+}
+
+.FormLinks {
+  display: inline;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1rem 0;
+}
+
+.FormSelector {
+  color: var(--offwhite--color);
+  text-decoration: none;
+  transition: color ease-in-out 0.5s;
+}
+
+.FormSelector:hover {
+  color: var(--yellow--color);
+  text-decoration: none;
+}
+
+.FormSelectorActive {
+  color: var(--orange--color);
+  text-decoration: none;
+}
+
+.FormMessage {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-top: 1rem;
+}
+
+.FormMessage i {
+  font-size: 1.5rem;
+  color: var(--orange--color);
+}
+
+.Form {
+  padding: 2.5rem 5rem 5rem 5rem;
+  font-size: 2rem;
+}
+
+.Input {
+  background-color: var(--offwhite--color) !important;
+  color: var(--charcoal--color) !important;
+  font-size: 1.2rem;
+  max-width: 50%;
+  border-radius: 1rem;
+  text-align: center;
+}

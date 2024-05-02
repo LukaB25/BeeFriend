@@ -11,6 +11,28 @@
     padding-top: 7.5rem;
 }
 
+.Content {
+    background-color: var(--offwhite--color-transparent);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--charcoal--color);
+}
+
 a {
     transition: color ease-in-out 0.5s;
 }
+
+
+/* scrollbar */
+*::-webkit-scrollbar {
+    width: 5px;
+  }
+  *::-webkit-scrollbar-track {
+    background: var(--offwhite--color);
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--grey--color);
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--charcoal--color);
+  }
