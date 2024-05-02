@@ -1,5 +1,14 @@
 .App{
-    text-align: center;
+    background-color: #E5BD3F;
+    background-image: url(https://res.cloudinary.com/dfhay1cmj/image/upload/v1714582758/honeycomb_background_effdta.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    overflow: auto;
+}
+
+.Main {
+    padding-top: 7.5rem;
 }
 
 a {

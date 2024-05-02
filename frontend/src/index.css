@@ -4,7 +4,7 @@
   --offwhite--color--transparent: rgba(244, 234, 234, 0.9);
   --orange--color: #CC8022;
   --yellow--color: #E5BD3F;
-  --dark--grey--color: #393937;
+  --grey--color: #6c6c6a;
   --charcoal--color: #312F17;
   --black--color: #222222;
 
@@ -13,5 +13,4 @@
 body {
   margin: 0;
   font-family: 'Playfair Display', serif;
-  background-color: #E5BD3F;
 }

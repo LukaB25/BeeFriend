@@ -15,9 +15,9 @@
 
 .NavLink {
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 600;
     margin: 0 0.25rem;
-    color: var(--dark--grey--color) !important;
+    color: var(--grey--color) !important;
 }
 
 .NavLink:hover {
@@ -27,8 +27,4 @@
 .Active {
     color: var(--charcoal--color) !important;
     text-decoration: underline;
-}
-
-.Acive i {
-    color: var(--orange--color) !important;
 }
