@@ -1,0 +1,14 @@
+import React from 'react'
+import styles from '../styles/Avatar.module.css'
+
+const Avatar = ({src, height=50, text}) => {
+  return (
+    <span className={styles.HexBorder}>
+      <img className={styles.Avatar} src={src}
+        height={height} width={height} alt="avatar" />
+        {text}
+    </span>
+  )
+}
+
+export default Avatar

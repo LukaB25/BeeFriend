@@ -20,6 +20,10 @@
     color: var(--grey--color) !important;
 }
 
+.NavLink i {
+    color: var(--black--color);
+}
+
 .NavLink:hover {
     color: var(--orange--color) !important;
 }

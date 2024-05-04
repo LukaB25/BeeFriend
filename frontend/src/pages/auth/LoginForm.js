@@ -12,35 +12,39 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
+import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
 
 const LoginForm = () => {
-    const [loginData, setLoginData] = useState({
-        username: '',
-        password: '',
-    });
-    const { username, password } = loginData;
+  const setCurrentUser = useSetCurrentUser();
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: '',
+  });
+  const { username, password } = loginData;
 
-    const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
-    const history = useHistory()
+  const history = useHistory()
 
-    const handleChange = (event) => {
-        setLoginData({
-            ...loginData,
-            [event.target.name]: event.target.value,
-        })
-    }
+  const handleChange = (event) => {
+      setLoginData({
+          ...loginData,
+          [event.target.name]: event.target.value,
+      })
+  }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try{
-            await axios.post('dj-rest-auth/login/', loginData)
-            history.push('/')
-        } catch (err) {
-            setErrors(err.response?.data)
-        }
-    }
-    
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+      try{
+      const {data} = await axios.post('dj-rest-auth/login/', loginData)
+      setCurrentUser(data.user)
+      console.log(data)
+      history.push('/')
+      } catch (err) {
+        setErrors(err.response?.data)
+      }
+  }
+
   return (
     <Container className={styles.FormContainer}>
         <Row className="justify-content-center">
