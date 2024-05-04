@@ -13,21 +13,20 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 
-const RegisterForm = () => {
-    const [registerData, setRegisterData] = useState({
+const LoginForm = () => {
+    const [loginData, setLoginData] = useState({
         username: '',
-        password1: '',
-        password2: ''
+        password: '',
     });
-    const { username, password1, password2 } = registerData;
+    const { username, password } = loginData;
 
     const [errors, setErrors] = useState({});
 
     const history = useHistory()
 
     const handleChange = (event) => {
-        setRegisterData({
-            ...registerData,
+        setLoginData({
+            ...loginData,
             [event.target.name]: event.target.value,
         })
     }
@@ -35,8 +34,8 @@ const RegisterForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try{
-            await axios.post('dj-rest-auth/registration/', registerData)
-            history.push('/login')
+            await axios.post('dj-rest-auth/login/', loginData)
+            history.push('/')
         } catch (err) {
             setErrors(err.response?.data)
         }
@@ -61,10 +60,10 @@ const RegisterForm = () => {
                     </NavLink>
                 </Container>
                 <Container className={styles.FormMessage}>
-                    <p><i class="fas fa-arrow-up"></i> Already have an account? Log in instead.</p>
+                    <p>Don't have an account? Register for one instead. <i class="fas fa-arrow-up"></i></p>
                 </Container>
                 <Container className={appStyles.Content}>
-                    <h1 className={styles.Header}>Register</h1>
+                    <h1 className={styles.Header}>Log In</h1>
                     <Form
                         className={styles.Form}
                         onSubmit={handleSubmit}>
@@ -84,37 +83,22 @@ const RegisterForm = () => {
                                 key={idx}>{message}</Alert>
                         ))}
 
-                        <Form.Group controlId="password1">
+                        <Form.Group controlId="password">
                             <Form.Label className="d-none">Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
                                 className={`mx-auto ${styles.Input}`}
-                                name="password1"
-                                value={password1}
+                                name="password"
+                                value={password}
                                 onChange={handleChange} />
                         </Form.Group>
-                        {errors.password1?.map((message, idx) =>(
+                        {errors.password?.map((message, idx) =>(
                             <Alert variant="warning"
                                 className={`${styles.Alert} mx-auto`}
                                 key={idx}>{message}</Alert>
                         ))}
 
-                        <Form.Group controlId="password2">
-                            <Form.Label className="d-none">Confirm Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Confirm Password"
-                                className={`mx-auto ${styles.Input}`}
-                                name="password2"
-                                value={password2}
-                                onChange={handleChange} />
-                        </Form.Group>
-                        {errors.password2?.map((message, idx) =>(
-                            <Alert variant="warning"
-                                className={`${styles.Alert} mx-auto`}
-                                key={idx}>{message}</Alert>
-                        ))}
                         {errors.non_field_errors?.map((message, idx) =>(
                             <Alert variant="warning"
                                 className={`${styles.Alert} mx-auto`}
@@ -123,7 +107,7 @@ const RegisterForm = () => {
                         <Button
                             className={`${btnStyles.FormButton} ${btnStyles.Button} ${btnStyles.ButtonWide}`}
                             type="submit">
-                            Register
+                            Log In
                         </Button>
                     </Form>
                 </Container>
@@ -133,4 +117,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default LoginForm

@@ -25,18 +25,21 @@
 }
 
 .FormButton:hover {
+    font-weight: 600;
     color: var(--charcoal--color);
     transform: scale3d(1.1, 1.1, 1.1);
     background-color: var(--enhanced--glow--yellow--color);
     box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
-        0 0 4rem 2rem var(--glow--yellow--spread--color),
-        inset 0 0 .75em .25rem var(--glow--yellow--color);
+                0 0 4rem 2rem var(--glow--yellow--spread--color),
+                inset 0 0 .75em .25rem var(--glow--yellow--color);
     border-color: var(--enhanced--glow--yellow--color);
 }
 
-.FormButton:active {
+.FormButton:active, .FormButton:focus {
+    font-weight: 600;
+    color: var(--charcoal--color);
     background-color: var(--enhanced--glow--yellow--color);
     box-shadow: 0 0 0.6rem .25rem var(--glow--yellow--color),
-        0 0 2.5em 2em var(---glow-yellow-spread--color),
-        inset 0 0 .5rem .25rem var(--glow--yellow--color);
+                0 0 2.5rem 2rem var(--glow--yellow--spread--color),
+                inset 0 0 .5rem .25rem var(--glow--yellow--color);
 }

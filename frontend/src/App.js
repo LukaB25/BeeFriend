@@ -5,6 +5,7 @@ import './api/axiosDefaults';
 
 import NavBar from './components/NavBar';
 import RegisterForm from './pages/auth/RegisterForm';
+import LoginForm from './pages/auth/LoginForm';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Container className="Main">
         <Switch>
           <Route exact path="/" render={()=> <h1>Home page</h1>} />
-          <Route exact path="/login" render={()=> <h1>Log in</h1>} />
+          <Route exact path="/login" render={()=> <LoginForm />} />
           <Route exact path="/register" render={()=> <RegisterForm />} />
         </Switch>
       </Container>
