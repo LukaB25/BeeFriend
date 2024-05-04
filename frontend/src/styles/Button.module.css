@@ -3,20 +3,40 @@
     align-self: center;
     width: 7.5rem;
     border-radius: 1.5rem;
-    border-color: var(--charcoal--color);
     padding: 0.5rem 1rem;
-    margin-top: 1rem;
-    background-color: var(--yellow--color);
-    color: var(--charcoal--color);
-    transition: background-color ease-in-out 0.5s;
-    transition: color ease-in-out 0.5s;
-    transition: border ease-in-out 0.5s;
-    transition: transform ease-in-out 0.5s;
+    outline: none;
 }
 
-.Button:hover {
-    background-color: var(--orange--color);
-    color: var(--offwhite--color);
-    border-color: var(--offwhite--color);
-    transform: scale(1.2);
+.ButtonWide {
+    width: 50%
+}
+
+.FormButton {
+    
+    border-color: var(--glow--yellow--color);
+    margin-top: 1rem;
+    background-color: var(--black-color);
+    color: var(--glow--yellow--color);
+    box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
+                0 0 4rem 1rem var(--glow--yellow--spread--color),
+                inset 0 0 .75rem .25rem var(--glow--yellow--color);
+    text-shadow: 0 0 .5rem var(--glow--yellow--color);
+    transition: all ease-in-out 0.5s;
+}
+
+.FormButton:hover {
+    color: var(--charcoal--color);
+    transform: scale3d(1.1, 1.1, 1.1);
+    background-color: var(--enhanced--glow--yellow--color);
+    box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
+        0 0 4rem 2rem var(--glow--yellow--spread--color),
+        inset 0 0 .75em .25rem var(--glow--yellow--color);
+    border-color: var(--enhanced--glow--yellow--color);
+}
+
+.FormButton:active {
+    background-color: var(--enhanced--glow--yellow--color);
+    box-shadow: 0 0 0.6rem .25rem var(--glow--yellow--color),
+        0 0 2.5em 2em var(---glow-yellow-spread--color),
+        inset 0 0 .5rem .25rem var(--glow--yellow--color);
 }

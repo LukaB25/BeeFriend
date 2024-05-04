@@ -1,6 +1,7 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import { Route, Switch } from 'react-router-dom';
+import './api/axiosDefaults';
 
 import NavBar from './components/NavBar';
 import RegisterForm from './pages/auth/RegisterForm';

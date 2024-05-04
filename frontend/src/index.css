@@ -4,13 +4,24 @@
   --offwhite--color--transparent: rgba(244, 234, 234, 0.9);
   --orange--color: #CC8022;
   --yellow--color: #E5BD3F;
-  --grey--color: #6c6c6a;
+  --dark--yellow--color: #5b4b26;
+  --grey--color: #36454F;
   --charcoal--color: #312F17;
-  --black--color: #222222;
+  --black--color: #212121;
+  --glow--yellow--color: #fdcc5b;
+  --glow--orange--color: #D17A08;
+  --glow--yellow--spread--color: rgba(243, 180, 77, 0.8);
+  --enhanced--glow--yellow--color: #FCE279;
 
 }
 
 body {
   margin: 0;
   font-family: 'Playfair Display', serif;
+  background-color: #E5BD3F;
+  background-image: url(https://res.cloudinary.com/dfhay1cmj/image/upload/v1714582758/honeycomb_background_effdta.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  overflow: show;
 }

@@ -1,10 +1,5 @@
 .App{
-    background-color: #E5BD3F;
-    background-image: url(https://res.cloudinary.com/dfhay1cmj/image/upload/v1714582758/honeycomb_background_effdta.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-    overflow: auto;
+  min-height: 100vh
 }
 
 .Main {
@@ -12,10 +7,8 @@
 }
 
 .Content {
-    background-color: var(--offwhite--color-transparent);
     padding: 2rem;
     border-radius: 1.5rem;
-    border: 1px solid var(--charcoal--color);
 }
 
 a {
@@ -25,7 +18,7 @@ a {
 
 /* scrollbar */
 *::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
   }
   *::-webkit-scrollbar-track {
     background: var(--offwhite--color);
