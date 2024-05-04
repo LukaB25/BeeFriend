@@ -64,6 +64,7 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
     '127.0.0.1',
+    '8000-lukab25-beefriend-n6nyfamr8dr.ws-eu111.gitpod.io',
 ]
 
 
@@ -113,7 +114,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CLIENT_ORIGIN'),
+    'http://localhost:3000',
     'http://127.0.1:3000',
 ]
 
