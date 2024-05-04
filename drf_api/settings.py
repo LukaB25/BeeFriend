@@ -114,7 +114,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    os.environ.get('CLIENT_ORIGIN'),
     'http://127.0.1:3000',
 ]
 

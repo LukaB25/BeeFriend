@@ -19,7 +19,12 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      const {data} = await axios.post('dj-rest-auth/logout/');
+      const csrftoken = localStorage.getItem('csrftoken');
+      const {data} = await axios.post('dj-rest-auth/logout/', {}, {
+        headers: {
+          'X-CSRFToken': csrftoken
+        }
+      });
       console.log(data);
       setCurrentUser(null);
       console.log(currentUser);
