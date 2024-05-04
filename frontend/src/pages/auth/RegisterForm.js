@@ -41,11 +41,11 @@ const RegisterForm = () => {
             setErrors(err.response?.data)
         }
     }
-    
+
   return (
-    <Container className={styles.FormContainer}>
+    <Container>
         <Row className="justify-content-center">
-            <Col className={`${styles.FormCol} text-center`} sm={12} md={8} lg={6}>
+            <Col className={`${styles.FormContainer} text-center`} sm={12} md={8} lg={6}>
                 <Container className={`d-flex justify-content-around ${styles.FormLinks}`}>
                     <NavLink
                         exact to="/login"

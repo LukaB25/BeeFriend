@@ -1,4 +1,4 @@
-.FormCol {
+.FormContainer {
   background-color: var(--charcoal--color) !important;
   color: var(--offwhite--color) !important;
   margin-top: 20vh;
@@ -70,6 +70,10 @@
 
 .Input::placeholder {
   color: var(--charcoal--color);
+}
+
+.TextArea {
+  max-width: 75%;
 }
 
 .Alert {
