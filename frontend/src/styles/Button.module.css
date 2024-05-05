@@ -11,11 +11,10 @@
     width: 50%
 }
 
-.FormButton {
-    
+.FormButton, .PostButton {
     border-color: var(--glow--yellow--color);
     margin-top: 1rem;
-    background-color: var(--black-color);
+    background-color: var(--black--color);
     color: var(--glow--yellow--color);
     box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
                 0 0 4rem 1rem var(--glow--yellow--spread--color),
@@ -24,7 +23,11 @@
     transition: all ease-in-out 0.5s;
 }
 
-.FormButton:hover {
+.PostButton {
+    margin: 1rem 0 0 2rem;
+}
+
+.FormButton:hover, .PostButton:hover {
     font-weight: 600;
     color: var(--charcoal--color);
     transform: scale3d(1.1, 1.1, 1.1);
@@ -35,11 +38,46 @@
     border-color: var(--enhanced--glow--yellow--color);
 }
 
-.FormButton:active, .FormButton:focus {
+.FormButton:active, .FormButton:focus, .PostButton:active, .PostButton:focus{
     font-weight: 600;
     color: var(--charcoal--color);
     background-color: var(--enhanced--glow--yellow--color);
     box-shadow: 0 0 0.6rem .25rem var(--glow--yellow--color),
                 0 0 2.5rem 2rem var(--glow--yellow--spread--color),
                 inset 0 0 .5rem .25rem var(--glow--yellow--color);
+    border-color: var(--enhanced--glow--yellow--color);
+}
+
+
+.CancelButton {
+    border-color: #800020;
+    margin: 1rem 2rem 0 0;
+    background-color: var(--black--color);
+    color: #d10739;
+    box-shadow: 0 0 1rem .25rem #800020,
+                0 0 4rem 1rem #26000a,
+                inset 0 0 .75rem .25rem #66001a;
+    text-shadow: 0 0 .5rem #73001d;
+    transition: all ease-in-out 0.5s;
+}
+
+.CancelButton:hover {
+    font-weight: 600;
+    color: var(--charcoal--color);
+    transform: scale3d(1.1, 1.1, 1.1);
+    background-color: #d10739;
+    box-shadow: 0 0 1rem .25rem #66001a,
+                0 0 4rem 2rem #73001d,
+                inset 0 0 .75em .25rem #26000a;
+    border-color: #800020;
+}
+
+.CancelButton:active, .FormButton:focus {
+    font-weight: 600;
+    color: var(--charcoal--color);
+    background-color: #800020;
+    box-shadow: 0 0 0.6rem .25rem #26000a,
+                0 0 2.5rem 2rem #66001a,
+                inset 0 0 .5rem .25rem #73001d;
+    border-color: #800020;
 }

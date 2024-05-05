@@ -1,3 +1,54 @@
-.Container {
-  min-height: 45rem;
+.PostFormBody {
+  background-color: var(--offwhite--color--transparent) !important;
+  color: var(--black--color) !important;
+  margin-top: 5vh;
+  border-radius: 2.5rem;
+  border: 2px solid var(--offwhite--color);
+}
+
+.FormUpload {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.Header {
+  font-size: 3rem;
+  font-weight: 700;
+  padding-top: 2rem;
+  text-shadow: 0 0 1rem var(--glow--yellow--color);
+}
+
+.Form {
+  padding: 1rem 5rem 5rem 5rem;
+  font-size: 2rem;
+}
+
+.Input {
+  background: var(--black--color) !important;
+  color: var(--offwhite--color) !important;
+  font-size: 1.4rem;
+  max-width: 50%;
+  margin: 2rem 0;
+  height: 3.2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: inset 2px 5px 10px #757373;
+}
+
+.Input::placeholder {
+  color: var(--offwhite--color);
+}
+
+.TextArea {
+  max-width: 75%;
+}
+
+.Alert {
+  font-size: 1.2rem;
+  font-weight: 700;
+  max-width: 75%;
+  color: var(--orange--color);
+  box-shadow: 1px 2.5px 5px var(--offwhite--color);
+  border-radius: 1rem;
+  border: 0.5px solid var(--orange--color);
 }

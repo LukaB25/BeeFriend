@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
+import { Image } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 
-import styles from '../../styles/LoginRegisterForm.module.css';
-// import styles from '../../styles/PostCreateForm.module.css';
+import styles from '../../styles/PostCreateEditForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
 import assetStyles from '../../styles/Asset.module.css';
-import appStyles from '../../App.css';
+// import appStyles from '../../App.css';
 
 import Upload from '../../assets/upload.png';
 import Asset from '../../components/Asset';
+import { axiosReq } from '../../api/axiosDefaults';
 
 const PostCreateForm = () => {
   const [postData, setPostData] = useState({
@@ -24,6 +25,9 @@ const PostCreateForm = () => {
     image: '',
   });
   const { title, content, image } = postData;
+
+  const imageInput = useRef(null);
+  const history = useHistory();
 
   const [errors, setErrors] = useState({});
 
@@ -44,11 +48,31 @@ const PostCreateForm = () => {
     }
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('content', content);
+
+    if (imageInput.current.files.length > 0){
+      formData.append('image', imageInput.current.files[0]);
+    }
+    try {
+      const {data} = await axiosReq.post('/posts/', formData);
+      history.push(`/posts/${data.id}`);
+    } catch (err) {
+      if (err.response?.data !== 401){
+        setErrors(err.response?.data);
+      }
+    }
+  } 
+
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Row className="justify-content-center">
-        <Col className={`${styles.FormContainer} text-center`} sm={12} md={8} lg={6}>
+        <Col className={`${styles.PostFormBody} text-center`} sm={12} md={8} lg={6}>
           <Form.Group className="text-center">
             {image ? (
               <>
@@ -66,7 +90,7 @@ const PostCreateForm = () => {
               </>
             ) : (
               <Form.Label
-                htmlFor="image-upload">
+                htmlFor="image-upload" className={styles.FormUpload}>
                   <Asset src={Upload} message="Click or tap to upload an image" />
               </Form.Label>
             )}
@@ -74,8 +98,15 @@ const PostCreateForm = () => {
               id="image-upload"
               className="d-none"
               accept='image/*'
-              onChange={handleChangeImage} />
+              onChange={handleChangeImage}
+              ref={imageInput}
+            />
           </Form.Group>
+          {errors.image?.map((message, idx) =>(
+            <Alert variant="warning"
+              className={`${styles.Alert} mx-auto`}
+              key={idx}>{message}</Alert>
+            ))}
           <Form.Group>
             <Form.Label className="d-none">Title</Form.Label>
             <Form.Control
@@ -87,6 +118,11 @@ const PostCreateForm = () => {
               onChange={handleChange}
             />
           </Form.Group>
+          {errors.title?.map((message, idx) =>(
+            <Alert variant="warning"
+              className={`${styles.Alert} mx-auto`}
+              key={idx}>{message}</Alert>
+            ))}
           <Form.Group>
             <Form.Label className="d-none">Content</Form.Label>
             <Form.Control
@@ -99,16 +135,26 @@ const PostCreateForm = () => {
               onChange={handleChange}
             />
           </Form.Group>
+          {errors.content?.map((message, idx) =>(
+            <Alert variant="warning"
+              className={`${styles.Alert} mx-auto`}
+              key={idx}>{message}</Alert>
+            ))}
+          {errors.non_field_errors?.map((message, idx) =>(
+            <Alert variant="warning"
+              className={`${styles.Alert} mx-auto`}
+              key={idx}>{message}</Alert>
+            ))}
           <Container className="d-flex justify-content-center pb-5">
             <Button
-              className={`${btnStyles.Button} ${btnStyles.FormButton}`}
-              onClick={() => {}}>
-              cancel
+              className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
+              onClick={() => history.goBack()}>
+              <i class="fas fa-trash-alt">Cancel</i>
             </Button>
             <Button
-              className={`${btnStyles.FormButton} ${btnStyles.Button}`}
+              className={`${btnStyles.PostButton} ${btnStyles.Button}`}
               type="submit">
-              Post
+              Post<i class="fas fa-paper-plane"></i>
             </Button>
           </Container>
         </Col>

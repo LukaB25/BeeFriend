@@ -35,12 +35,12 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
-      <NavLink exact to="/friends"
+      <NavLink to="/friends"
         className={styles.NavLink}
         activeClassName={styles.Active}
         ><i class="fas fa-users"></i> Friends
       </NavLink>
-      <NavLink exact to={`/profile/${currentUser?.profile_id}`}
+      <NavLink to={`/profile/${currentUser?.profile_id}`}
         className={styles.NavLink}
         activeClassName={styles.Active}
         ><Avatar src={currentUser?.profile_image} height={20} text="Profile" />
