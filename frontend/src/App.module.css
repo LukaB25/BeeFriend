@@ -15,7 +15,7 @@ a {
     transition: color ease-in-out 0.5s;
 }
 
-.Toastify__toast-container {
+.Toastify__toast {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
 }

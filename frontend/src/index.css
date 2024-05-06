@@ -2,6 +2,14 @@
   font-size: 10px;
   --offwhite--color: #F4EAEA;
   --offwhite--color--transparent: rgba(244, 234, 234, 0.9);
+  --burgundy--color: #800020;
+  --dark--burgundy--color: #73001d;
+  --light--burgundy--color: #A52A2A;
+  --blue--color: #1E90FF;
+  --dark--blue--color: #0B3C5D;
+  --light--blue--color: #87CEFA;
+  --aquamarine--blue--color: #13B3AC;
+  --dark--aquamarine--color: #2B8B7E;
   --orange--color: #CC8022;
   --yellow--color: #E5BD3F;
   --dark--yellow--color: #5b4b26;

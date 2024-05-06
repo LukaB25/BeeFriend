@@ -1,4 +1,4 @@
-import './App.module.css';
+import styles from './App.module.css';
 import { Route, Switch } from 'react-router-dom';
 import './api/axiosDefaults';
 
@@ -13,9 +13,9 @@ import PostPage from './pages/posts/PostPage';
 
 function App() {
   return (
-        <div className="App">
+        <div className={styles.App}>
           <NavBar />
-          <Container className="Main">
+          <Container className={styles.Main}>
             <Switch>
               <Route exact path="/" render={()=> <h1>Home page</h1>} />
               <Route exact path="/login" render={()=> <LoginForm />} />

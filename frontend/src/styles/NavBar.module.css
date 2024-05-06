@@ -22,6 +22,23 @@
 
 .NavLink i {
     color: var(--black--color);
+    transition: all 5s;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-1.5rem);
+    }
+    60% {
+        transform: translateY(-.75rem);
+    }
+}
+
+.NavLink:hover i, .NavLink:hover img {
+    animation: bounce 1s infinite;
 }
 
 .NavLink:hover {

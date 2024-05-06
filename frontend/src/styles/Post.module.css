@@ -1,0 +1,54 @@
+.Post {
+  background-color: var(--offwhite--color);
+  border-radius: 1.5rem;
+}
+
+.PostDetails {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--black--color);
+}
+
+.Date i {
+  font-size: 3.5rem;
+}
+
+.Image {
+  border-radius: 1.5rem;
+  height: 95%;
+  width: 95%;
+}
+
+.Title {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.PostBar {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.PostBar .Like {
+  margin-right: 1rem;
+}
+
+.PostBar .Comment {
+  margin-left: 1rem;
+}
+
+.Like {
+  color: var(--burgundy--color);
+  text-shadow: 0 0 .5rem var(--dark--burgundy--color);
+  cursor: pointer;
+}
+
+.Heart {
+  color: var(--burgundy--color);
+  text-shadow: 0 0 .5rem var(--dark--burgundy--color);
+}
+
+.Comment {
+  color: var(--dark--aquamarine--color);
+  text-shadow: 0 0 .5rem var(--aquamarine--blue--color);
+}

@@ -50,14 +50,14 @@
 
 
 .CancelButton {
-    border-color: #800020;
+    border-color: var(--burgundy--color);
     margin: 1rem 2rem 0 0;
     background-color: var(--black--color);
     color: #d10739;
-    box-shadow: 0 0 1rem .25rem #800020,
+    box-shadow: 0 0 1rem .25rem var(--burgundy--color),
                 0 0 4rem 1rem #26000a,
                 inset 0 0 .75rem .25rem #66001a;
-    text-shadow: 0 0 .5rem #73001d;
+    text-shadow: 0 0 .5rem var(--dark--burgundy--color);
     transition: all ease-in-out 0.5s;
 }
 
@@ -67,17 +67,17 @@
     transform: scale3d(1.1, 1.1, 1.1);
     background-color: #d10739;
     box-shadow: 0 0 1rem .25rem #66001a,
-                0 0 4rem 2rem #73001d,
+                0 0 4rem 2rem var(--dark--burgundy--color),
                 inset 0 0 .75em .25rem #26000a;
-    border-color: #800020;
+    border-color: var(--burgundy--color);
 }
 
-.CancelButton:active, .FormButton:focus {
+.CancelButton:active, .CancelButton:focus {
     font-weight: 600;
     color: var(--charcoal--color);
-    background-color: #800020;
+    background-color: var(--burgundy--color);
     box-shadow: 0 0 0.6rem .25rem #26000a,
                 0 0 2.5rem 2rem #66001a,
-                inset 0 0 .5rem .25rem #73001d;
-    border-color: #800020;
+                inset 0 0 .5rem .25rem var(--dark--burgundy--color);
+    border-color: var(--burgundy--color);
 }

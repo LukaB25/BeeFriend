@@ -1,14 +1,19 @@
 import React from 'react';
+import axios from 'axios';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
+import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Icon } from '@iconify/react';
+import Avatar from './Avatar';
+
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { Icon } from '@iconify/react';
 import styles from '../styles/NavBar.module.css';
-import { NavLink } from 'react-router-dom';
-import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
-import Avatar from './Avatar';
-import axios from 'axios';
-import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
 
 
 const NavBar = () => {
@@ -16,20 +21,26 @@ const NavBar = () => {
   const setCurrentUser = useSetCurrentUser();
 
   const {expanded, setExpanded, ref} = useClickOutsideToggle();
+  const history = useHistory()
 
-  const handleLogout = async () => {
+
+  const handleLogout = async (event) => {
+    event.preventDefault();
     try {
       const csrftoken = localStorage.getItem('csrftoken');
-      const {data} = await axios.post('dj-rest-auth/logout/', {}, {
+      await axios.post('/dj-rest-auth/logout/', {}, {
         headers: {
           'X-CSRFToken': csrftoken
         }
       });
-      console.log(data);
       setCurrentUser(null);
-      console.log(currentUser);
+      toast.success('Logged out successfully!')
+      setTimeout(() => {
+        history.push('/');
+      }, 2000);
     } catch (err) {
       console.log(err.response?.data);
+      toast.error('An error occurred. Please try again.')
     }
   }
 
@@ -43,7 +54,7 @@ const NavBar = () => {
       <NavLink to={`/profile/${currentUser?.profile_id}`}
         className={styles.NavLink}
         activeClassName={styles.Active}
-        ><Avatar src={currentUser?.profile_image} height={20} text="Profile" />
+        ><Avatar src={currentUser?.profile_image} height={20} width={22.5} text="Profile" />
       </NavLink>
       <NavLink to="/"
         className={styles.NavLink}
@@ -71,7 +82,7 @@ const NavBar = () => {
   return (
     <Navbar expanded={expanded} className={styles.NavBar} expand="md" fixed="top">
       <Container>
-        <NavLink to="/">
+        <NavLink to="#">
           <Navbar.Brand
             className={styles.Logo}>
               BEE<Icon icon="gg:bee" className={styles.LogoIcon} />FRIEND
@@ -95,6 +106,19 @@ const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            style={{marginTop: '7.5rem'}}
+          />
     </Navbar>
   )
 }

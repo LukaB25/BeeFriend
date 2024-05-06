@@ -167,7 +167,7 @@ const PostCreateForm = () => {
             draggable
             pauseOnHover
             theme="light"
-            className="ToastMessage"
+            style={{marginTop: '7.5rem'}}
           />
             <Button
               className={`${btnStyles.Button} ${btnStyles.CancelButton}`}

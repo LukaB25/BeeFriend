@@ -38,11 +38,11 @@ const RegisterForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try{
-            await axios.post('dj-rest-auth/registration/', registerData)
+            await axios.post('/dj-rest-auth/registration/', registerData)
             toast.success(`Registration was successful!`);
             setTimeout(() => {
                 history.push('/login')
-            }, 2500)
+            }, 2000)
         } catch (err) {
             setErrors(err.response?.data)
             toast.error('Failed to register. Please check your credentials.')
@@ -129,7 +129,7 @@ const RegisterForm = () => {
                         ))}
                         <ToastContainer
                             position="top-right"
-                            autoClose={2500}
+                            autoClose={2000}
                             hideProgressBar={false}
                             newestOnTop={false}
                             closeOnClick
@@ -138,7 +138,7 @@ const RegisterForm = () => {
                             draggable
                             pauseOnHover
                             theme="light"
-                            className="ToastMessage"
+                            style={{marginTop: '7.5rem'}}
                         />
                         <Button
                             className={`${btnStyles.FormButton} ${btnStyles.Button} ${btnStyles.ButtonWide}`}

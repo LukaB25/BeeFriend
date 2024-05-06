@@ -46,4 +46,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        like_count=Count('like', distinct=True),
+        comment_count=Count('comment', distinct=True)
+    ).order_by('-created_at')
