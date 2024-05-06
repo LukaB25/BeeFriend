@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import styles from '../../styles/LoginRegisterForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
-import appStyles from '../../App.css';
+import appStyles from '../../App.module.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -36,9 +39,13 @@ const RegisterForm = () => {
         event.preventDefault();
         try{
             await axios.post('dj-rest-auth/registration/', registerData)
-            history.push('/login')
+            toast.success(`Registration was successful!`);
+            setTimeout(() => {
+                history.push('/login')
+            }, 2500)
         } catch (err) {
             setErrors(err.response?.data)
+            toast.error('Failed to register. Please check your credentials.')
         }
     }
 
@@ -120,6 +127,19 @@ const RegisterForm = () => {
                                 className={`${styles.Alert} mx-auto`}
                                 key={idx}>{message}</Alert>
                         ))}
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={2500}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                            className="ToastMessage"
+                        />
                         <Button
                             className={`${btnStyles.FormButton} ${btnStyles.Button} ${btnStyles.ButtonWide}`}
                             type="submit">

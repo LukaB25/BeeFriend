@@ -1,5 +1,9 @@
 import React, { useRef, useState } from 'react';
+import { axiosReq } from '../../api/axiosDefaults';
 import { useHistory } from 'react-router';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -12,11 +16,13 @@ import Alert from 'react-bootstrap/Alert';
 import styles from '../../styles/PostCreateEditForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
 import assetStyles from '../../styles/Asset.module.css';
-// import appStyles from '../../App.css';
+// import appStyles from '../../App.module.css';
 
 import Upload from '../../assets/upload.png';
 import Asset from '../../components/Asset';
-import { axiosReq } from '../../api/axiosDefaults';
+
+
+
 
 const PostCreateForm = () => {
   const [postData, setPostData] = useState({
@@ -60,11 +66,15 @@ const PostCreateForm = () => {
     }
     try {
       const {data} = await axiosReq.post('/posts/', formData);
-      history.push(`/posts/${data.id}`);
+      toast.success('Post created successfully!');
+      setTimeout(() => {
+        history.push(`/posts/${data.id}`);
+      }, 2500);
     } catch (err) {
       if (err.response?.data !== 401){
         setErrors(err.response?.data);
       }
+      toast.error('Failed to create post!');
     }
   } 
 
@@ -127,7 +137,7 @@ const PostCreateForm = () => {
             <Form.Label className="d-none">Content</Form.Label>
             <Form.Control
               as="textarea"
-              rows={6}
+              rows={7}
               name="content"
               placeholder="Content"
               className={`mx-auto ${styles.Input} ${styles.TextArea}`}
@@ -146,6 +156,19 @@ const PostCreateForm = () => {
               key={idx}>{message}</Alert>
             ))}
           <Container className="d-flex justify-content-center pb-5">
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            className="ToastMessage"
+          />
             <Button
               className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
               onClick={() => history.goBack()}>

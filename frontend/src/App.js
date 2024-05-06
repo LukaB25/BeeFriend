@@ -1,4 +1,4 @@
-import './App.css';
+import './App.module.css';
 import { Route, Switch } from 'react-router-dom';
 import './api/axiosDefaults';
 
@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import RegisterForm from './pages/auth/RegisterForm';
 import LoginForm from './pages/auth/LoginForm';
 import PostCreateForm from './pages/posts/PostCreateForm';
+import PostPage from './pages/posts/PostPage';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
               <Route exact path="/login" render={()=> <LoginForm />} />
               <Route exact path="/register" render={()=> <RegisterForm />} />
               <Route exact path="/posts/create" render={()=> <PostCreateForm />} />
+              <Route exact path="/posts/:id" render={()=> <PostPage />} />
             </Switch>
           </Container>
         </div>

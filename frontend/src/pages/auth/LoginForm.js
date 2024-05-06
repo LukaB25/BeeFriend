@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import styles from '../../styles/LoginRegisterForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
-import appStyles from '../../App.css';
+import appStyles from '../../App.module.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -36,12 +39,15 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
       try{
-      const {data} = await axios.post('dj-rest-auth/login/', loginData)
-      setCurrentUser(data.user)
-      console.log(data)
-      history.push('/')
+        const {data} = await axios.post('dj-rest-auth/login/', loginData)
+        setCurrentUser(data.user)
+        toast.success(`Logged in successfully! Welcome, ${data.user.username}!`);
+        setTimeout(() => {
+            history.push('/')
+        }, 2500)
       } catch (err) {
         setErrors(err.response?.data)
+        toast.error('Failed to log in. Please check your credentials.')
       }
   }
 
@@ -108,6 +114,19 @@ const LoginForm = () => {
                                 className={`${styles.Alert} mx-auto`}
                                 key={idx}>{message}</Alert>
                         ))}
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={2500}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                            className="ToastMessage"
+                        />
                         <Button
                             className={`${btnStyles.FormButton} ${btnStyles.Button} ${btnStyles.ButtonWide}`}
                             type="submit">

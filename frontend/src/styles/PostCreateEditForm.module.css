@@ -1,7 +1,7 @@
 .PostFormBody {
   background-color: var(--offwhite--color--transparent) !important;
   color: var(--black--color) !important;
-  margin-top: 5vh;
+  margin-top: 10vh;
   border-radius: 2.5rem;
   border: 2px solid var(--offwhite--color);
 }
@@ -51,4 +51,9 @@
   box-shadow: 1px 2.5px 5px var(--offwhite--color);
   border-radius: 1rem;
   border: 0.5px solid var(--orange--color);
+}
+
+.ToastMessage {
+  font-size: 1.4rem;
+  font-weight: 700;
 }
