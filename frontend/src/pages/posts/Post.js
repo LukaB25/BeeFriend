@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../../styles/Post.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext'
 
-import { Card, Media, OverlayTrigger, Toast, Tooltip } from 'react-bootstrap';
+import { Card, Media, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Avatar from '../../components/Avatar';
 import { axiosRes } from '../../api/axiosDefaults';
@@ -37,7 +37,6 @@ const Post = (props) => {
         results: prevPosts.results.map((post) => {
           return post.id === id
           ? {...post, like_count: post.like_count + 1, like_id: data.id} : post;
-          console.log(like_count)
         }),
       }));
     } catch (err) {
@@ -73,10 +72,10 @@ const Post = (props) => {
           </div>
         </Media>
       </Card.Body>
-      <Card.Img src={image} alt={title} className={`${styles.Image} align-self-center`} />
+      {image && <Card.Img src={image} alt={title} className={`${styles.Image} align-self-center`} />}
       <Card.Body>
         {title && <Card.Title className={`${styles.Title} text-center`}>{title}</Card.Title>}
-        {content && <Card.Text>{content}</Card.Text>}
+        {content && <Card.Text className={styles.Content}>{content}</Card.Text>}
         <div className={styles.PostBar}>
           {like_count > 0 ? (<span className={styles.LikeCount}>{like_count}</span>) : 0}
           {is_owner ? (

@@ -19,6 +19,7 @@ class FriendList(generics.ListCreateAPIView):
     ]
     filterset_fields = [
         'owner',
+        'owner__profile',
         'owner__friend__owner',
         'accepted',
     ]

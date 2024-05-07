@@ -1,0 +1,15 @@
+.SearchBar .Input {
+  background: var(--black--color) !important;
+  color: var(--offwhite--color) !important;
+  font-size: 1.4rem;
+  max-width: 50%;
+  margin: 2rem 0;
+  height: 3.2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: inset 2px 5px 10px #757373;
+}
+
+.Input::placeholder {
+  color: var(--offwhite--color);
+}

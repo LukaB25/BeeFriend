@@ -34,6 +34,7 @@ class PostList(generics.ListCreateAPIView):
     filterset_fields =[
         'owner',
         'owner__friend__owner',
+        'owner__friend__owner__profile',
     ]
 
     def perform_create(self, serializer):
