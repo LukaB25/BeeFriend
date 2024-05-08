@@ -1,0 +1,20 @@
+.CommentFormBody {
+  background-color: var(--offwhite--color) !important;
+  color: var(--black--color) !important;
+  margin-top: 2rem;
+  border-radius: 2.5rem;
+  border: 2px solid var(--offwhite--color);
+}
+
+.Input {
+  background: var(--black--color) !important;
+  color: var(--offwhite--color) !important;
+  font-size: 1.2rem;
+  max-width: 100%;
+  border-radius: 1.5rem;
+  box-shadow: inset 2px 5px 10px #757373;
+}
+
+.Input::placeholder {
+  color: var(--offwhite--color);
+}

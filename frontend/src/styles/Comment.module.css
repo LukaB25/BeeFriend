@@ -1,0 +1,31 @@
+.Comment {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.CommentBody {
+  font-size: 1.4rem;
+  background-color: var(--light--grey--color--transparent) !important;
+  color: var(--black--color) !important;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
+}
+
+.Owner {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dark--aquamarine--color);
+}
+
+.Date {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--dark--aquamarine--color);
+}
+
+.Date i {
+  font-size: 1.6rem;
+  color: var(--black--color);
+}

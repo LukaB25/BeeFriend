@@ -5,15 +5,16 @@
   --burgundy--color: #800020;
   --dark--burgundy--color: #73001d;
   --light--burgundy--color: #A52A2A;
-  --blue--color: #1E90FF;
+  /* --blue--color: #1E90FF;
   --dark--blue--color: #0B3C5D;
-  --light--blue--color: #87CEFA;
+  --light--blue--color: #87CEFA; */
   --aquamarine--blue--color: #13B3AC;
   --dark--aquamarine--color: #2B8B7E;
   --orange--color: #CC8022;
   --yellow--color: #E5BD3F;
   --dark--yellow--color: #5b4b26;
   --grey--color: #36454F;
+  --light--grey--color--transparent: rgba(92, 109, 124, 0.6);
   --charcoal--color: #312F17;
   --black--color: #212121;
   --glow--yellow--color: #fdcc5b;

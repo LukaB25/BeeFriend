@@ -20,9 +20,3 @@
               0 0 4rem 2rem var(--glow--yellow--spread--color),
               inset 0 0 .75em .25rem var(--glow--yellow--color);
 }
-
-.Absolute {
-  position: absolute;
-  right: 0;
-  z-index: 1;
-}

@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { fetchMoreData } from '../../utils/utils';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { FilterDropdown } from '../../components/FilterDropdown';
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -19,7 +20,6 @@ import Post from './Post';
 import Asset from '../../components/Asset';
 
 import noResults from "../../assets/no_results.png";
-import { FilterDropdown } from '../../components/FilterDropdown';
 
 function PostsPage({message, filter=""}) {
   const currentUser = useCurrentUser();
@@ -115,35 +115,37 @@ function PostsPage({message, filter=""}) {
     <Row className="h-100 justify-content-center">
       <Col lg={3} className="d-none d-lg-block">Recommended users and friends for desktop</Col>
       <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
+        <div className='d-lg-none d-sm-block'>
           <p>Recommended users for mobile</p> <p>Friends for mobile</p>
-          <Container className={`${appStyles.Content} align-items-center`}>
-            {currentUser ? loggedInSearchBar : loggedOutSearchBar}
+        </div>
+        <Container className={`${appStyles.Content} align-items-center`}>
+          {currentUser ? loggedInSearchBar : loggedOutSearchBar}
+        </Container>
+        {hasLoaded ? (
+          <>
+            {posts.results.length ? (
+              <InfiniteScroll
+                children={
+                  posts.results.map((post) => (
+                    <Post key={post.id} {...post} setPosts={setPosts}/>
+                  ))
+                }
+                dataLength={posts.results.length}
+                loader={<Asset spinner />}
+                hasMore={!!posts.next}
+                next={() => fetchMoreData(posts, setPosts)}
+              />
+            ) : (
+              <Container className={appStyles.Content}>
+                <Asset src={noResults} message={message} />
+              </Container>
+            )}
+          </>
+        ) : (
+          <Container className={appStyles.Content}>
+            <Asset spinner />
           </Container>
-          {hasLoaded ? (
-            <>
-              {posts.results.length ? (
-                <InfiniteScroll
-                  children={
-                    posts.results.map((post) => (
-                      <Post key={post.id} {...post} setPosts={setPosts}/>
-                    ))
-                  }
-                  dataLength={posts.results.length}
-                  loader={<Asset spinner />}
-                  hasMore={!!posts.next}
-                  next={() => fetchMoreData(posts, setPosts)}
-                />
-              ) : (
-                <Container className={appStyles.Content}>
-                  <Asset src={noResults} message={message} />
-                </Container>
-              )}
-            </>
-          ) : (
-            <Container className={appStyles.Content}>
-              <Asset spinner />
-            </Container>
-          )}
+        )}
       </Col>
       <Col lg={3} className="d-none d-lg-block">
         <p>?!?Notification?!? and messages for desktop</p>
