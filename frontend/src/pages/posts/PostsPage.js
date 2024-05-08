@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { fetchMoreData } from '../../utils/utils';
@@ -19,6 +19,7 @@ import Post from './Post';
 import Asset from '../../components/Asset';
 
 import noResults from "../../assets/no_results.png";
+import { FilterDropdown } from '../../components/FilterDropdown';
 
 function PostsPage({message, filter=""}) {
   const currentUser = useCurrentUser();
@@ -28,10 +29,22 @@ function PostsPage({message, filter=""}) {
 
   const [query, setQuery] = useState("");
 
+  const history = useHistory()
+
+  const handleSelectFilter = (filter) => {
+    if (filter === "all") {
+      history.push("/")
+    } else if (filter === "liked") {
+      history.push("/liked")
+    } else if (filter === "commented") {
+      history.push("/commented")
+    }
+  }
+
   const loggedInSearchBar = (
     <>
       <Row className="align-items-center">
-        <Col sm={4}>
+        <Col sm={3}>
           <Link
             to="/posts/create"
             className={`${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton}`}
@@ -39,7 +52,7 @@ function PostsPage({message, filter=""}) {
             Add Post
           </Link>
         </Col>
-        <Col sm={8}>
+        <Col sm={6}>
           <Form
             className={`${styles.SearchBar}`}
             onSubmit={(event) => event.preventDefault()}
@@ -51,6 +64,9 @@ function PostsPage({message, filter=""}) {
               placeholder="Search posts"
             />
           </Form>
+        </Col>
+        <Col sm={3}>
+          <FilterDropdown handleSelectFilter={handleSelectFilter} />
         </Col>
       </Row>
       </>

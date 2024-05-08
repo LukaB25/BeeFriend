@@ -35,6 +35,8 @@ class PostList(generics.ListCreateAPIView):
         'owner',
         'owner__friend__owner',
         'owner__friend__owner__profile',
+        'like__owner__profile',
+        'comment__owner__profile',
     ]
 
     def perform_create(self, serializer):

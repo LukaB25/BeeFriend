@@ -32,6 +32,16 @@ function App() {
                  filter={`owner__friend__owner__profile=${profile_id}&`} />
                 )}
               />
+              <Route exact path="/liked" render={()=> (
+                <PostsPage message="You have not liked any posts yet."
+                  filter={`like__owner__profile=${profile_id}&`} />
+                )}
+              />
+              <Route exact path="/commented" render={()=> (
+                <PostsPage message="You have not commented on any posts yet."
+                  filter={`comment__owner__profile=${profile_id}&`} />
+                )}
+              />
               <Route exact path="/login" render={()=> <LoginForm />} />
               <Route exact path="/register" render={()=> <RegisterForm />} />
               <Route exact path="/posts/create" render={()=> <PostCreateForm />} />
