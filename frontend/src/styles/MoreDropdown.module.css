@@ -1,0 +1,28 @@
+.DropdownToggle {
+  color: var(--grey--color) !important;
+  display: inline-block;
+  padding: 0 1rem;
+  cursor: pointer;
+  transform: scale3d(0.7, 0.7, 0.7);
+}
+
+.DropdownItem {
+  color: var(--grey--color) !important;
+  display: inline-block;
+  max-width: 50%;
+  padding: 1rem;
+}
+
+.DropdownItem:hover i {
+  color: var(--charcoal--color) !important;
+  background-color: var(--enhanced--glow--yellow--color);
+  box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
+              0 0 4rem 2rem var(--glow--yellow--spread--color),
+              inset 0 0 .75em .25rem var(--glow--yellow--color);
+}
+
+.Absolute {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
