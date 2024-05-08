@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+import { fetchMoreData } from '../../utils/utils';
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -17,14 +21,62 @@ import Asset from '../../components/Asset';
 import noResults from "../../assets/no_results.png";
 
 function PostsPage({message, filter=""}) {
+  const currentUser = useCurrentUser();
   const [posts, setPosts] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
 
+  const [query, setQuery] = useState("");
+
+  const loggedInSearchBar = (
+    <>
+      <Row className="align-items-center">
+        <Col sm={4}>
+          <Link
+            to="/posts/create"
+            className={`${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton}`}
+          >
+            Add Post
+          </Link>
+        </Col>
+        <Col sm={8}>
+          <Form
+            className={`${styles.SearchBar}`}
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <Form.Control
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              type="text"
+              placeholder="Search posts"
+            />
+          </Form>
+        </Col>
+      </Row>
+      </>
+  )
+
+  const loggedOutSearchBar =(
+    <>
+    <Form
+      className={`${styles.SearchBar}`}
+      onSubmit={(event) => event.preventDefault()}
+    >
+      <Form.Control
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        className="ml-auto"
+        type="text"
+        placeholder="Search posts"
+      />
+    </Form>
+    </>
+  )
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data } = await axiosReq.get(`/posts/?${filter}`);
+        const { data } = await axiosReq.get(`/posts/?${filter}&search=${query}`);
         setPosts(data);
         console.log(data);
         console.log(filter)
@@ -35,21 +87,36 @@ function PostsPage({message, filter=""}) {
     }
 
     setHasLoaded(false);
-    fetchPosts();
-  }, [pathname, filter])
+    const timer = setTimeout(() => {
+      fetchPosts();
+    
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [pathname, query, filter])
 
   return (
     <Row className="h-100 justify-content-center">
       <Col lg={3} className="d-none d-lg-block">Recommended users and friends for desktop</Col>
       <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
           <p>Recommended users for mobile</p> <p>Friends for mobile</p>
-          <p>New post + search + <i class="fas fa-filter"></i></p>
+          <Container className={`${appStyles.Content} align-items-center`}>
+            {currentUser ? loggedInSearchBar : loggedOutSearchBar}
+          </Container>
           {hasLoaded ? (
             <>
               {posts.results.length ? (
-                posts.results.map((post) => (
-                  <Post key={post.id} {...post} setPosts={setPosts}/>
-                ))
+                <InfiniteScroll
+                  children={
+                    posts.results.map((post) => (
+                      <Post key={post.id} {...post} setPosts={setPosts}/>
+                    ))
+                  }
+                  dataLength={posts.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!posts.next}
+                  next={() => fetchMoreData(posts, setPosts)}
+                />
               ) : (
                 <Container className={appStyles.Content}>
                   <Asset src={noResults} message={message} />

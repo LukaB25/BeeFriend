@@ -1,6 +1,7 @@
 .Post {
   background-color: var(--offwhite--color);
   border-radius: 1.5rem;
+  margin: 1.5rem 0;
 }
 
 .PostDetails {

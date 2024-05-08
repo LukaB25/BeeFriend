@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
+import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import styles from '../../styles/LoginRegisterForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
-import appStyles from '../../App.module.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -15,7 +15,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
-import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
 
 const LoginForm = () => {
   const setCurrentUser = useSetCurrentUser();
@@ -42,9 +41,10 @@ const LoginForm = () => {
         const {data} = await axios.post('/dj-rest-auth/login/', loginData)
         setCurrentUser(data.user)
         toast.success(`Logged in successfully! Welcome, ${data.user.username}!`);
-        setTimeout(() => {
+        const timer =setTimeout(() => {
             history.push('/')
         }, 1000)
+        return () => clearTimeout(timer);
       } catch (err) {
         setErrors(err.response?.data)
         toast.error('Failed to log in. Please check your credentials.')
@@ -72,7 +72,7 @@ const LoginForm = () => {
                 <Container className={styles.FormMessage}>
                     <p>Don't have an account? Register for one instead. <i class="fas fa-arrow-up"></i></p>
                 </Container>
-                <Container className={appStyles.Content}>
+                <Container>
                     <h1 className={styles.Header}>Log In</h1>
                     <Form
                         className={styles.Form}

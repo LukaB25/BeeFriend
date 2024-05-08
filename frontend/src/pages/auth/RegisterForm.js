@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import styles from '../../styles/LoginRegisterForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
-import appStyles from '../../App.module.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -40,9 +39,11 @@ const RegisterForm = () => {
         try{
             await axios.post('/dj-rest-auth/registration/', registerData)
             toast.success(`Registration was successful!`);
-            setTimeout(() => {
+            const timer  = setTimeout(() => {
                 history.push('/login')
             }, 2000)
+
+            return () => clearTimeout(timer);
         } catch (err) {
             setErrors(err.response?.data)
             toast.error('Failed to register. Please check your credentials.')
@@ -70,7 +71,7 @@ const RegisterForm = () => {
                 <Container className={styles.FormMessage}>
                     <p><i class="fas fa-arrow-up"></i> Already have an account? Log in instead.</p>
                 </Container>
-                <Container className={appStyles.Content}>
+                <Container>
                     <h1 className={styles.Header}>Register</h1>
                     <Form
                         className={styles.Form}
@@ -127,19 +128,6 @@ const RegisterForm = () => {
                                 className={`${styles.Alert} mx-auto`}
                                 key={idx}>{message}</Alert>
                         ))}
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={2000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            theme="light"
-                            style={{marginTop: '7.5rem'}}
-                        />
                         <Button
                             className={`${btnStyles.FormButton} ${btnStyles.Button} ${btnStyles.ButtonWide}`}
                             type="submit">

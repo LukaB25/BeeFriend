@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
+
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { Icon } from '@iconify/react';
+
 import Avatar from './Avatar';
 
 import Container from 'react-bootstrap/Container';
@@ -35,9 +36,10 @@ const NavBar = () => {
       });
       setCurrentUser(null);
       toast.success('Logged out successfully!')
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         history.push('/');
       }, 2000);
+      return () => clearTimeout(timer);
     } catch (err) {
       console.log(err.response?.data);
       toast.error('An error occurred. Please try again.')
