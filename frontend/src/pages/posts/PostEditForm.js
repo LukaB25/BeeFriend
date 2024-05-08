@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +24,7 @@ import Asset from '../../components/Asset';
 
 
 
-const PostCreateForm = () => {
+const PostEditForm = () => {
   const [postData, setPostData] = useState({
     title: '',
     content: '',
@@ -36,12 +37,28 @@ const PostCreateForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  const { id } = useParams();
+
   const handleChange = (event) => {
     setPostData({
       ...postData,
       [event.target.name]: event.target.value,
     })
   }
+
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosReq.get(`/posts/${id}/`)
+        const { title, content, image, is_owner } = data;
+
+        is_owner ? setPostData({title, content, image}) : history.push('/');
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    handleMount();
+  }, [id, history]);
 
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
@@ -60,20 +77,21 @@ const PostCreateForm = () => {
     formData.append('title', title);
     formData.append('content', content);
 
-    if (imageInput.current.files.length > 0){
+    if (imageInput?.current?.files[0]){
       formData.append('image', imageInput.current.files[0]);
     }
+
     try {
-      const {data} = await axiosReq.post('/posts/', formData);
-      toast.success('Post created successfully!');
+      await axiosReq.put(`/posts/${id}`, formData);
+      toast.success('Successful post edit!');
       setTimeout(() => {
-        history.push(`/posts/${data.id}`);
+        history.push(`/posts/${id}`);
       }, 2500);
     } catch (err) {
       if (err.response?.data !== 401){
         setErrors(err.response?.data);
       }
-      toast.error('Failed to create post!');
+      toast.error('Failed to edit a post!');
     }
   } 
 
@@ -185,4 +203,4 @@ const PostCreateForm = () => {
   )
 }
 
-export default PostCreateForm
+export default PostEditForm
