@@ -64,7 +64,12 @@ function PostPage() {
             <InfiniteScroll
             children={
               comments.results.map(comment => (
-                <Comment key={comment.id} {...comment} setComments={setComments} />
+                <Comment
+                  key={comment.id}
+                  {...comment}
+                  setPost={setPost}
+                  setComments={setComments}
+                />
               ))
             }
             dataLength={comments.results.length}
