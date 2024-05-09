@@ -27,6 +27,32 @@ class FriendList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
+class CurrentUserFriendList(generics.ListAPIView):
+    """
+    List all friends of the current user.
+    """
+    serializer_class = FriendSerializer
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'owner__profile',
+        'owner__friend__owner',
+    ]
+
+    def get_queryset(self):
+        return Friend.objects.filter(
+            owner=self.request.user,
+            accepted=True,
+        ) | Friend.objects.filter(
+            friend=self.request.user,
+            accepted=True,
+        )
+
     
 class FriendDetail(generics.RetrieveUpdateDestroyAPIView):
     """

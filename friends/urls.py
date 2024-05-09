@@ -4,4 +4,5 @@ from friends import views
 urlpatterns = [
     path('friends/', views.FriendList.as_view()),
     path('friends/<int:pk>/', views.FriendDetail.as_view()),
+    path('friends/user/', views.CurrentUserFriendList.as_view()),
 ]

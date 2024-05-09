@@ -17,6 +17,8 @@ import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
 import Post from './Post';
+import RecommendedProfiles from '../profiles/RecommendedProfiles';
+import FriendProfiles from '../profiles/FriendProfiles';
 import Asset from '../../components/Asset';
 
 import noResults from "../../assets/no_results.png";
@@ -113,10 +115,14 @@ function PostsPage({message, filter=""}) {
 
   return (
     <Row className="h-100 justify-content-center">
-      <Col lg={3} className="d-none d-lg-block">Recommended users and friends for desktop</Col>
+      <Col lg={3} className="d-none d-lg-block">
+       <RecommendedProfiles />
+       <FriendProfiles />
+      </Col>
       <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
-        <div className='d-lg-none d-sm-block'>
-          <p>Recommended users for mobile</p> <p>Friends for mobile</p>
+        <div>
+          <RecommendedProfiles mobile />
+          <FriendProfiles mobile />
         </div>
         <Container className={`${appStyles.Content} align-items-center`}>
           {currentUser ? loggedInSearchBar : loggedOutSearchBar}
