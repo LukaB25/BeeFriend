@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { axiosReq } from '../../api/axiosDefaults';
 
 import { Container } from 'react-bootstrap'
 
@@ -8,43 +7,28 @@ import appStyles from '../../App.module.css'
 
 import Asset from '../../components/Asset';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useFriendData, useSetFriendData } from '../../contexts/FriendDataContext';
 
 const FriendProfiles = ({ mobile }) => {
-  const [friendsData, setFriendsData] = useState ({
-    friends: { results: [] },
-  });
-  const { friends } = friendsData;
+  const { friends } = useFriendData();
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const setFriendsData = useSetFriendData();
   const currentUser = useCurrentUser();
 
-  const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout (() => {
-      setFriendsData({ results : [] });
       setHasLoaded(true);
     }, 2000);
-    const fetchFriends = async () => {
-      try {
-        const { data } = await axiosReq.get('/friends/user/');
-        setFriendsData({
-          friends: data
-        })
-      } catch (err) {
-        console.log(err)
-      } finally {
-        clearTimeout(timer);
-        setHasLoaded(true);
-      }
-    }
 
-    fetchFriends();
     return () => clearTimeout(timer);
-  }, [currentUser])
+  }, [currentUser, setFriendsData])
+  
   return (
     <Container
       className={`${appStyles.Content} ${styles.SmallComponent}
-        ${!mobile && styles.LargeScreen} ${mobile && "d-lg-none"}
-        text-center`}>
+        ${!mobile && styles.LargeScreen} ${mobile && styles.SmallScreen}
+        ${mobile && "d-lg-none"} text-center`}>
       <h4>Friends</h4>
       {hasLoaded ? (
         friends.length ? (
@@ -61,8 +45,10 @@ const FriendProfiles = ({ mobile }) => {
               ))
             )}
           </>
-        ) : (
+        ) : currentUser ? (
           <p>You haven't made any friends... yet.</p>
+        ) : (
+          <p>Log in to see your friends!</p>
         )
       ) : (
         <Asset spinner className="text-center" />

@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import styles from '../../styles/Post.module.css';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { axiosRes } from '../../api/axiosDefaults';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import styles from '../../styles/Post.module.css';
+
 import { Card, Media, OverlayTrigger, Tooltip } from 'react-bootstrap';
+
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import Avatar from '../../components/Avatar';
-import { axiosRes } from '../../api/axiosDefaults';
 import { MoreDropdown } from '../../components/MoreDropdown';
 
 
@@ -86,7 +88,7 @@ const Post = (props) => {
       <Card.Body>
         <Media className="align-items-center justify-content-between">
           <Link to={`/profiles/${profile_id}`} className="d-flex align-items-center">
-            <Avatar src={profile_image} height={40} width={45}/> <span className={styles.PostDetails}>{owner}</span>
+            <Avatar src={profile_image} height={40} width={45}/> <span className={`mx-2 ${styles.PostDetails}`}>{owner}</span>
           </Link>
           <div className={`${styles.Date} d-flex align-items-center`}>
             <span className={styles.PostDetails}>{updated_at}</span>

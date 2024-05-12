@@ -46,7 +46,7 @@ function PostsPage({message, filter=""}) {
   const loggedInSearchBar = (
     <>
       <Row className="align-items-center">
-        <Col sm={3}>
+        <Col xs={3}>
           <Link
             to="/posts/create"
             className={`${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton}`}
@@ -54,7 +54,7 @@ function PostsPage({message, filter=""}) {
             Add Post
           </Link>
         </Col>
-        <Col sm={6}>
+        <Col xs={6}>
           <Form
             className={`${styles.SearchBar}`}
             onSubmit={(event) => event.preventDefault()}
@@ -67,7 +67,7 @@ function PostsPage({message, filter=""}) {
             />
           </Form>
         </Col>
-        <Col sm={3}>
+        <Col xs={3}>
           <FilterDropdown handleSelectFilter={handleSelectFilter} />
         </Col>
       </Row>
@@ -120,10 +120,14 @@ function PostsPage({message, filter=""}) {
        <FriendProfiles />
       </Col>
       <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
-        <div>
-          <RecommendedProfiles mobile />
-          <FriendProfiles mobile />
-        </div>
+        <Row className="justify-content-center">
+          <Col xs={6}>
+            <RecommendedProfiles mobile />
+          </Col>
+          <Col xs={6}>
+            <FriendProfiles mobile />
+          </Col>
+        </Row>
         <Container className={`${appStyles.Content} align-items-center`}>
           {currentUser ? loggedInSearchBar : loggedOutSearchBar}
         </Container>

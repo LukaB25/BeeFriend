@@ -1,0 +1,13 @@
+.WordBreak {
+  word-break: break-all;
+}
+
+.ProfileLink {
+  transform: scale3d(0.7, 0.7, 0.7);
+}
+
+.Username {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--black--color);
+}
