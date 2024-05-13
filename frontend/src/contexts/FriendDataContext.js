@@ -17,8 +17,7 @@ export const FriendDataProvider = ({ children }) => {
 
   const currentUser = useCurrentUser();
 
-  const [hasLoaded, setHasLoaded] = useState(false);
-  console.log(hasLoaded)
+  
 
    
     useEffect(() => {
@@ -30,13 +29,12 @@ export const FriendDataProvider = ({ children }) => {
         })
       } catch (err) {
         console.log(err)
-      } finally {
-        setHasLoaded(true);
       }
     }
 
     fetchFriends();
   }, [currentUser])
+
 
     return (
       <FriendDataContext.Provider value={friendsData}>

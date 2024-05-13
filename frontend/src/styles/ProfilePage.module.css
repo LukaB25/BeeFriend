@@ -1,0 +1,31 @@
+.ProfileImage {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  object-fit: cover;
+  height: 10rem;
+  width: 11rem;
+  margin-right: 1rem;
+}
+
+.Username {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.ProfileStats {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.rem;
+  align-self: center;
+  margin: 1.5rem 0 ;
+}
+
+@media screen and (max-width: 991px) {
+  .ProfileImage {
+    height: 25rem;
+    width: 27.5rem;
+  }
+
+  .ProfileStats {
+    font-size: 1.4rem;
+  }
+}

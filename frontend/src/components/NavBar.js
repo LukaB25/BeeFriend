@@ -51,9 +51,9 @@ const NavBar = () => {
       <NavLink to="/friends"
         className={styles.NavLink}
         activeClassName={styles.Active}
-        ><i class="fas fa-users"></i> Friends
+        ><i className="fas fa-users"></i> Friends
       </NavLink>
-      <NavLink to={`/profile/${currentUser?.profile_id}`}
+      <NavLink to={`/profiles/${currentUser?.profile_id}`}
         className={styles.NavLink}
         activeClassName={styles.Active}
         ><Avatar src={currentUser?.profile_image} height={20} width={22.5} text="Profile" />
@@ -61,7 +61,7 @@ const NavBar = () => {
       <NavLink to="/"
         className={styles.NavLink}
         onClick={handleLogout}
-        ><i class="fas fa-sign-out-alt"></i> Logout
+        ><i className="fas fa-sign-out-alt"></i> Logout
       </NavLink>
     </>
   )

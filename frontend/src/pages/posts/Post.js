@@ -92,7 +92,7 @@ const Post = (props) => {
           </Link>
           <div className={`${styles.Date} d-flex align-items-center`}>
             <span className={styles.PostDetails}>{updated_at}</span>
-            <i class="fas fa-calendar-alt"></i>
+            <i className="fas fa-calendar-alt"></i>
             {is_owner && postPage && <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />}
           </div>
         </Media>

@@ -33,6 +33,7 @@ class PostList(generics.ListCreateAPIView):
     ]
     filterset_fields =[
         'owner',
+        'owner__profile',
         'owner__friend__owner',
         'owner__friend__owner__profile',
         'like__owner__profile',

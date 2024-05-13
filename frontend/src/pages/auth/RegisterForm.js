@@ -69,7 +69,7 @@ const RegisterForm = () => {
                     </NavLink>
                 </Container>
                 <Container className={styles.FormMessage}>
-                    <p><i class="fas fa-arrow-up"></i> Already have an account? Log in instead.</p>
+                    <p><i className="fas fa-arrow-up"></i> Already have an account? Log in instead.</p>
                 </Container>
                 <Container>
                     <h1 className={styles.Header}>Register</h1>

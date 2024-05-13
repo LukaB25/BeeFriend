@@ -171,12 +171,12 @@ const PostCreateForm = () => {
             <Button
               className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
               onClick={() => history.goBack()}>
-              <i class="fas fa-arrow-alt-circle-left">Cancel</i>
+              <i className="fas fa-arrow-alt-circle-left">Cancel</i>
             </Button>
             <Button
               className={`${btnStyles.PostButton} ${btnStyles.Button}`}
               type="submit">
-              Post<i class="fas fa-paper-plane"></i>
+              Post<i className="fas fa-paper-plane"></i>
             </Button>
           </Container>
         </Col>
