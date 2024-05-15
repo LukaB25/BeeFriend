@@ -1,6 +1,6 @@
 from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, filters
+from rest_framework import generics, filters, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -22,6 +22,9 @@ class ProfileList(generics.ListAPIView):
         ) + Count('owner__post__comment', distinct=True
         )
     ).order_by('-created_at')
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+    ]
     serializer_class = ProfileSerializer
     filter_backends = [
         filters.SearchFilter,

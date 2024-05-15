@@ -5,9 +5,13 @@ import { Container } from 'react-bootstrap'
 import styles from '../../styles/PostsPage.module.css'
 import appStyles from '../../App.module.css'
 
+import noResults from '../../assets/no_results.png';
 import Asset from '../../components/Asset';
+
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useFriendData, useSetFriendData } from '../../contexts/FriendDataContext';
+// import InfiniteScroll from 'react-infinite-scroll-component';
+// import { fetchMoreData } from '../../utils/utils';
 
 const FriendProfiles = ({ mobile }) => {
   const { friends } = useFriendData();
@@ -40,15 +44,26 @@ const FriendProfiles = ({ mobile }) => {
                 ))}
               </div>
             ) : (
+              // <InfiniteScroll
+              //   children={
+              //       friends.map((friend) => (
+              //     <p key={friend.id}>{friend.owner}</p>
+              //   ))
+              //   }
+              //   dataLength={friends.results.length}
+              //   loader={<Asset spinner />}
+              //   hasMore={!!friends.next}
+              //   next={() => fetchMoreData(friends, setFriendsData)}
+              // />
               friends.map((friend) => (
                 <p key={friend.id}>{friend.owner}</p>
               ))
             )}
           </>
         ) : currentUser ? (
-          <p>You haven't made any friends... yet.</p>
+          <Asset src={noResults} message="You haven't made any friends... yet." />
         ) : (
-          <p>Log in to see your friends!</p>
+        <Asset src={noResults} message="Log in to see your friends!" />
         )
       ) : (
         <Asset spinner className="text-center" />

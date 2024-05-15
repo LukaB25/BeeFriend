@@ -7,6 +7,7 @@ import appStyles from '../../App.module.css'
 
 import Asset from '../../components/Asset';
 import Profile from './Profile';
+import noResults from '../../assets/no_results.png';
 
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useProfileData } from '../../contexts/ProfileDataContext';
@@ -33,7 +34,7 @@ const RecommendedProfiles = ({ mobile }) => {
                 ))}
               </div>
             ) : (
-              recommendedProfiles.results.map((profile) => (
+              recommendedProfiles.results.slice(0, 7).map((profile) => (
                 <Profile key={profile.id} profile={profile} />
               ))
             )}
@@ -43,7 +44,7 @@ const RecommendedProfiles = ({ mobile }) => {
           <Asset spinner className="text-center" />
         )
       ) : (
-        <p>Log in to see recommended profiles!</p>
+        <Asset src={noResults} message="Log in to see recommended profiles!" />
       )}
       
       

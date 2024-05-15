@@ -23,7 +23,8 @@
 }
 
 .SmallScreen {
-  min-height: 13rem;
+  min-height: 21rem;
+  align-content: center;
 }
 
 .SmallComponent h4 {

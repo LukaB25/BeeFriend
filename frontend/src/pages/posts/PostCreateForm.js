@@ -19,11 +19,13 @@ import assetStyles from '../../styles/Asset.module.css';
 
 import Upload from '../../assets/upload.png';
 import Asset from '../../components/Asset';
+import { useRedirect } from '../../hooks/useRedirect';
 
 
 
 
 const PostCreateForm = () => {
+  useRedirect('loggedOut');
   const [postData, setPostData] = useState({
     title: '',
     content: '',
@@ -60,22 +62,22 @@ const PostCreateForm = () => {
     formData.append('title', title);
     formData.append('content', content);
 
-    if (imageInput.current.files.length > 0){
+    if (imageInput.current.files.length > 0) {
       formData.append('image', imageInput.current.files[0]);
     }
     try {
-      const {data} = await axiosReq.post('/posts/', formData);
+      const { data } = await axiosReq.post('/posts/', formData);
       toast.success('Post created successfully!');
       setTimeout(() => {
         history.push(`/posts/${data.id}`);
       }, 2500);
     } catch (err) {
-      if (err.response?.data !== 401){
+      if (err.response?.data !== 401) {
         setErrors(err.response?.data);
       }
       toast.error('Failed to create post!');
     }
-  } 
+  }
 
 
   return (
@@ -100,7 +102,7 @@ const PostCreateForm = () => {
             ) : (
               <Form.Label
                 htmlFor="image-upload" className={styles.FormUpload}>
-                  <Asset src={Upload} message="Click or tap to upload an image" />
+                <Asset src={Upload} message="Click or tap to upload an image" />
               </Form.Label>
             )}
             <Form.File
@@ -111,11 +113,11 @@ const PostCreateForm = () => {
               ref={imageInput}
             />
           </Form.Group>
-          {errors.image?.map((message, idx) =>(
+          {errors.image?.map((message, idx) => (
             <Alert variant="warning"
               className={`${styles.Alert} mx-auto`}
               key={idx}>{message}</Alert>
-            ))}
+          ))}
           <Form.Group>
             <Form.Label className="d-none">Title</Form.Label>
             <Form.Control
@@ -127,11 +129,11 @@ const PostCreateForm = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          {errors.title?.map((message, idx) =>(
+          {errors.title?.map((message, idx) => (
             <Alert variant="warning"
               className={`${styles.Alert} mx-auto`}
               key={idx}>{message}</Alert>
-            ))}
+          ))}
           <Form.Group>
             <Form.Label className="d-none">Content</Form.Label>
             <Form.Control
@@ -144,30 +146,30 @@ const PostCreateForm = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          {errors.content?.map((message, idx) =>(
+          {errors.content?.map((message, idx) => (
             <Alert variant="warning"
               className={`${styles.Alert} mx-auto`}
               key={idx}>{message}</Alert>
-            ))}
-          {errors.non_field_errors?.map((message, idx) =>(
+          ))}
+          {errors.non_field_errors?.map((message, idx) => (
             <Alert variant="warning"
               className={`${styles.Alert} mx-auto`}
               key={idx}>{message}</Alert>
-            ))}
+          ))}
           <Container className="d-flex justify-content-center pb-5">
-          <ToastContainer
-            position="top-right"
-            autoClose={2500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            style={{marginTop: '7.5rem'}}
-          />
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              style={{ marginTop: '7.5rem' }}
+            />
             <Button
               className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
               onClick={() => history.goBack()}>
