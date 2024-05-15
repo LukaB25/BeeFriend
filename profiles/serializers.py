@@ -27,7 +27,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             friends = Friend.objects.filter(
                 owner=user, friend=obj.owner
             ).first()
-            print(friends)
             if friends:
                 return friends.accepted
             else:

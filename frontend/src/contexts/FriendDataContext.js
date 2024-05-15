@@ -26,7 +26,7 @@ export const FriendDataProvider = ({ children }) => {
         const { data } = await axiosReq.get('/friends/user/');
         setFriendsData({
           friends: data
-        })
+        });
       } catch (err) {
         console.log(err)
       }

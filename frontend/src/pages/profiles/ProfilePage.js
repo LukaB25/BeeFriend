@@ -14,6 +14,7 @@ import appStyles from '../../App.module.css';
 import btnStyles from '../../styles/Button.module.css';
 
 import Asset from '../../components/Asset';
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import noResults from '../../assets/no_results.png';
 import { fetchMoreData } from '../../utils/utils';
 
@@ -62,8 +63,11 @@ function ProfilePage() {
 
     fetchData();
   }, [id, setProfileData]);
+
+  
   const mainProfile = (
     <>
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image src={profile?.image} alt="Profile image" className={styles.ProfileImage} />
@@ -112,7 +116,7 @@ function ProfilePage() {
           )
         )}
         </Col>
-        { profile?.content && <Col className="p-3">{profile?.content}</Col> }
+        { profile?.bio && <Col className={`${styles.ProfileBio} p-3`}>{profile?.bio}</Col> }
       </Row>
     </>
   );
@@ -120,7 +124,7 @@ function ProfilePage() {
   const mainProfilePosts = (
     <>
       <hr />
-      <p className="text-center">{profile?.owner}'s posts</p>
+      <p className={`${styles.ProfilePosts} text-center`}>{profile?.owner}'s posts:</p>
       <hr />
     </>
   );
@@ -167,7 +171,7 @@ function ProfilePage() {
               />
             ) : (
               <Container className={appStyles.Content}>
-                <Asset src={noResults} message="This user has no posts yet." />
+                <Asset src={noResults} message={`${profile?.owner} didn't add any posts yet.`} />
               </Container>
             )}
           </>

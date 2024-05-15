@@ -20,3 +20,51 @@
               0 0 4rem 2rem var(--glow--yellow--spread--color),
               inset 0 0 .75em .25rem var(--glow--yellow--color);
 }
+
+.ProfileDropdownMenu {
+  color: var(--grey--color) !important;
+  display: inline-block;
+  padding: 0;
+  top: -1vh !important;
+  right: 14vw !important;
+  cursor: pointer;
+}
+
+.ProfileDropdownItem {
+  color: var(--grey--color) !important;
+  padding: 0;
+  margin: 0;
+  transform: scale3d(0.7, 0.7, 0.7);
+}
+
+.ProfileDropdownItem:hover {
+  color: var(--charcoal--color) !important;
+  background-color: var(--aquamarine--blue--color);
+  width: 100%;
+}
+
+.Absolute {
+  position: absolute;
+  right: 1rem;
+  z-index: 99;
+  transform: scale3d(2, 2, 2);
+}
+
+@media screen and (max-width: 991px){
+  .ProfileDropdownMenu {
+    top: -5vh !important;
+    right: 16vw !important;
+  }
+}
+
+@media screen and (max-width: 791px){
+  .ProfileDropdownMenu {
+    right: 18vw !important;
+  }
+}
+
+@media screen and (max-width: 591px){
+  .ProfileDropdownMenu {
+    right: 20vw !important;
+  }
+}

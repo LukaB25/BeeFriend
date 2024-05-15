@@ -26,4 +26,4 @@ class Friend(models.Model):
         unique_together = ['owner', 'friend'], ['friend', 'owner']
 
     def __str__(self):
-        return f'{self.owner} sent you {self.friend} a friend request.'
+        return f'{self.owner} sent {self.friend} a friend request.'

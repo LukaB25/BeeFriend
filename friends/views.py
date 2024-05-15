@@ -21,8 +21,12 @@ class FriendList(generics.ListCreateAPIView):
         'owner',
         'owner__profile',
         'owner__friend__owner',
+        'owner__id',
+        'friend',
+        'friend__is_friend__owner',
         'accepted',
     ]
+    
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -42,6 +46,7 @@ class CurrentUserFriendList(generics.ListAPIView):
     filterset_fields = [
         'owner__profile',
         'owner__friend__owner',
+        'friend__accepted__owner',
     ]
 
     def get_queryset(self):
