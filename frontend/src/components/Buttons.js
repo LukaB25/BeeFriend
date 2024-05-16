@@ -1,19 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import { Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
-import styles from '../../styles/Profile.module.css';
-import btnStyles from '../../styles/Button.module.css';
+import btnStyles from '../styles/Button.module.css';
 
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import Avatar from '../../components/Avatar';
-import useFriendRequestAction from '../../hooks/useFriendRequestAction';
+import { useCurrentUser } from '../contexts/CurrentUserContext';
 
-const Profile = ({ profile, mobile }) => {
-  const { id, friend_id, owner, image } = profile;
+import useFriendRequestAction from '../hooks/useFriendRequestAction';
+import { useProfileData } from '../contexts/ProfileDataContext';
+
+
+const FriendButtons = () => {
   const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
+
+  const {pageProfile} = useProfileData();
+  const [profile] = pageProfile.results;
+
+  const is_owner = currentUser?.username === profile?.owner;
 
   const {
     sentFriendRequests,
@@ -23,25 +26,9 @@ const Profile = ({ profile, mobile }) => {
     handleAcceptFriendRequest,
     handleDenyFriendRequest,
   } = useFriendRequestAction();
+
   return (
-    <div className={`d-flex align-items-center ${mobile && "flex-column"}`}>
-      <div>
-        <Link to={`/profiles/${id}`} className={`${styles.ProfileLink} d-flex align-items-center`}>
-          <Avatar src={image} height={50} width={55} />
-        </Link>
-      </div>
-      <div className={`${styles.WordBreak} ${styles.Username} mx-2`}>
-        <strong>{owner}</strong>
-      </div>
-      <div className={`text-right ${!mobile && "ml-auto"}`}>
-        {!mobile && currentUser && !is_owner && (
-          friend_id ? (
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
-              onClick={() => {}}
-            >Unfriend</Button>
-          ) : (
-            <>
+  <>
     {currentUser && !is_owner ? (
       <>
         {sentFriendRequests?.results?.map(request => (
@@ -99,11 +86,7 @@ const Profile = ({ profile, mobile }) => {
     ) : null
   }
   </>
-          )
-        )}
-      </div>
-    </div>
-  )
+);
 }
 
-export default Profile
+export default FriendButtons;

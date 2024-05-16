@@ -81,3 +81,10 @@
                 inset 0 0 .5rem .25rem var(--dark--burgundy--color);
     border-color: var(--burgundy--color);
 }
+
+
+.HexButton {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    max-width: 3.5rem;
+    max-height: 4rem;
+}

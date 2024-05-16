@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { axiosReq } from "../api/axiosDefaults";
 
 export const fetchMoreData = async (resource, setResource) => {
@@ -16,3 +17,30 @@ export const fetchMoreData = async (resource, setResource) => {
     console.log(err);
   }
 }
+
+export const setTokenTimestamp = (data) => {
+  const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
+  localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
+};
+
+export const shouldRefreshToken = () => {
+  return !!localStorage.getItem("refreshTokenTimestamp");
+};
+
+export const removeTokenTimestamp = () => {
+  localStorage.removeItem("refreshTokenTimestamp");
+};
+
+export const setCurrentUserInLocalStorage = (data) => {
+  const currentUserString = JSON.stringify(data);
+  localStorage.setItem("currentUser", currentUserString);
+};
+
+export const getCurrentUserFromLocalStorage = () => {
+  const currentUserString = localStorage.getItem("currentUser");
+  return currentUserString ? JSON.parse(currentUserString) : null;
+};
+
+export const removeCurrentUserFromLocalStorage = () => {
+  localStorage.removeItem("currentUser");
+};

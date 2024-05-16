@@ -16,6 +16,7 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import { useRedirect } from '../../hooks/useRedirect';
+import { setCurrentUserInLocalStorage, setTokenTimestamp } from '../../utils/utils';
 
 const LoginForm = () => {
     const setCurrentUser = useSetCurrentUser();
@@ -43,6 +44,8 @@ const LoginForm = () => {
         try {
             const { data } = await axios.post('/dj-rest-auth/login/', loginData)
             setCurrentUser(data.user)
+            setTokenTimestamp(data)
+            setCurrentUserInLocalStorage(data.user);
             toast.success(`Logged in successfully! Welcome, ${data.user.username}!`);
             const timer = setTimeout(() => {
                 history.goBack();

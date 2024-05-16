@@ -15,6 +15,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from '../styles/NavBar.module.css';
+import { removeCurrentUserFromLocalStorage, removeTokenTimestamp } from '../utils/utils';
 
 
 const NavBar = () => {
@@ -35,6 +36,8 @@ const NavBar = () => {
         }
       });
       setCurrentUser(null);
+      removeTokenTimestamp();
+      removeCurrentUserFromLocalStorage();
       toast.success('Logged out successfully!')
       const timer = setTimeout(() => {
         history.push('/');

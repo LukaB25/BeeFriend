@@ -6,12 +6,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
 import styles from '../../styles/ProfilePage.module.css';
 import appStyles from '../../App.module.css';
-import btnStyles from '../../styles/Button.module.css';
 
 import Asset from '../../components/Asset';
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
@@ -21,11 +19,10 @@ import { fetchMoreData } from '../../utils/utils';
 import RecommendedProfiles from './RecommendedProfiles';
 import FriendProfiles from './FriendProfiles';
 import Post from '../posts/Post';
+import FriendButtons from '../../components/Buttons';
 
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useProfileData, useSetProfileData } from '../../contexts/ProfileDataContext';
-
-
 
 
 function ProfilePage() {
@@ -39,8 +36,8 @@ function ProfilePage() {
   const [profile] = pageProfile.results;
 
   const [profilePosts, setProfilePosts] = useState({ results: [] });
-  
-  const is_owner = currentUser?.username === profile?.owner;
+
+  const friendButtons = FriendButtons();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +51,6 @@ function ProfilePage() {
           pageProfile: {results: [pageProfile]},
         }))
         setProfilePosts(profilePosts);
-        console.log(profilePosts)
         setHasLoaded(true);
       } catch(err) {
         console.log(err)
@@ -64,10 +60,12 @@ function ProfilePage() {
     fetchData();
   }, [id, setProfileData]);
 
+
+  
   
   const mainProfile = (
     <>
-      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+      {profile?.is_owner && <ProfileEditDropdown id={currentUser?.profile_id} />}
       <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image src={profile?.image} alt="Profile image" className={styles.ProfileImage} />
@@ -102,19 +100,7 @@ function ProfilePage() {
           </Row>
         </Col>
         <Col lg={3} className="text-lg-right">
-        {currentUser && !is_owner && (
-          profile?.friend_id ? (
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
-              onClick={() => {}}
-            >Unfriend</Button>
-          ) : (
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.FormButton}`}
-              onClick={() => {}}
-            >BeFriend</Button>
-          )
-        )}
+          {friendButtons}
         </Col>
         { profile?.bio && <Col className={`${styles.ProfileBio} p-3`}>{profile?.bio}</Col> }
       </Row>
@@ -191,4 +177,5 @@ function ProfilePage() {
 
 
 export default ProfilePage
+
 

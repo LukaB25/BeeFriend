@@ -25,7 +25,7 @@ const RecommendedProfiles = ({ mobile }) => {
       
       <h4>Recommended profiles</h4>
       {currentUser ? (
-        recommendedProfiles.results.length ? (
+        recommendedProfiles?.results?.length ? (
           <>
             {mobile ? (
               <div className="d-flex justify-content-around">
@@ -34,7 +34,7 @@ const RecommendedProfiles = ({ mobile }) => {
                 ))}
               </div>
             ) : (
-              recommendedProfiles.results.slice(0, 7).map((profile) => (
+              recommendedProfiles?.results?.slice(0, 7).map((profile) => (
                 <Profile key={profile.id} profile={profile} />
               ))
             )}

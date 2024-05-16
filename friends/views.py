@@ -23,7 +23,6 @@ class FriendList(generics.ListCreateAPIView):
         'owner__friend__owner',
         'owner__id',
         'friend',
-        'friend__is_friend__owner',
         'accepted',
     ]
     
@@ -38,7 +37,7 @@ class CurrentUserFriendList(generics.ListAPIView):
     """
     serializer_class = FriendSerializer
     permission_classes = [
-        permissions.IsAuthenticated
+        permissions.IsAuthenticatedOrReadOnly
     ]
     filter_backends = [
         DjangoFilterBackend,
@@ -46,7 +45,6 @@ class CurrentUserFriendList(generics.ListAPIView):
     filterset_fields = [
         'owner__profile',
         'owner__friend__owner',
-        'friend__accepted__owner',
     ]
 
     def get_queryset(self):

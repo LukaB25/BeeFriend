@@ -16,6 +16,9 @@ class FriendSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     owner_profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     owner_profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    friend_username = serializers.CharField(source='friend.username')
+    friend_profile_id = serializers.ReadOnlyField(source='friend.profile.id')
+    friend_profile_image = serializers.ReadOnlyField(source='friend.profile.image.url')
     created_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
@@ -61,6 +64,9 @@ class FriendSerializer(serializers.ModelSerializer):
             'owner_profile_id',
             'owner_profile_image',
             'friend',
+            'friend_username',
+            'friend_profile_id',
+            'friend_profile_image',
             'created_at',
         ]
         read_only_fields = [
@@ -69,6 +75,9 @@ class FriendSerializer(serializers.ModelSerializer):
             'is_owner',
             'owner_profile_id',
             'owner_profile_image',
+            'friend_username',
+            'friend_profile_id',
+            'friend_profile_image'
             'created_at',
         ]
 
@@ -82,8 +91,6 @@ class FriendDetailSerializer(FriendSerializer):
     """
     friend = serializers.ReadOnlyField(source='friend.username')
     is_friend = serializers.SerializerMethodField()
-    friend_profile_id = serializers.ReadOnlyField(source='friend.profile.id')
-    friend_profile_image = serializers.ReadOnlyField(source='friend.profile.image.url')
     created_at = serializers.SerializerMethodField()
 
     def get_is_friend(self, obj):
@@ -113,14 +120,10 @@ class FriendDetailSerializer(FriendSerializer):
         fields = FriendSerializer.Meta.fields + [
             'friend',
             'is_friend',
-            'friend_profile_id',
-            'friend_profile_image',
             'accepted'
         ]
         read_only_fields = FriendSerializer.Meta.read_only_fields + [
             'friend',
             'is_friend',
-            'friend_profile_id',
-            'friend_profile_image'
         ]
 

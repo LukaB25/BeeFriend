@@ -7,15 +7,18 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { CurrentUserProvider } from './contexts/CurrentUserContext';
 import { ProfileDataProvider } from './contexts/ProfileDataContext';
 import { FriendDataProvider } from './contexts/FriendDataContext';
+import { FriendRequestProvider } from './contexts/FriendRequestContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <CurrentUserProvider>
         <ProfileDataProvider>
-          <FriendDataProvider>
-            <App />
-          </FriendDataProvider>
+          <FriendRequestProvider>
+            <FriendDataProvider>
+              <App />
+            </FriendDataProvider>
+          </FriendRequestProvider>
         </ProfileDataProvider>
       </CurrentUserProvider>
     </Router>
