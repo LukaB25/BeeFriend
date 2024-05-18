@@ -45,6 +45,7 @@ class CurrentUserFriendList(generics.ListAPIView):
     filterset_fields = [
         'owner__profile',
         'owner__friend__owner',
+        'accepted',
     ]
 
     def get_queryset(self):

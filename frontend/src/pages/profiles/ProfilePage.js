@@ -23,6 +23,7 @@ import FriendButtons from '../../components/Buttons';
 
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useProfileData, useSetProfileData } from '../../contexts/ProfileDataContext';
+import { useFriendData } from '../../contexts/FriendDataContext';
 
 
 function ProfilePage() {
@@ -38,6 +39,13 @@ function ProfilePage() {
   const [profilePosts, setProfilePosts] = useState({ results: [] });
 
   const friendButtons = FriendButtons();
+
+  const friendsData = useFriendData();
+
+  const friend_count = friendsData?.friends?.results.filter(
+    friend => profile?.id === friend.friend ||
+    profile?.id === friend.owner_profile_id
+  ).length;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +102,7 @@ function ProfilePage() {
                 Friends
               </div>
               <div>
-                {profile?.friend_count}
+                {friend_count}
               </div>
             </Col>
           </Row>

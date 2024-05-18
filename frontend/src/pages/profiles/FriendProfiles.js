@@ -21,8 +21,6 @@ const FriendProfiles = ({ mobile }) => {
   const setFriendsData = useSetFriendData();
   const currentUser = useCurrentUser();
 
-  console.log("accepted friend 1", acceptedFriendRequests?.results)
-
   useEffect(() => {
     const timer = setTimeout (() => {
       setHasLoaded(true);
@@ -30,6 +28,30 @@ const FriendProfiles = ({ mobile }) => {
 
     return () => clearTimeout(timer);
   }, [currentUser, setFriendsData])
+
+  const friendProfiles = acceptedFriendRequests?.results?.filter((request) => (
+    request?.friend === currentUser?.profile_id ||
+    request?.owner_profile_id === currentUser?.profile_id
+  )).map((request) => (
+      request.friend === currentUser?.profile_id ? (
+        <Profile  key={request.id}
+        profile={{
+          id: request.owner_profile_id,
+          friend_id: request.id,
+          owner: request.owner,
+          image: request.owner_profile_image
+        }} />
+      ) : (
+        <Profile key={request.id}
+        profile={{
+          id: request.friend,
+          friend_id: request.id,
+          owner: request.friend_username,
+          image: request.friend_profile_image
+        }} />
+      )
+  ));
+  
   
   return (
     <Container
@@ -42,7 +64,10 @@ const FriendProfiles = ({ mobile }) => {
           <>
             {mobile ? (
               <div className="d-flex justify-content-around">
-                {acceptedFriendRequests?.results?.slice(0, 3).map((request) => (
+                {acceptedFriendRequests?.results?.filter((request) => (
+                  request?.friend === currentUser?.profile_id ||
+                  request?.owner_profile_id === currentUser?.profile_id
+                )).slice(0, 3).map((request) => (
                   request?.profile_id !== currentUser?.profile_id ? (
                     <Profile key={request.id}
                       profile={{
@@ -74,25 +99,7 @@ const FriendProfiles = ({ mobile }) => {
               //   hasMore={!!friends.next}
               //   next={() => fetchMoreData(friends, setFriendsData)}
               // />
-              acceptedFriendRequests?.results?.slice(0, 7).map((request) => (
-                request?.profile_id !== currentUser?.profile_id ? (
-                  <Profile key={request.id}
-                    profile={{
-                      id: request.owner_profile_id,
-                      friend_id: request.id,
-                      owner: request.owner,
-                      image: request.owner_profile_image
-                    }} />
-                ) : (
-                  <Profile key={request.id}
-                    profile={{
-                      id: request.friend,
-                      friend_id: request.id,
-                      owner: request.friend_username,
-                      image: request.friend_profile_image
-                    }} />
-                )
-              ))
+              friendProfiles
             )}
           </>
         ) : currentUser ? (

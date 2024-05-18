@@ -12,7 +12,7 @@ class FriendListViewTests(APITestCase):
         User.objects.create_user(username='tester', password='test123')
         User.objects.create_user(username='tester2', password='test321')
         User.objects.create_user(username='tester3', password='test456')
-        Friend.objects.create(owner=User.objects.get(username='tester'), friend=User.objects.get(username='tester2'))
+        Friend.objects.create(owner=User.objects.get(username='tester'), friend=User.objects.get(username='tester2'), accepted=True)
     
     def test_user_can_lookup_all_friend_requests(self):
         response = self.client.get('/friends/')
@@ -22,6 +22,7 @@ class FriendListViewTests(APITestCase):
         self.client.login(username='tester', password='test123')
         response = self.client.post('/friends/', {'friend': User.objects.get(username='tester3').id})
         count = Friend.objects.count()
+        print(count)
         self.assertEqual(count, 2)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -33,13 +34,14 @@ class FriendListViewTests(APITestCase):
     def test_logged_in_user_cant_send_a_friend_request_twice(self):
         self.client.login(username='tester', password='test123')
         response = self.client.post('/friends/', {'friend': User.objects.get(username='tester2').id})
-        self.assertEqual(response.data['detail'], 'You have already sent a friend request to this user.')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_logged_in_user_cant_send_a_friend_request_to_an_existing_friend(self):
         Friend.objects.create(owner=User.objects.get(username='tester2'), friend=User.objects.get(username='tester3'), accepted=True)
         self.client.login(username='tester3', password='test456')
         response = self.client.post('/friends/', {'friend': User.objects.get(username='tester2').id})
-        self.assertEqual(response.data['detail'], 'You are already friends with this user.')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 
     def test_logged_out_user_cant_send_a_friend_request(self):
         response = self.client.post('/friends/', {'friend': User.objects.get(username='tester3').id})

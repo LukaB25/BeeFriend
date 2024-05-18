@@ -37,7 +37,7 @@ export const FriendRequestProvider = ({ children }) => {
         console.log("received", receivedFriendRequests.results)
         console.log("accepted", acceptedFriendRequests.results)
       } catch (err) {
-        console.log('Error', err);
+        console.log('Error',  err.response?.data);
       };
     };
     fetchFriendRequests();
@@ -47,30 +47,47 @@ export const FriendRequestProvider = ({ children }) => {
     try {
       const { data } = await axiosReq.post('/friends/', {
         friend: clickedProfile,
-        owner: currentUser?.id,
+        owner: currentUser?.profile_id,
       });
-      setSentFriendRequests([...data, data]);
+      console.log("Response Data:", data);
+      setSentFriendRequests(prevState => ({
+        ...prevState,
+        results: [...prevState.results, data]
+      }));
     } catch (err) {
-      console.log(err);
+      const errorData = err.response?.data || 'Unknown error occurred';
+      console.error('Error sending friend request:', errorData);
     }
   }
 
   const acceptFriendRequest = async (id) => {
     try {
-      const { data } = await axiosReq.put(`/friends/${id}/`, { accepted: true });
-      setAcceptedFriendRequests(...data, data);
-      setReceivedFriendRequests(data => data(request => request.id !== id));
+      const { data } = await axiosReq.put(`/friends/${id}/`, {
+        friend: currentUser?.profile_id,
+        accepted: true
+      });
+      setAcceptedFriendRequests(prevState => ({
+        ...prevState,
+        results: [...prevState.results, data]
+      }));
+      setReceivedFriendRequests(prevState => ({
+        ...prevState,
+        results: [prevState.results.filter(request => request.id !== id), data]
+      }));
     } catch (err) {
-      console.log(err);
+      console.error('Error accepting friend request:', err.response?.data);
     }
   }
 
   const denyFriendRequest = async (id) => {
     try {
       await axiosReq.delete(`/friends/${id}/`);
-      setReceivedFriendRequests(prevState => prevState(request => request.id !== id));
+      setReceivedFriendRequests(prevState => ({
+        ...prevState,
+        results: prevState.results.filter(request => request.id !== id)
+      }));
     } catch (err) {
-      console.log(err);
+      console.error('Error denying friend request:', err.response?.data || 'Unknown error occurred');
     }
   }
 
@@ -81,7 +98,8 @@ export const FriendRequestProvider = ({ children }) => {
       acceptedFriendRequests,
       acceptFriendRequest,
       sendFriendRequest,
-      denyFriendRequest}}
+      denyFriendRequest,
+    }}
     >
       {children}
     </FriendRequestContext.Provider>

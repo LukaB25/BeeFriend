@@ -16,7 +16,7 @@ class FriendSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     owner_profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     owner_profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
-    friend_username = serializers.CharField(source='friend.username')
+    friend_username = serializers.ReadOnlyField(source='friend.username')
     friend_profile_id = serializers.ReadOnlyField(source='friend.profile.id')
     friend_profile_image = serializers.ReadOnlyField(source='friend.profile.image.url')
     created_at = serializers.SerializerMethodField()
@@ -67,6 +67,7 @@ class FriendSerializer(serializers.ModelSerializer):
             'friend_username',
             'friend_profile_id',
             'friend_profile_image',
+            'accepted',
             'created_at',
         ]
         read_only_fields = [
@@ -75,9 +76,10 @@ class FriendSerializer(serializers.ModelSerializer):
             'is_owner',
             'owner_profile_id',
             'owner_profile_image',
-            'friend_username',
             'friend_profile_id',
+            'friend_username',
             'friend_profile_image'
+            'accepted',
             'created_at',
         ]
 

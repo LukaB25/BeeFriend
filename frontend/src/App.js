@@ -33,7 +33,7 @@ function App() {
               <Route exact path="/friends" render={()=> (
                 <PostsPage message="There are no results. Please adjust the search keyword or
                  connect with a user to become friends."
-                 filter={`owner__friend__owner__profile=${profile_id}&`} />
+                 filter={`owner__friend__owner__profile=${profile_id}&accepted=true`} />
                 )}
               />
               <Route exact path="/liked" render={()=> (

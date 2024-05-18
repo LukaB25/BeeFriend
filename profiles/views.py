@@ -14,9 +14,6 @@ class ProfileList(generics.ListAPIView):
     """
     queryset = Profile.objects.annotate(
         post_count = Count('owner__post', distinct=True),
-        friend_count = Count(
-            'owner__friend', distinct=True
-        ),
         post_interaction_count = Count(
             'owner__post__like', distinct=True
         ) + Count('owner__post__comment', distinct=True

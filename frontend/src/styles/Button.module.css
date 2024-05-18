@@ -11,9 +11,8 @@
     width: 50%
 }
 
-.FormButton, .PostButton {
+.FormButton, .PostButton, .FriendButton {
     border-color: var(--glow--yellow--color);
-    margin-top: 1rem;
     background-color: var(--black--color);
     color: var(--glow--yellow--color);
     box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
@@ -23,11 +22,15 @@
     transition: all ease-in-out 0.5s;
 }
 
+.FormButton {
+    margin-top: 1rem;
+}
+
 .PostButton {
     margin: 1rem 0 0 2rem;
 }
 
-.FormButton:hover, .PostButton:hover {
+.FormButton:hover, .PostButton:hover, .FriendButton:hover {
     font-weight: 600;
     color: var(--charcoal--color);
     transform: scale3d(1.1, 1.1, 1.1);
@@ -38,7 +41,9 @@
     border-color: var(--enhanced--glow--yellow--color);
 }
 
-.FormButton:active, .FormButton:focus, .PostButton:active, .PostButton:focus{
+.FormButton:active, .FormButton:focus,
+.PostButton:active, .PostButton:focus,
+.FriendButton:active, .FriendButton:focus {
     font-weight: 600;
     color: var(--charcoal--color);
     background-color: var(--enhanced--glow--yellow--color);
@@ -49,9 +54,8 @@
 }
 
 
-.CancelButton {
+.CancelButton, .UnfriendButton {
     border-color: var(--burgundy--color);
-    margin: 1rem 2rem 0 0;
     background-color: var(--black--color);
     color: #d10739;
     box-shadow: 0 0 1rem .25rem var(--burgundy--color),
@@ -61,7 +65,11 @@
     transition: all ease-in-out 0.5s;
 }
 
-.CancelButton:hover {
+.CancelButton {
+    margin: 1rem 2rem 0 0;
+}
+
+.CancelButton:hover, .UnfriendButton:hover {
     font-weight: 600;
     color: var(--charcoal--color);
     transform: scale3d(1.1, 1.1, 1.1);
@@ -72,7 +80,7 @@
     border-color: var(--burgundy--color);
 }
 
-.CancelButton:active, .CancelButton:focus {
+.CancelButton:active, .CancelButton:focus, .UnfriendButton:active, .UnfriendButton:focus{
     font-weight: 600;
     color: var(--charcoal--color);
     background-color: var(--burgundy--color);

@@ -17,24 +17,22 @@ export const FriendDataProvider = ({ children }) => {
 
   const currentUser = useCurrentUser();
 
-  
-
    
     useEffect(() => {
     const fetchFriends = async () => {
       try {
-        const { data } = await axiosReq.get(`/friends/`);
+        const { data } = await axiosReq.get(`/friends/?accepted=true`);
         setFriendsData({
           friends: data
         });
-        console.log('friends', data?.results)
       } catch (err) {
         console.log(err)
       }
-    }
+    };
 
     fetchFriends();
   }, [currentUser])
+
 
 
     return (
