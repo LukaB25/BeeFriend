@@ -15,6 +15,7 @@ class ChatSerializer(serializers.ModelSerializer):
     """
     sender = serializers.ReadOnlyField(source='sender.username')
     receiver_username = serializers.ReadOnlyField(source='receiver.username')
+    receiver_image = serializers.ReadOnlyField(source='receiver.profile.image.url')
     last_message = serializers.SerializerMethodField()
     unread_message_count = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
@@ -39,6 +40,7 @@ class ChatSerializer(serializers.ModelSerializer):
             'sender',
             'receiver',
             'receiver_username',
+            'receiver_image',
             'created_at',
             'last_message',
             'unread_message_count',

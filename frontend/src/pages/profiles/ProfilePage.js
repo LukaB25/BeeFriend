@@ -24,6 +24,7 @@ import FriendButtons from '../../components/Buttons';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useProfileData, useSetProfileData } from '../../contexts/ProfileDataContext';
 import { useFriendData } from '../../contexts/FriendDataContext';
+import Inbox from '../../components/Inbox';
 
 
 function ProfilePage() {
@@ -42,7 +43,7 @@ function ProfilePage() {
 
   const friendsData = useFriendData();
 
-  const friend_count = friendsData?.friends?.results.filter(
+  const friend_count = friendsData?.friendsData.friends?.results.filter(
     friend => profile?.id === friend.friend ||
     profile?.id === friend.owner_profile_id
   ).length;
@@ -177,7 +178,7 @@ function ProfilePage() {
 
       </Col>
       <Col lg={3} className="d-none d-lg-block">
-        <p>?!?Notification?!? and messages for desktop</p>
+        <Inbox />
       </Col>
     </Row>
   );

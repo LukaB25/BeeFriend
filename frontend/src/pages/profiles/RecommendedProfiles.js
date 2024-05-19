@@ -29,7 +29,7 @@ const RecommendedProfiles = ({ mobile }) => {
           <>
             {mobile ? (
               <div className="d-flex justify-content-around">
-                {recommendedProfiles.results.slice(0, 3).map((profile) => (
+                {recommendedProfiles.results.slice(0, 2).map((profile) => (
                   <Profile key={profile.id} profile={profile} mobile />
                 ))}
               </div>

@@ -17,7 +17,6 @@ export const FriendDataProvider = ({ children }) => {
 
   const currentUser = useCurrentUser();
 
-   
     useEffect(() => {
     const fetchFriends = async () => {
       try {
@@ -25,8 +24,13 @@ export const FriendDataProvider = ({ children }) => {
         setFriendsData({
           friends: data
         });
+        // const friends = data.results.filter(
+        //   friend => currentUser?.profile_id === friend.friend ||
+        //   currentUser?.profile_id === friend.owner_profile_id
+        // ).map(friend => friend.friend === currentUser?.profile_id ? friend.owner_profile_id : friend.friend);
+        // console.log('Friends from data context:', friends)
       } catch (err) {
-        console.log(err)
+        console.log('Error fetching friends data:', err.data)
       }
     };
 
@@ -36,8 +40,8 @@ export const FriendDataProvider = ({ children }) => {
 
 
     return (
-      <FriendDataContext.Provider value={friendsData}>
-          <SetFriendDataContext.Provider value={setFriendsData}>
+      <FriendDataContext.Provider value={{friendsData}}>
+          <SetFriendDataContext.Provider value={{setFriendsData}}>
               {children}
           </SetFriendDataContext.Provider>
       </FriendDataContext.Provider>

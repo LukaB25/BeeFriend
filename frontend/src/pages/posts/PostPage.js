@@ -15,6 +15,9 @@ import Comment from '../comments/Comment';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Asset from '../../components/Asset';
 import { fetchMoreData } from '../../utils/utils';
+import FriendProfiles from '../profiles/FriendProfiles';
+import RecommendedProfiles from '../profiles/RecommendedProfiles';
+import Inbox from '../../components/Inbox';
 
 function PostPage() {
   const currentUser = useCurrentUser();
@@ -41,12 +44,19 @@ function PostPage() {
   }, [id]);
   return (
     <Row className="h-100 justify-content-center">
-      <Col lg={3} className="d-none d-lg-block">Recommended users and friends for desktop</Col>
+      <Col lg={3} className="d-none d-lg-block">
+       <RecommendedProfiles />
+       <FriendProfiles />
+      </Col>
       <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
-        <div className="d-sm-block d-md-none">
-          <p>Recommended users for mobile</p> <p>Friends for mobile</p>
-          <p>New post + search</p>
-        </div>
+        <Row className="justify-content-center">
+          <Col xs={6}>
+            <RecommendedProfiles mobile />
+          </Col>
+          <Col xs={6}>
+            <FriendProfiles mobile />
+          </Col>
+        </Row>
         <Post {...post.results[0]} setPosts={setPost} postPage />
         <Container className={styles.CommentFormBody}>
           {currentUser ? (
@@ -86,7 +96,7 @@ function PostPage() {
         </Container>
       </Col>
       <Col lg={3} className="d-none d-lg-block">
-        <p>?!?Notification?!? and messages for desktop</p>
+        <Inbox />
       </Col>
     </Row>
   )

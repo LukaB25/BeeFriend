@@ -1,14 +1,18 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq } from "../api/axiosDefaults";
-import { getCurrentUserFromLocalStorage } from "../utils/utils";
+import { useCurrentUser } from "./CurrentUserContext";
 
 
 const FriendRequestContext = createContext();
+const SetFriendRequestContext = createContext();
+
+export { FriendRequestContext, SetFriendRequestContext };
 
 export const useFriendRequestData = () => useContext(FriendRequestContext);
+export const useSetFriendRequestData = () => useContext(SetFriendRequestContext);
 
 export const FriendRequestProvider = ({ children }) => {
-  const currentUser = getCurrentUserFromLocalStorage();
+  const currentUser = useCurrentUser();
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
   const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
   const [acceptedFriendRequests, setAcceptedFriendRequests] = useState([]);
@@ -33,15 +37,12 @@ export const FriendRequestProvider = ({ children }) => {
         setSentFriendRequests(sentFriendRequests);
         setReceivedFriendRequests(receivedFriendRequests);
         setAcceptedFriendRequests(acceptedFriendRequests);
-        console.log("sent", sentFriendRequests.results)
-        console.log("received", receivedFriendRequests.results)
-        console.log("accepted", acceptedFriendRequests.results)
       } catch (err) {
-        console.log('Error',  err.response?.data);
+        console.log('Error',  err.response);
       };
     };
     fetchFriendRequests();
-  }, [currentUser?.profile_id]);
+  }, [currentUser]);
 
   const sendFriendRequest = async (clickedProfile) => {
     try {
@@ -72,7 +73,7 @@ export const FriendRequestProvider = ({ children }) => {
       }));
       setReceivedFriendRequests(prevState => ({
         ...prevState,
-        results: [prevState.results.filter(request => request.id !== id), data]
+        results: [prevState.results.filter(request => request.id !== id)]
       }));
     } catch (err) {
       console.error('Error accepting friend request:', err.response?.data);
@@ -101,7 +102,9 @@ export const FriendRequestProvider = ({ children }) => {
       denyFriendRequest,
     }}
     >
-      {children}
+      <SetFriendRequestContext.Provider value={{setSentFriendRequests, setAcceptedFriendRequests, setReceivedFriendRequests}}>
+        {children}
+      </SetFriendRequestContext.Provider>
     </FriendRequestContext.Provider>
   )
 }

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import { Container } from 'react-bootstrap'
+import { Container } from 'react-bootstrap';
 
-import styles from '../../styles/PostsPage.module.css'
-import appStyles from '../../App.module.css'
+import styles from '../../styles/PostsPage.module.css';
+import appStyles from '../../App.module.css';
 
 import noResults from '../../assets/no_results.png';
 import Asset from '../../components/Asset';
@@ -24,7 +24,7 @@ const FriendProfiles = ({ mobile }) => {
   useEffect(() => {
     const timer = setTimeout (() => {
       setHasLoaded(true);
-    }, 2000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [currentUser, setFriendsData])
@@ -67,7 +67,7 @@ const FriendProfiles = ({ mobile }) => {
                 {acceptedFriendRequests?.results?.filter((request) => (
                   request?.friend === currentUser?.profile_id ||
                   request?.owner_profile_id === currentUser?.profile_id
-                )).slice(0, 3).map((request) => (
+                )).slice(0, 2).map((request) => (
                   request?.profile_id !== currentUser?.profile_id ? (
                     <Profile key={request.id}
                       profile={{

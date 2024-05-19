@@ -22,9 +22,12 @@ import FriendProfiles from '../profiles/FriendProfiles';
 import Asset from '../../components/Asset';
 
 import noResults from "../../assets/no_results.png";
+import { useFriendData } from '../../contexts/FriendDataContext';
+import Inbox from '../../components/Inbox';
 
 function PostsPage({message, filter=""}) {
   const currentUser = useCurrentUser();
+  const { friendsData } = useFriendData();
   const [posts, setPosts] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
@@ -95,11 +98,25 @@ function PostsPage({message, filter=""}) {
     const fetchPosts = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/?${filter}&search=${query}`);
-        setPosts(data);
-        console.log(data);
-        console.log(filter)
+        if (pathname === '/friends') {
+          const friend = friendsData.friends.results
+          .filter(friend => 
+            friend.friend === currentUser?.profile_id || 
+            friend.owner_profile_id === currentUser?.profile_id
+          ).map(friend => 
+            friend.friend === currentUser?.profile_id ? friend.owner_profile_id : friend.friend
+          );
+          console.log('Friends from posts page:', friend)
+          const filteredPosts = data?.results.filter(
+            post => friend.includes(post?.profile_id)
+          );
+          console.log('Friends posts after filter:', filteredPosts)
+          setPosts({ ...data, results: filteredPosts });
+        } else {
+          setPosts(data);
+        }
         setHasLoaded(true);
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
     }
@@ -107,11 +124,10 @@ function PostsPage({message, filter=""}) {
     setHasLoaded(false);
     const timer = setTimeout(() => {
       fetchPosts();
-    
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
-  }, [pathname, query, filter])
+  }, [pathname, query, filter, currentUser, friendsData]);
 
   return (
     <Row className="h-100 justify-content-center">
@@ -158,7 +174,7 @@ function PostsPage({message, filter=""}) {
         )}
       </Col>
       <Col lg={3} className="d-none d-lg-block">
-        <p>?!?Notification?!? and messages for desktop</p>
+        <Inbox />
       </Col>
     </Row>
   )

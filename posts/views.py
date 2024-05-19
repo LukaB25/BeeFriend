@@ -14,7 +14,7 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.annotate(
         like_count=Count('like', distinct=True),
         comment_count=Count('comment', distinct=True)
-    ).order_by('-created_at')
+    ).order_by('-updated_at')
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
