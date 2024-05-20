@@ -9,6 +9,7 @@ import { ProfileDataProvider } from './contexts/ProfileDataContext';
 import { FriendDataProvider } from './contexts/FriendDataContext';
 import { FriendRequestProvider } from './contexts/FriendRequestContext';
 import { ChatDataProvider } from './contexts/ChatDataContext';
+import { SelectedChatProvider } from './contexts/SelectChatContext';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +19,9 @@ ReactDOM.render(
           <FriendRequestProvider>
             <FriendDataProvider>
               <ChatDataProvider>
-                <App />
+                <SelectedChatProvider>
+                  <App />
+                </SelectedChatProvider>
               </ChatDataProvider>
             </FriendDataProvider>
           </FriendRequestProvider>

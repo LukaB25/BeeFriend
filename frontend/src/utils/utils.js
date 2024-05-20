@@ -44,3 +44,15 @@ export const getCurrentUserFromLocalStorage = () => {
 export const removeCurrentUserFromLocalStorage = () => {
   localStorage.removeItem("currentUser");
 };
+
+export const saveMessageToLocalStorage = (message) => {
+  localStorage.setItem("typedMessage", message);
+}
+
+export const getMessageFromLocalStorage = () => {
+  return localStorage.getItem("typedMessage");
+}
+
+export const removeMessageFromLocalStorage = () => {
+  localStorage.removeItem("typedMessage");
+}

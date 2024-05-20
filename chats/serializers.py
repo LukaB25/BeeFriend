@@ -14,6 +14,7 @@ class ChatSerializer(serializers.ModelSerializer):
     but the messages are connected to the chat id.
     """
     sender = serializers.ReadOnlyField(source='sender.username')
+    sender_image = serializers.ReadOnlyField(source='sender.profile.image.url')
     receiver_username = serializers.ReadOnlyField(source='receiver.username')
     receiver_image = serializers.ReadOnlyField(source='receiver.profile.image.url')
     last_message = serializers.SerializerMethodField()
@@ -38,6 +39,7 @@ class ChatSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'sender',
+            'sender_image',
             'receiver',
             'receiver_username',
             'receiver_image',

@@ -24,6 +24,8 @@ import Asset from '../../components/Asset';
 import noResults from "../../assets/no_results.png";
 import { useFriendData } from '../../contexts/FriendDataContext';
 import Inbox from '../../components/Inbox';
+import { useSelectedChat } from '../../contexts/SelectChatContext';
+import Messenger from '../../components/Messenger';
 
 function PostsPage({message, filter=""}) {
   const currentUser = useCurrentUser();
@@ -31,6 +33,7 @@ function PostsPage({message, filter=""}) {
   const [posts, setPosts] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
+  const selectedChat = useSelectedChat();
 
   const [query, setQuery] = useState("");
 
@@ -175,6 +178,7 @@ function PostsPage({message, filter=""}) {
       </Col>
       <Col lg={3} className="d-none d-lg-block">
         <Inbox />
+        {selectedChat ? <Messenger /> : null}
       </Col>
     </Row>
   )

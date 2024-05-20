@@ -54,7 +54,7 @@
 }
 
 
-.CancelButton, .UnfriendButton {
+.CancelButton, .UnfriendButton, .CloseButton {
     border-color: var(--burgundy--color);
     background-color: var(--black--color);
     color: #d10739;
@@ -69,7 +69,11 @@
     margin: 1rem 2rem 0 0;
 }
 
-.CancelButton:hover, .UnfriendButton:hover {
+.CloseButton {
+    margin-top: -2rem;
+}
+
+.CancelButton:hover, .UnfriendButton:hover, .CloseButton:hover {
     font-weight: 600;
     color: var(--charcoal--color);
     transform: scale3d(1.1, 1.1, 1.1);
@@ -80,7 +84,9 @@
     border-color: var(--burgundy--color);
 }
 
-.CancelButton:active, .CancelButton:focus, .UnfriendButton:active, .UnfriendButton:focus{
+.CancelButton:active, .CancelButton:focus,
+.UnfriendButton:active, .UnfriendButton:focus,
+.CloseButton:active, .CloseButton:focus{
     font-weight: 600;
     color: var(--charcoal--color);
     background-color: var(--burgundy--color);
@@ -90,9 +96,30 @@
     border-color: var(--burgundy--color);
 }
 
-
 .HexButton {
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     max-width: 3.5rem;
-    max-height: 4rem;
+    max-height: 3rem;
+}
+
+.SendButton {
+    border-color: var(--aquamarine--blue--color);
+    background-color: var(--black--color);
+    color: var(--aquamarine--blue--color);
+    box-shadow: 0 0 1rem .25rem var(--aquamarine--blue--color),
+                0 0 4rem 1rem var(--dark--aquamarine--color),
+                inset 0 0 .75rem .25rem var(--aquamarine--blue--color);
+    text-shadow: 0 0 .5rem var(--aquamarine--blue--color);
+    transition: all ease-in-out 0.5s;
+}
+
+.SendButton:hover {
+    font-weight: 600;
+    color: var(--charcoal--color);
+    transform: scale3d(1.1, 1.1, 1.1);
+    background-color: var(--aquamarine--blue--color);
+    box-shadow: 0 0 1rem .25rem var(--aquamarine--blue--color),
+                0 0 4rem 2rem var(--dark--aquamarine--color),
+                inset 0 0 .75em .25rem var(--aquamarine--blue--color);
+    border-color: var(--aquamarine--blue--color);
 }

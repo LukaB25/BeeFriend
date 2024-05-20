@@ -37,6 +37,7 @@ export const ChatDataProvider = ({ children }) => {
         ...prevState,
         [chatId]: data,
       }));
+      console.log('Fetched messages:', data);
     } catch (err) {
       console.log('Messages error:', err.response?.data);
     }
@@ -49,6 +50,7 @@ export const ChatDataProvider = ({ children }) => {
         ...prevState,
         [chatId]: [...(prevState[chatId] || []), data],
       }));
+      console.log('Sent message:', data?.message);
     } catch (err) {
       console.log('Send message error:', err.response?.data);
     }

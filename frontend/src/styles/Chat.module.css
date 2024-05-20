@@ -1,0 +1,29 @@
+.ChatItem {
+  background-color: transparent !important;
+  border: none;
+  cursor: pointer;
+}
+
+.ChatAvatar {
+  transform: scale3d(0.7, 0.7, 0.7);
+}
+
+.MessengerHeader {
+  margin-left: 7rem;
+  margin-top: 1rem;
+}
+
+.MessageInput {
+  font-size: 1.2rem;
+  height: 3rem;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  outline: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .MessengerHeader {
+    margin-left: 4.5rem;
+  }
+}
