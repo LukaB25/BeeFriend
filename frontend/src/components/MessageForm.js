@@ -30,7 +30,8 @@ const MessageForm = ({ typedMessage, setTypedMessage }) => {
   return (
     <Form onSubmit={handleSubmit} className={`d-flex`}>
       <Form.Control
-        type="text"
+        as="textarea"
+        rows={3}
         placeholder="Type a message..."
         value={typedMessage}
         onChange={handleChange}

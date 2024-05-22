@@ -127,11 +127,13 @@ function ProfilePage() {
 
   return (
     <Row className="h-100 justify-content-center">
+      {currentUser ? (
       <Col lg={3} className="d-none d-lg-block">
         <RecommendedProfiles />
         <FriendProfiles />
-      </Col>
-      <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
+      </Col> ) : null}
+      <Col className="justify-content-center text-center" sm={12} lg={currentUser ? 6 : 8}>
+          {currentUser ? (
         <Row className="justify-content-center">
           <Col xs={6}>
             <RecommendedProfiles mobile />
@@ -139,7 +141,7 @@ function ProfilePage() {
           <Col xs={6}>
             <FriendProfiles mobile />
           </Col>
-        </Row>
+        </Row>) : null}
         <Container className={`${appStyles.Content} align-items-center`}>
           {hasLoaded ? (
             <>
@@ -177,9 +179,10 @@ function ProfilePage() {
         )}
 
       </Col>
+      {currentUser ? (
       <Col lg={3} className="d-none d-lg-block">
         <Inbox />
-      </Col>
+      </Col>) : null}
     </Row>
   );
 }

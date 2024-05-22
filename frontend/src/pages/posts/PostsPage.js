@@ -134,11 +134,13 @@ function PostsPage({message, filter=""}) {
 
   return (
     <Row className="h-100 justify-content-center">
-      <Col lg={3} className="d-none d-lg-block">
+      {currentUser ? (
+      <Col lg={3} className="d-none d-lg-block" >
        <RecommendedProfiles />
        <FriendProfiles />
-      </Col>
-      <Col className="justify-content-center text-center" sm={12} md={8} lg={6}>
+      </Col>) : null}
+      <Col className="justify-content-center text-center" sm={12} lg={currentUser ? 6 : 8}>
+      {currentUser ? (
         <Row className="justify-content-center">
           <Col xs={6}>
             <RecommendedProfiles mobile />
@@ -146,7 +148,7 @@ function PostsPage({message, filter=""}) {
           <Col xs={6}>
             <FriendProfiles mobile />
           </Col>
-        </Row>
+        </Row>) : null}
         <Container className={`${appStyles.Content} align-items-center`}>
           {currentUser ? loggedInSearchBar : loggedOutSearchBar}
         </Container>
@@ -176,10 +178,11 @@ function PostsPage({message, filter=""}) {
           </Container>
         )}
       </Col>
+      {currentUser ? (
       <Col lg={3} className="d-none d-lg-block">
         <Inbox />
         {selectedChat ? <Messenger /> : null}
-      </Col>
+      </Col> ) : null}
     </Row>
   )
 }

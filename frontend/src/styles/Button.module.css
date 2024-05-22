@@ -103,6 +103,8 @@
 }
 
 .SendButton {
+    position: absolute;
+    right: 4rem;
     border-color: var(--aquamarine--blue--color);
     background-color: var(--black--color);
     color: var(--aquamarine--blue--color);
