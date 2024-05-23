@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useCurrentUser } from "./CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
+import { toast } from "react-toastify";
 
 const ChatDataContext = createContext();
 const SetChatDataContext = createContext();
@@ -21,7 +22,7 @@ export const ChatDataProvider = ({ children }) => {
         const { data } = await axiosReq.get('/chats/');
         setChat(data);
       } catch (err) {
-        console.log('Chat error:', err.response?.data);
+        toast.error(`Error fetching chats. ${err.response?.data}`);
       }
     };
 
@@ -37,19 +38,16 @@ export const ChatDataProvider = ({ children }) => {
         ...prevState,
         [chatId]: data,
       }));
-      console.log('Fetched messages:', data?.results);
     } catch (err) {
-      console.log('Messages error:', err.response?.data);
+      toast.error(`Error fetching messages. ${err.response?.data}`);
     }
   }, []);
 
   const sendMessage = async (chatId, message) => {
     if (!chatId || !message) {
+      toast.error('Chat ID or message is missing');
       console.log('Chat ID or message is missing');
       return;
-    } else {
-      console.log('Sent message is:', message)
-      console.log('Selected chat is:', chatId)
     }
     try {
       const { data } = await axiosReq.post(`/chats/${chatId}/messages/`, { 
@@ -61,9 +59,8 @@ export const ChatDataProvider = ({ children }) => {
         ...prevState,
         [chatId]: Array.isArray(prevState[chatId]) ? [...prevState[chatId], data] : [data],
       }));
-      console.log('Sent message:', data?.message);
     } catch (err) {
-      console.log('Send message error:', err.response?.data);
+      toast.error(`Error sending message ${err.response?.data}`);
     }
   };
 

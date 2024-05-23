@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq } from "../api/axiosDefaults";
 import { useCurrentUser } from "./CurrentUserContext";
+import { toast } from "react-toastify";
 
 
 const FriendRequestContext = createContext();
@@ -50,14 +51,12 @@ export const FriendRequestProvider = ({ children }) => {
         friend: clickedProfile,
         owner: currentUser?.profile_id,
       });
-      console.log("Response Data:", data);
       setSentFriendRequests(prevState => ({
         ...prevState,
         results: [...prevState.results, data]
       }));
     } catch (err) {
-      const errorData = err.response?.data || 'Unknown error occurred';
-      console.error('Error sending friend request:', errorData);
+      toast.error(`Error sending friend request. ${err.response?.data}`);
     }
   }
 
@@ -75,8 +74,12 @@ export const FriendRequestProvider = ({ children }) => {
         ...prevState,
         results: [prevState.results.filter(request => request.id !== id)]
       }));
+      setSentFriendRequests(prevState => ({
+        ...prevState,
+        results: [prevState.results.filter(request => request.id !== id)]
+      }));
     } catch (err) {
-      console.error('Error accepting friend request:', err.response?.data);
+      toast.error(`Error accepting friend request. ${err.response?.data}`);
     }
   }
 
@@ -87,8 +90,16 @@ export const FriendRequestProvider = ({ children }) => {
         ...prevState,
         results: prevState.results.filter(request => request.id !== id)
       }));
+      setSentFriendRequests(prevState => ({
+        ...prevState,
+        results: prevState.results.filter(request => request.id !== id)
+      }));
+      setAcceptedFriendRequests(prevState => ({
+        ...prevState,
+        results: prevState.results.filter(request => request.id !== id)
+      }));
     } catch (err) {
-      console.error('Error denying friend request:', err.response?.data || 'Unknown error occurred');
+      toast.error(`Error denying friend request. ${err.response?.data}`);
     }
   }
 
