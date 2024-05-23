@@ -76,3 +76,24 @@ export function ProfileEditDropdown({ id }) {
     </Dropdown>
   );
 }
+
+
+export const MessageDropdown = ({handleDelete}) => {
+  return (
+    <Dropdown className="ml-auto" drop="left">
+    <Dropdown.Toggle as={ThreeDots} />
+
+    <Dropdown.Menu
+      className="text-center"
+      popperConfig={{ strategy: "fixed" }}>
+      <Dropdown.Item
+        className={styles.DropdownItem}
+        onClick={handleDelete}
+        aria-label="delete"
+      >
+        <i className="fas fa-trash" />
+      </Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  )
+};

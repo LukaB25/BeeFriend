@@ -64,11 +64,9 @@ export const ChatDataProvider = ({ children }) => {
     }
   };
 
-
-
   return (
     <ChatDataContext.Provider value={{ chat, messages }}>
-      <SetChatDataContext.Provider value={{ fetchMessages, sendMessage, setMessages }}>
+      <SetChatDataContext.Provider value={{ fetchMessages, sendMessage, setMessages, setChat }}>
         {children}
       </SetChatDataContext.Provider>
     </ChatDataContext.Provider>

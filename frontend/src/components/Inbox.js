@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { axiosReq } from '../api/axiosDefaults';
-import { useChatData } from '../contexts/ChatDataContext';
+import { useChatData, useSetChatData } from '../contexts/ChatDataContext';
 import { useProfileData } from '../contexts/ProfileDataContext';
 import { getCurrentUserFromLocalStorage } from '../utils/utils';
 
@@ -18,29 +18,37 @@ import Asset from './Asset';
 import noResults from '../assets/no_results.png';
 import Avatar from './Avatar';
 import { useSetSelectedChat } from '../contexts/SelectChatContext';
+import { MessageDropdown } from './MoreDropdown';
 
-const Inbox = () => {
-  const chatData = useChatData();
+const Inbox = ({ InboxPage }) => {
+  const { chat } = useChatData();
+  const { setChat } = useSetChatData();
   const [query, setQuery] = useState('');
   const currentUser = getCurrentUserFromLocalStorage();
   const profileData = useProfileData();
   const setSelectedChat = useSetSelectedChat();
   const profiles = profileData?.recommendedProfiles?.results;
 
-  const matchProfileToQuery = profiles.find(profile => profile.owner === query)
+  const matchProfileToQuery = profiles.find(profile => profile.owner === query);
 
-  // console.log('Profiles:', profiles)
-
-  // console.log('Chat data in inbox:', chatData?.chat?.results)
+  const handleDelete = async (chatId) => {
+    try {
+      await axiosReq.delete(`/chats/${chatId}/`);
+      const { data } = await axiosReq.get('/chats/');
+      setChat(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const existingChats = (
     <ListGroup>
-      {chatData?.chat?.results?.length ? (
-      chatData.chat.results.map((chat) => (
+      {chat?.results?.length ? (
+      chat.results.map((chat) => (
         <OverlayTrigger key={chat?.id} placement="top" overlay={<Tooltip>Chat with {chat?.receiver_username === currentUser?.username ? chat?.sender : chat?.receiver_username}</Tooltip>}>
             <ListGroup.Item
               onClick={() => setSelectedChat(chat?.id)}
-              className={`text-left ${chatStyles.ChatItem}`}
+              className={`d-flex text-left ${chatStyles.ChatItem}`}
             >
               <Avatar
                 src={chat?.receiver_username === currentUser?.username ?
@@ -51,6 +59,7 @@ const Inbox = () => {
                 {chat?.receiver_username === currentUser?.username ?
                 chat?.sender : chat?.receiver_username}
               </strong>
+            <MessageDropdown handleDelete={() => handleDelete(chat?.id)} />
             </ListGroup.Item>
           </OverlayTrigger>
         ))
@@ -60,25 +69,26 @@ const Inbox = () => {
     </ListGroup>
   );
 
-  
-
-  const handleStartNewChat = async () => {
+  const handleStartNewChat = async (event) => {
+    event.preventDefault();
     if (matchProfileToQuery) {
       try {
         const { data } = await axiosReq.post('/chats/', { receiver: matchProfileToQuery.id });
         setSelectedChat(data.id);
-        console.log('New chat:', data?.response)
+
+        const { data: updatedChatData } = await axiosReq.get('/chats/');
+        setChat(updatedChatData);
       } catch(err) {
-        console.log("Error starting new chat:", err)
+        console.log("Error starting new chat:", err);
       }
     } else {
-      console.log("No user found with the id:",query)
+      console.log("No user found with the id:", query);
     }
   };
   
   return (
     <Container className={`${appStyles.Content} ${styles.SmallComponent}
-    ${styles.LargeScreen} text-center`} 
+    ${styles.LargeScreen} ${InboxPage && chatStyles.SmallDeviceInbox} text-center`} 
     >
       <h4>Inbox</h4>
         {currentUser ? (
@@ -91,6 +101,7 @@ const Inbox = () => {
               name="newChat"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
+              onSubmit={(event) => handleStartNewChat(event)}
             />
           </OverlayTrigger>
           <Button
@@ -109,4 +120,4 @@ const Inbox = () => {
   )
 }
 
-export default Inbox
+export default Inbox;

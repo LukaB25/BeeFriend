@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelectedChat, useSetSelectedChat } from '../contexts/SelectChatContext';
 import { useChatData, useSetChatData,  } from '../contexts/ChatDataContext';
 
@@ -18,7 +18,7 @@ import MessageForm from './MessageForm';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 
-const Messenger = () => {
+const Messenger = ({ InboxPage }) => {
   const currentUser = getCurrentUserFromLocalStorage();
   const selectedChat = useSelectedChat();
   const setSelectedChat = useSetSelectedChat();
@@ -27,27 +27,20 @@ const Messenger = () => {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [typedMessage, setTypedMessage] = useState('');
   const chatData = useChatData();
+  const scrollableContainerRef = useRef(null);
 
   const chat = chatData?.chat?.results.find(chat => chat.id === selectedChat);
-
-  // console.log('Messages:', messages[selectedChat]?.results);
-  // console.log('Selected chat:', selectedChat);
-  // console.log('Current user:', currentUser);
-  // console.log('Chat data:', chat)
-  // console.log("Fetching more messages from:", messages[selectedChat]?.next);
-
-
   
   const fetchCallback = useCallback(async (chatId) => {
     setHasLoaded(false);
     await fetchMessages(chatId);
     setHasLoaded(true);
-  }, [fetchMessages, ]);
+  }, [fetchMessages]);
 
   useEffect(() => {
     if (selectedChat) {
       fetchCallback(selectedChat);
-    }
+    };
   }, [selectedChat, fetchCallback]);
 
   useEffect(() => {
@@ -65,10 +58,13 @@ const Messenger = () => {
   const handleExitChat = () => {
     setSelectedChat(null);
   };
+
   return (
     currentUser && selectedChat ? (
       <Container className={`${appStyles.Content} ${styles.SmallComponent}
-    ${styles.LargeScreen} ${chatStyles.MessengerComponent} text-center d-flex flex-column`}
+        ${styles.LargeScreen} ${chatStyles.MessengerComponent}
+        ${InboxPage && chatStyles.SmallDeviceInbox}
+        text-center d-flex flex-column`}
       >
         <div className="d-flex justify-content-center align-items-center">
           <Avatar
@@ -87,25 +83,26 @@ const Messenger = () => {
         </div>
         {hasLoaded ? (
           <React.Fragment>
-            <div key={"chat" + selectedChat} className={chatStyles.Messages}>
+            <div key={"chat" + selectedChat} className={chatStyles.Messages} ref={scrollableContainerRef}>
               {messages[selectedChat]?.results?.length > 0 ? (
                 <InfiniteScroll
                   children={
                     (messages[selectedChat]?.results?.map((message) => (
-                      <React.Fragment
-                      key={message?.id}>
                       <div
-                        className={`text-left d-flex ${message?.sender === currentUser?.username ? chatStyles.SentMessage : chatStyles.ReceivedMessage}`}
+                        key={message?.id}
+                        className={`text-left d-flex
+                        ${message?.sender === currentUser?.username ?
+                          chatStyles.SentMessage : chatStyles.ReceivedMessage
+                        }`}
                       >
                         <p>{message?.message}</p>
-                        <small className="text-right">{message?.seen === true ? <i className="fas fa-check-double" /> : null}</small>
+                        {/* <small className="text-right">{message?.seen ? <i className="fas fa-check-double" /> : null}</small> */}
                       </div>
-
-                      </React.Fragment>
                     )))
                   }
-                  dataLength={messages[selectedChat]?.results?.length}
+                  dataLength={messages[selectedChat]?.results?.length || 0}
                   loader={<Asset spinner />}
+                  scrollableTarget={scrollableContainerRef.current}
                   hasMore={!!messages[selectedChat]?.next}
                   next={() => fetchMoreMessages(selectedChat, messages[selectedChat], setMessages)}
                 />

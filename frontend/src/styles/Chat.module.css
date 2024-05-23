@@ -1,10 +1,7 @@
 .MessengerComponent {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-height: 40rem;
+  height: 40rem;
 }
 
 .Messages {
@@ -29,12 +26,15 @@
   border-radius: 1.5rem;
   padding: 0.5rem 1rem;
   outline: none;
-  max-width: 100%;
+  width: 22rem;
 }
 
 @media screen and (max-width: 1200px) {
   .MessengerHeader {
     margin: 0.5rem 2rem;
+  }
+  .MessageInput {
+    width: 18rem;
   }
 }
 
@@ -43,7 +43,7 @@
   border-radius: 1.5rem;
   padding: 0rem 1rem;
   margin: 0.5rem 0;
-  max-width: 90%;
+  width: 90% !important;
   height: auto;
   word-wrap: break-word;
 }
@@ -69,4 +69,21 @@
 
 .SentMessage p, .ReceivedMessage p {
   font-size: 1.2rem;
+}
+
+@media screen and (min-width: 767px) {
+  .SmallDeviceInbox {
+    height: 80vh;
+    font-size: 1.6rem;
+  }
+  .SmallDeviceInbox .MessengerHeader {
+    margin: 0.5rem 8rem;
+  }
+  .SmallDeviceInbox .MessageInput {
+    width: 35rem;
+    height: 10rem !important;
+  }
+  .SmallDeviceInbox .SentMessage p, .SmallDeviceInbox  .ReceivedMessage p {
+    font-size: 1.4rem;
+  }
 }

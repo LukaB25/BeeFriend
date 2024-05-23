@@ -56,6 +56,11 @@ const NavBar = () => {
         activeClassName={styles.Active}
         ><i className="fas fa-users"></i> Friends
       </NavLink>
+      <NavLink to="/inbox"
+        className={`${styles.NavLink} d-lg-none`}
+        activeClassName={styles.Active}
+        ><i className="fas fa-envelope"></i> Inbox
+      </NavLink>
       <NavLink to={`/profiles/${currentUser?.profile_id}`}
         className={styles.NavLink}
         activeClassName={styles.Active}
