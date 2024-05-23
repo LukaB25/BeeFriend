@@ -45,7 +45,6 @@ const Comment = (props) => {
         results: prevComments.results.filter(comment => comment.id !== id)
       }))
     } catch (err) {
-      console.log(err)
       toast.error('An error occurred. Please try again later.');
     }
   }

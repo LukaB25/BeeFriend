@@ -13,7 +13,6 @@ const useFriendRequestAction = () => {
   const handleSendFriendRequest = async (clickedProfile) => {
     if (!clickedProfile) return;
     await sendFriendRequest(clickedProfile);
-    console.log('clickedProfile: ', clickedProfile);
   }
 
   const handleAcceptFriendRequest = async (id) => {

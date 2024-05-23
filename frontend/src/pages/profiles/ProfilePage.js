@@ -27,6 +27,7 @@ import { useFriendData } from '../../contexts/FriendDataContext';
 import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
 import { useSelectedChat } from '../../contexts/SelectChatContext';
+import { toast } from 'react-toastify';
 
 
 function ProfilePage() {
@@ -62,7 +63,7 @@ function ProfilePage() {
         setProfilePosts(profilePosts);
         setHasLoaded(true);
       } catch(err) {
-        console.log(err)
+        toast.error(err.response.data.detail);
       }
     }
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { axiosReq, axiosRes } from '../api/axiosDefaults';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { removeCurrentUserFromLocalStorage, removeTokenTimestamp, setCurrentUserInLocalStorage, shouldRefreshToken } from '../utils/utils';
+import { toast } from 'react-toastify';
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -20,7 +21,7 @@ export const CurrentUserProvider = ({children}) => {
     setCurrentUser(data);
     setCurrentUserInLocalStorage(data);
     } catch (err) {
-    console.log(err);
+      toast.error('Error fetching user data');
     }
   }
 

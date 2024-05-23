@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useCurrentUser } from "./CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
+import { toast } from "react-toastify";
 
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
@@ -29,7 +30,7 @@ export const ProfileDataProvider = ({ children }) => {
             recommendedProfiles: data,
           }));
         } catch (err) {
-          console.log(err);
+          toast.error("Error fetching recommended profiles");
         }
       };
       handleMount();

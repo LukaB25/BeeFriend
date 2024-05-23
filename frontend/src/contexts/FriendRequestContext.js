@@ -39,7 +39,7 @@ export const FriendRequestProvider = ({ children }) => {
         setReceivedFriendRequests(receivedFriendRequests);
         setAcceptedFriendRequests(acceptedFriendRequests);
       } catch (err) {
-        console.log('Error',  err.response);
+        toast.error('Error fetching friend requests');
       };
     };
     fetchFriendRequests();

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useRedirect } from '../../hooks/useRedirect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { fetchMoreData } from '../../utils/utils';
@@ -26,8 +27,9 @@ import { useFriendData } from '../../contexts/FriendDataContext';
 import Inbox from '../../components/Inbox';
 import { useSelectedChat } from '../../contexts/SelectChatContext';
 import Messenger from '../../components/Messenger';
+import { toast } from 'react-toastify';
 
-function PostsPage({message, filter=""}) {
+function PostsPage({ message, filter = "" }) {
   const currentUser = useCurrentUser();
   const { friendsData } = useFriendData();
   const [posts, setPosts] = useState({ results: [] });
@@ -38,6 +40,7 @@ function PostsPage({message, filter=""}) {
   const [query, setQuery] = useState("");
 
   const history = useHistory()
+  useRedirect('loggedOut');
 
   const handleSelectFilter = (filter) => {
     if (filter === "all") {
@@ -77,23 +80,23 @@ function PostsPage({message, filter=""}) {
           <FilterDropdown handleSelectFilter={handleSelectFilter} />
         </Col>
       </Row>
-      </>
+    </>
   )
 
-  const loggedOutSearchBar =(
+  const loggedOutSearchBar = (
     <>
-    <Form
-      className={`${styles.SearchBar}`}
-      onSubmit={(event) => event.preventDefault()}
-    >
-      <Form.Control
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-        className="ml-auto"
-        type="text"
-        placeholder="Search posts"
-      />
-    </Form>
+      <Form
+        className={`${styles.SearchBar}`}
+        onSubmit={(event) => event.preventDefault()}
+      >
+        <Form.Control
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          className="ml-auto"
+          type="text"
+          placeholder="Search posts"
+        />
+      </Form>
     </>
   )
 
@@ -103,24 +106,22 @@ function PostsPage({message, filter=""}) {
         const { data } = await axiosReq.get(`/posts/?${filter}&search=${query}`);
         if (pathname === '/friends') {
           const friend = friendsData.friends.results
-          .filter(friend => 
-            friend.friend === currentUser?.profile_id || 
-            friend.owner_profile_id === currentUser?.profile_id
-          ).map(friend => 
-            friend.friend === currentUser?.profile_id ? friend.owner_profile_id : friend.friend
-          );
-          console.log('Friends from posts page:', friend)
+            .filter(friend =>
+              friend.friend === currentUser?.profile_id ||
+              friend.owner_profile_id === currentUser?.profile_id
+            ).map(friend =>
+              friend.friend === currentUser?.profile_id ? friend.owner_profile_id : friend.friend
+            );
           const filteredPosts = data?.results.filter(
             post => friend.includes(post?.profile_id)
           );
-          console.log('Friends posts after filter:', filteredPosts)
           setPosts({ ...data, results: filteredPosts });
         } else {
           setPosts(data);
         }
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
+        toast.error('Failed to fetch posts');
       }
     }
 
@@ -135,20 +136,20 @@ function PostsPage({message, filter=""}) {
   return (
     <Row className="h-100 justify-content-center">
       {currentUser ? (
-      <Col lg={3} className="d-none d-lg-block" >
-       <RecommendedProfiles />
-       <FriendProfiles />
-      </Col>) : null}
+        <Col lg={3} className="d-none d-lg-block" >
+          <RecommendedProfiles />
+          <FriendProfiles />
+        </Col>) : null}
       <Col className="justify-content-center text-center" sm={12} lg={currentUser ? 6 : 8}>
-      {currentUser ? (
-        <Row className="justify-content-center">
-          <Col xs={6}>
-            <RecommendedProfiles mobile />
-          </Col>
-          <Col xs={6}>
-            <FriendProfiles mobile />
-          </Col>
-        </Row>) : null}
+        {currentUser ? (
+          <Row className="justify-content-center">
+            <Col xs={6}>
+              <RecommendedProfiles mobile />
+            </Col>
+            <Col xs={6}>
+              <FriendProfiles mobile />
+            </Col>
+          </Row>) : null}
         <Container className={`${appStyles.Content} align-items-center`}>
           {currentUser ? loggedInSearchBar : loggedOutSearchBar}
         </Container>
@@ -158,7 +159,7 @@ function PostsPage({message, filter=""}) {
               <InfiniteScroll
                 children={
                   posts.results.map((post) => (
-                    <Post key={post.id} {...post} setPosts={setPosts}/>
+                    <Post key={post.id} {...post} setPosts={setPosts} />
                   ))
                 }
                 dataLength={posts.results.length}
@@ -179,10 +180,10 @@ function PostsPage({message, filter=""}) {
         )}
       </Col>
       {currentUser ? (
-      <Col lg={3} className="d-none d-lg-block">
-        <Inbox />
-        {selectedChat ? <Messenger /> : null}
-      </Col> ) : null}
+        <Col lg={3} className="d-none d-lg-block">
+          <Inbox />
+          {selectedChat ? <Messenger /> : null}
+        </Col>) : null}
     </Row>
   )
 }

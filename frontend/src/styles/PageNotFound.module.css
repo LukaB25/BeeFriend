@@ -1,0 +1,7 @@
+.PageNotFound {
+  background-color: var(--offwhite--color--transparent);
+  font-size: 1.2rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 1.5rem;
+}

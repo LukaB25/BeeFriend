@@ -50,7 +50,7 @@ const Post = (props) => {
       }, 2000);
       return () => clearTimeout(timer);
     } catch (err) {
-      console.log(err)
+      toast.error('An error occurred trying to delete a post.');
     }
   }
 
@@ -65,7 +65,7 @@ const Post = (props) => {
         }),
       }));
     } catch (err) {
-      console.log(err)
+      toast.error('Error liking post, please try again.')
     }
   }
 
@@ -80,7 +80,7 @@ const Post = (props) => {
         }),
       }));
     } catch (err) {
-      console.log(err)
+      toast.error('Error unliking post, please try again.')
     }
   }
   return (

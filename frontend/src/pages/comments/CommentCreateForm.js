@@ -9,6 +9,7 @@ import styles from "../../styles/CommentCreateEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 import Avatar from "../../components/Avatar";
+import { toast } from "react-toastify";
 
 function CommentCreateForm(props) {
   const { post, setPost, setComments, profileImage, profile_id } = props;
@@ -39,7 +40,7 @@ function CommentCreateForm(props) {
       }));
       setBody("");
     } catch (err) {
-      console.log(err);
+      toast.error("An error occurred. Please try again.");
     }
   };
 

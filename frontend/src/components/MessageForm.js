@@ -32,7 +32,7 @@ const MessageForm = ({ typedMessage, setTypedMessage, fetchCallback }) => {
       toast.success('Message sent!');
     } catch (err) {
       toast.error('There was an error sending your message. Please try again.');
-      console.log('Error sending message:', err);
+      toast.error('Error sending message');
     }
   };
 

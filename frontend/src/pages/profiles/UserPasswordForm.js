@@ -15,6 +15,7 @@ import styles from "../../styles/PostCreateEditForm.module.css";
 import profileStyles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+import { toast } from "react-toastify";
 
 const UserPasswordForm = () => {
   const history = useHistory();
@@ -49,7 +50,7 @@ const UserPasswordForm = () => {
       await axiosRes.post("/dj-rest-auth/password/change/", userData);
       history.goBack();
     } catch (err) {
-      console.log(err);
+      toast.error("Error updating password");
       setErrors(err.response?.data);
     }
   };

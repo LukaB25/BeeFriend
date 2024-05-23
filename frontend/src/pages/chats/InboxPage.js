@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelectedChat } from '../../contexts/SelectChatContext';
+import { useRedirect } from '../../hooks/useRedirect';
 
 import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
@@ -10,11 +11,12 @@ import Col from 'react-bootstrap/Col';
 import appStyles from '../../App.module.css';
 
 const InboxPage = () => {
+  useRedirect('loggedOut');
   const selectedChat = useSelectedChat();
   return (
     <Row className='justify-content-center'>
       <Col xs={12} md={6} className="d-lg-none">
-      <Inbox InboxPage />
+        <Inbox InboxPage />
       </Col>
       <Col xs={12} md={6} className="d-lg-none">
         {selectedChat ? <Messenger InboxPage /> : null}

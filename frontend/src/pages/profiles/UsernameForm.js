@@ -18,6 +18,7 @@ import styles from "../../styles/PostCreateEditForm.module.css";
 import profileStyles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+import { toast } from "react-toastify";
 
 const UsernameForm = () => {
   const [username, setUsername] = useState("");
@@ -49,7 +50,7 @@ const UsernameForm = () => {
       }));
       history.goBack();
     } catch (err) {
-      console.log(err);
+      toast.error("Failed to update username");
       setErrors(err.response?.data);
     }
   };

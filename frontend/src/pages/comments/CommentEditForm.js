@@ -4,6 +4,7 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import styles from "../../styles/CommentCreateEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import { toast } from "react-toastify";
 
 function CommentEditForm(props) {
   const { id, body, setShowEditForm, setComments } = props;
@@ -34,7 +35,7 @@ function CommentEditForm(props) {
       }));
       setShowEditForm(false);
     } catch (err) {
-      console.log(err);
+      toast.error("An error occurred. Please try again.");
     }
   };
 

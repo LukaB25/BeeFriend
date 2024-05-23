@@ -46,7 +46,6 @@ export const ChatDataProvider = ({ children }) => {
   const sendMessage = async (chatId, message) => {
     if (!chatId || !message) {
       toast.error('Chat ID or message is missing');
-      console.log('Chat ID or message is missing');
       return;
     }
     try {

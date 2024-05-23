@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useCurrentUser } from "./CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
+import { toast } from "react-toastify";
 
 const FriendDataContext = createContext();
 const SetFriendDataContext = createContext();
@@ -24,13 +25,8 @@ export const FriendDataProvider = ({ children }) => {
         setFriendsData({
           friends: data
         });
-        // const friends = data.results.filter(
-        //   friend => currentUser?.profile_id === friend.friend ||
-        //   currentUser?.profile_id === friend.owner_profile_id
-        // ).map(friend => friend.friend === currentUser?.profile_id ? friend.owner_profile_id : friend.friend);
-        // console.log('Friends from data context:', friends)
       } catch (err) {
-        console.log('Error fetching friends data:', err.data)
+        toast.error('Error fetching friends data')
       }
     };
 

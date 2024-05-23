@@ -16,14 +16,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from '../styles/NavBar.module.css';
 import { removeCurrentUserFromLocalStorage, removeTokenTimestamp } from '../utils/utils';
+import { useSetSelectedChat } from '../contexts/SelectChatContext';
 
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
 
-  const {expanded, setExpanded, ref} = useClickOutsideToggle();
+  const { expanded, setExpanded, ref } = useClickOutsideToggle();
   const history = useHistory()
+  const setSelectedChat = useSetSelectedChat();
 
 
   const handleLogout = async (event) => {
@@ -38,13 +40,13 @@ const NavBar = () => {
       setCurrentUser(null);
       removeTokenTimestamp();
       removeCurrentUserFromLocalStorage();
+      setSelectedChat(null);
       toast.success('Logged out successfully!')
       const timer = setTimeout(() => {
         history.push('/');
       }, 2000);
       return () => clearTimeout(timer);
     } catch (err) {
-      console.log(err.response?.data);
       toast.error('An error occurred. Please try again.')
     }
   }
@@ -54,22 +56,22 @@ const NavBar = () => {
       <NavLink to="/friends"
         className={styles.NavLink}
         activeClassName={styles.Active}
-        ><i className="fas fa-users"></i> Friends
+      ><i className="fas fa-users"></i> Friends
       </NavLink>
       <NavLink to="/inbox"
         className={`${styles.NavLink} d-lg-none`}
         activeClassName={styles.Active}
-        ><i className="fas fa-envelope"></i> Inbox
+      ><i className="fas fa-envelope"></i> Inbox
       </NavLink>
       <NavLink to={`/profiles/${currentUser?.profile_id}`}
         className={styles.NavLink}
         activeClassName={styles.Active}
-        ><Avatar src={currentUser?.profile_image} height={20} width={22.5} text="Profile" />
+      ><Avatar src={currentUser?.profile_image} height={20} width={22.5} text="Profile" />
       </NavLink>
       <NavLink to="/"
         className={styles.NavLink}
         onClick={handleLogout}
-        ><i className="fas fa-sign-out-alt"></i> Logout
+      ><i className="fas fa-sign-out-alt"></i> Logout
       </NavLink>
     </>
   )
@@ -79,12 +81,12 @@ const NavBar = () => {
       <NavLink exact to="/login"
         className={styles.NavLink}
         activeClassName={styles.Active}
-        ><i className="fas fa-sign-in-alt"></i> Log In
+      ><i className="fas fa-sign-in-alt"></i> Log In
       </NavLink>
       <NavLink exact to="/register"
         className={styles.NavLink}
         activeClassName={styles.Active}
-        ><i className="fas fa-user-plus"></i> Register
+      ><i className="fas fa-user-plus"></i> Register
       </NavLink>
     </>
   )
@@ -95,7 +97,7 @@ const NavBar = () => {
         <NavLink exact to="/">
           <Navbar.Brand
             className={styles.Logo}>
-              BEE<Icon icon="gg:bee" className={styles.LogoIcon} />FRIEND
+            BEE<Icon icon="gg:bee" className={styles.LogoIcon} />FRIEND
           </Navbar.Brand>
         </NavLink>
         <Navbar.Toggle
@@ -117,18 +119,18 @@ const NavBar = () => {
         </Navbar.Collapse>
       </Container>
       <ToastContainer
-            position="top-right"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            style={{marginTop: '7.5rem'}}
-          />
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ marginTop: '7.5rem' }}
+      />
     </Navbar>
   )
 }

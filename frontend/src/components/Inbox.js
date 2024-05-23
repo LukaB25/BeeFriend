@@ -19,6 +19,7 @@ import noResults from '../assets/no_results.png';
 import Avatar from './Avatar';
 import { useSetSelectedChat } from '../contexts/SelectChatContext';
 import { MessageDropdown } from './MoreDropdown';
+import { toast } from 'react-toastify';
 
 const Inbox = ({ InboxPage }) => {
   const { chat } = useChatData();
@@ -37,29 +38,29 @@ const Inbox = ({ InboxPage }) => {
       const { data } = await axiosReq.get('/chats/');
       setChat(data);
     } catch (err) {
-      console.log(err);
+      toast.error("Error deleting chat");
     }
   }
 
   const existingChats = (
     <ListGroup>
       {chat?.results?.length ? (
-      chat.results.map((chat) => (
-        <OverlayTrigger key={chat?.id} placement="top" overlay={<Tooltip>Chat with {chat?.receiver_username === currentUser?.username ? chat?.sender : chat?.receiver_username}</Tooltip>}>
+        chat.results.map((chat) => (
+          <OverlayTrigger key={chat?.id} placement="top" overlay={<Tooltip>Chat with {chat?.receiver_username === currentUser?.username ? chat?.sender : chat?.receiver_username}</Tooltip>}>
             <ListGroup.Item
               onClick={() => setSelectedChat(chat?.id)}
               className={`d-flex text-left ${chatStyles.ChatItem}`}
             >
               <Avatar
                 src={chat?.receiver_username === currentUser?.username ?
-                chat?.sender_image : chat?.receiver_image}
+                  chat?.sender_image : chat?.receiver_image}
                 height={35} width={40}
               />
               <strong className="ml-2">
                 {chat?.receiver_username === currentUser?.username ?
-                chat?.sender : chat?.receiver_username}
+                  chat?.sender : chat?.receiver_username}
               </strong>
-            <MessageDropdown handleDelete={() => handleDelete(chat?.id)} />
+              {chat?.sender === currentUser?.username && <MessageDropdown handleDelete={() => handleDelete(chat?.id)} />}
             </ListGroup.Item>
           </OverlayTrigger>
         ))
@@ -78,41 +79,41 @@ const Inbox = ({ InboxPage }) => {
 
         const { data: updatedChatData } = await axiosReq.get('/chats/');
         setChat(updatedChatData);
-      } catch(err) {
-        console.log("Error starting new chat:", err);
+      } catch (err) {
+        toast.error("Error starting new chat");
       }
     } else {
-      console.log("No user found with the id:", query);
+      toast.error("No user found with that username", );
     }
   };
-  
+
   return (
     <Container className={`${appStyles.Content} ${styles.SmallComponent}
-    ${styles.LargeScreen} ${InboxPage && chatStyles.SmallDeviceInbox} text-center`} 
+    ${styles.LargeScreen} ${InboxPage && chatStyles.SmallDeviceInbox} text-center`}
     >
       <h4>Inbox</h4>
-        {currentUser ? (
-          <React.Fragment>
+      {currentUser ? (
+        <React.Fragment>
           <Form className={`d-flex ${styles.SearchBar}`}>
-          <OverlayTrigger placement="top" overlay={<Tooltip>Type in a username and click Chat, to create a new chat.</Tooltip>}>
-            <Form.Control
-              type="text"
-              placeholder="Find user"
-              name="newChat"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              onSubmit={(event) => handleStartNewChat(event)}
-            />
-          </OverlayTrigger>
-          <Button
-            onClick={handleStartNewChat}
-            className={`${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton} mb-3`}
-          >
-            Chat
-          </Button>
-        </Form>
-        {existingChats}
-      </React.Fragment>
+            <OverlayTrigger placement="top" overlay={<Tooltip>Type in a username and click Chat, to create a new chat.</Tooltip>}>
+              <Form.Control
+                type="text"
+                placeholder="Find user"
+                name="newChat"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                onSubmit={(event) => handleStartNewChat(event)}
+              />
+            </OverlayTrigger>
+            <Button
+              onClick={handleStartNewChat}
+              className={`${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton} mb-3`}
+            >
+              Chat
+            </Button>
+          </Form>
+          {existingChats}
+        </React.Fragment>
       ) : (
         <Asset src={noResults} message="Log in to see your inbox!" />
       )}

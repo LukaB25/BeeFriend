@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelectedChat, useSetSelectedChat } from '../contexts/SelectChatContext';
-import { useChatData, useSetChatData,  } from '../contexts/ChatDataContext';
-
+import { useChatData, useSetChatData, } from '../contexts/ChatDataContext';
 import { fetchMoreMessages, getCurrentUserFromLocalStorage } from '../utils/utils';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -15,7 +15,6 @@ import appStyles from '../App.module.css';
 import Asset from './Asset';
 import Avatar from './Avatar';
 import MessageForm from './MessageForm';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 const Messenger = ({ InboxPage }) => {
@@ -27,10 +26,9 @@ const Messenger = ({ InboxPage }) => {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [typedMessage, setTypedMessage] = useState('');
   const chatData = useChatData();
-  const scrollableContainerRef = useRef(null);
 
   const chat = chatData?.chat?.results.find(chat => chat.id === selectedChat);
-  
+
   const fetchCallback = useCallback(async (chatId) => {
     setHasLoaded(false);
     await fetchMessages(chatId);
@@ -83,7 +81,7 @@ const Messenger = ({ InboxPage }) => {
         </div>
         {hasLoaded ? (
           <React.Fragment>
-            <div key={"chat" + selectedChat} className={chatStyles.Messages} ref={scrollableContainerRef}>
+            <div key={"chat" + selectedChat} className={chatStyles.Messages}>
               {messages[selectedChat]?.results?.length > 0 ? (
                 <InfiniteScroll
                   children={
@@ -92,8 +90,8 @@ const Messenger = ({ InboxPage }) => {
                         key={message?.id}
                         className={`text-left d-flex
                         ${message?.sender === currentUser?.username ?
-                          chatStyles.SentMessage : chatStyles.ReceivedMessage
-                        }`}
+                            chatStyles.SentMessage : chatStyles.ReceivedMessage
+                          }`}
                       >
                         <p>{message?.message}</p>
                         {/* <small className="text-right">{message?.seen ? <i className="fas fa-check-double" /> : null}</small> */}
@@ -102,7 +100,6 @@ const Messenger = ({ InboxPage }) => {
                   }
                   dataLength={messages[selectedChat]?.results?.length || 0}
                   loader={<Asset spinner />}
-                  scrollableTarget={scrollableContainerRef.current}
                   hasMore={!!messages[selectedChat]?.next}
                   next={() => fetchMoreMessages(selectedChat, messages[selectedChat], setMessages)}
                 />

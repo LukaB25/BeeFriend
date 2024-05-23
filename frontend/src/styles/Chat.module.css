@@ -15,6 +15,11 @@
   cursor: pointer;
 }
 
+.ChatItem:hover {
+  background-color: var(--aquamarine--blue--color) !important;
+  border-radius: 1.5rem;
+}
+
 .MessengerHeader {
   margin: 0.5rem 3.5rem;
 }

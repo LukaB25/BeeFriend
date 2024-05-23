@@ -20,6 +20,7 @@ import RecommendedProfiles from '../profiles/RecommendedProfiles';
 import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
 import { useSelectedChat } from '../../contexts/SelectChatContext';
+import { toast } from 'react-toastify';
 
 function PostPage() {
   const currentUser = useCurrentUser();
@@ -39,7 +40,7 @@ function PostPage() {
         setPost({ results: [post] })
         setComments(comments)
       } catch (err) {
-        console.log(err)
+        toast.error('Failed to fetch post data');
       }
     }
 

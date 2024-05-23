@@ -20,6 +20,7 @@ import profileStyles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 import assetStyles from "../../styles/Asset.module.css";
+import { toast } from "react-toastify";
 
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
@@ -45,7 +46,7 @@ const ProfileEditForm = () => {
           const { name, bio, image } = data;
           setProfileData({ name, bio, image });
         } catch (err) {
-          console.log(err);
+          toast.error("Failed to fetch profile data");
           history.push("/");
         }
       } else {
@@ -81,7 +82,7 @@ const ProfileEditForm = () => {
       }));
       history.goBack();
     } catch (err) {
-      console.log(err);
+      toast.error("Failed to update profile");
       setErrors(err.response?.data);
     }
   };
