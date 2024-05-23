@@ -27,8 +27,9 @@ class ChatSerializer(serializers.ModelSerializer):
     
     def get_unread_message_count(self, obj):
         user = self.context['request'].user
-        message_count = obj.messages.filter(chat=obj, chat__receiver=user, seen=False).count()
+        message_count = obj.messages.filter(chat=obj, chat__sender=user, seen=False).count()
         return message_count
+
     
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)

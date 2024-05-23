@@ -19,7 +19,7 @@ import noResults from '../assets/no_results.png';
 import Avatar from './Avatar';
 import { useSetSelectedChat } from '../contexts/SelectChatContext';
 
-const Inbox = ({ mobile }) => {
+const Inbox = () => {
   const chatData = useChatData();
   const [query, setQuery] = useState('');
   const currentUser = getCurrentUserFromLocalStorage();
@@ -28,7 +28,6 @@ const Inbox = ({ mobile }) => {
   const profiles = profileData?.recommendedProfiles?.results;
 
   const matchProfileToQuery = profiles.find(profile => profile.owner === query)
-  
 
   // console.log('Profiles:', profiles)
 

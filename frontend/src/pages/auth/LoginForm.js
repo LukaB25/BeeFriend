@@ -76,7 +76,7 @@ const LoginForm = () => {
                         </NavLink>
                     </Container>
                     <Container className={styles.FormMessage}>
-                        <p>Don't have an account? Register for one instead. <i class="fas fa-arrow-up"></i></p>
+                        <p>Don't have an account? Register for one instead. <i className="fas fa-arrow-up"></i></p>
                     </Container>
                     <Container>
                         <h1 className={styles.Header}>Log In</h1>

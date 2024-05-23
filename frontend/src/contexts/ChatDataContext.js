@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useCurrentUser } from "./CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
 
@@ -13,11 +13,8 @@ export const useSetChatData = () => useContext(SetChatDataContext);
 export const ChatDataProvider = ({ children }) => {
   const currentUser = useCurrentUser();
   const [chat, setChat] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
   
-
-  // console.log('Current user in chat data provider:', currentUser);
-
   useEffect(() => {
     const fetchChats = async () => {
       try {
@@ -28,28 +25,41 @@ export const ChatDataProvider = ({ children }) => {
       }
     };
 
-    fetchChats();
+    if (currentUser) {
+      fetchChats();
+    }
   }, [currentUser]);
 
-  const fetchMessages = async (chatId) => {
+  const fetchMessages = useCallback(async (chatId) => {
     try {
       const { data } = await axiosReq.get(`/chats/${chatId}/messages/`);
       setMessages((prevState) => ({
         ...prevState,
         [chatId]: data,
       }));
-      console.log('Fetched messages:', data);
+      console.log('Fetched messages:', data?.results);
     } catch (err) {
       console.log('Messages error:', err.response?.data);
     }
-  };
+  }, []);
 
   const sendMessage = async (chatId, message) => {
+    if (!chatId || !message) {
+      console.log('Chat ID or message is missing');
+      return;
+    } else {
+      console.log('Sent message is:', message)
+      console.log('Selected chat is:', chatId)
+    }
     try {
-      const { data } = await axiosReq.post(`/chats/${chatId}/messages/`, { message });
+      const { data } = await axiosReq.post(`/chats/${chatId}/messages/`, { 
+        message: message,
+        sender: currentUser?.username,
+        receiver: chatId?.receiver === currentUser?.username ? chatId?.sender : chatId?.receiver,
+      });
       setMessages((prevState) => ({
         ...prevState,
-        [chatId]: [...(prevState[chatId] || []), data],
+        [chatId]: Array.isArray(prevState[chatId]) ? [...prevState[chatId], data] : [data],
       }));
       console.log('Sent message:', data?.message);
     } catch (err) {
@@ -57,9 +67,11 @@ export const ChatDataProvider = ({ children }) => {
     }
   };
 
+
+
   return (
     <ChatDataContext.Provider value={{ chat, messages }}>
-      <SetChatDataContext.Provider value={{ fetchMessages, sendMessage }}>
+      <SetChatDataContext.Provider value={{ fetchMessages, sendMessage, setMessages }}>
         {children}
       </SetChatDataContext.Provider>
     </ChatDataContext.Provider>

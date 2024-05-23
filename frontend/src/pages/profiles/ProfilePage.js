@@ -25,6 +25,8 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useProfileData, useSetProfileData } from '../../contexts/ProfileDataContext';
 import { useFriendData } from '../../contexts/FriendDataContext';
 import Inbox from '../../components/Inbox';
+import Messenger from '../../components/Messenger';
+import { useSelectedChat } from '../../contexts/SelectChatContext';
 
 
 function ProfilePage() {
@@ -36,12 +38,10 @@ function ProfilePage() {
   const setProfileData = useSetProfileData();
   const {pageProfile} = useProfileData();
   const [profile] = pageProfile.results;
-
   const [profilePosts, setProfilePosts] = useState({ results: [] });
-
   const friendButtons = FriendButtons();
-
   const friendsData = useFriendData();
+  const selectedChat = useSelectedChat();
 
   const friend_count = friendsData?.friendsData.friends?.results.filter(
     friend => profile?.id === friend.friend ||
@@ -182,7 +182,8 @@ function ProfilePage() {
       {currentUser ? (
       <Col lg={3} className="d-none d-lg-block">
         <Inbox />
-      </Col>) : null}
+        {selectedChat ? <Messenger /> : null}
+      </Col> ) : null}
     </Row>
   );
 }

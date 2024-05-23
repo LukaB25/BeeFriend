@@ -18,6 +18,25 @@ export const fetchMoreData = async (resource, setResource) => {
   }
 }
 
+export const fetchMoreMessages = async (chatId, resource, setMessages) => {
+  try {
+    console.log('Fetching more messages from:', resource.next);
+    const { data } = await axiosReq.get(resource.next);
+    console.log('Fetched more messages:', data.results);
+
+    setMessages((prevState) => ({
+      ...prevState,
+      [chatId]: {
+        ...prevState[chatId],
+        results: [...prevState[chatId].results, ...data.results],
+        next: data.next
+      }
+    }));
+  } catch (err) {
+    console.error("Error fetching more messages:", err);
+  }
+};
+
 export const setTokenTimestamp = (data) => {
   const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
   localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);

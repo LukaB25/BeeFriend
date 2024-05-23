@@ -18,6 +18,8 @@ import { fetchMoreData } from '../../utils/utils';
 import FriendProfiles from '../profiles/FriendProfiles';
 import RecommendedProfiles from '../profiles/RecommendedProfiles';
 import Inbox from '../../components/Inbox';
+import Messenger from '../../components/Messenger';
+import { useSelectedChat } from '../../contexts/SelectChatContext';
 
 function PostPage() {
   const currentUser = useCurrentUser();
@@ -25,6 +27,7 @@ function PostPage() {
   const [comments, setComments] = useState({ results: [] });
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
+  const selectedChat = useSelectedChat();
 
   useEffect(() => {
     const handleMount = async () => {
@@ -100,7 +103,8 @@ function PostPage() {
       {currentUser ? (
       <Col lg={3} className="d-none d-lg-block">
         <Inbox />
-      </Col>) : null}
+        {selectedChat ? <Messenger /> : null}
+      </Col> ) : null}
     </Row>
   )
 }

@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelectedChat, useSetSelectedChat } from '../contexts/SelectChatContext';
-import { useChatData, useSetChatData } from '../contexts/ChatDataContext';
+import { useChatData, useSetChatData,  } from '../contexts/ChatDataContext';
 
-import {
-  saveMessageToLocalStorage,
-  getMessageFromLocalStorage,
-  removeMessageFromLocalStorage,
-  getCurrentUserFromLocalStorage
-} from '../utils/utils';
+import { fetchMoreMessages, getCurrentUserFromLocalStorage } from '../utils/utils';
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -20,92 +15,112 @@ import appStyles from '../App.module.css';
 import Asset from './Asset';
 import Avatar from './Avatar';
 import MessageForm from './MessageForm';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
-const Messenger = ({ mobile }) => {
+const Messenger = () => {
   const currentUser = getCurrentUserFromLocalStorage();
   const selectedChat = useSelectedChat();
   const setSelectedChat = useSetSelectedChat();
   const { messages } = useChatData();
-  const { fetchMessages } = useSetChatData();
+  const { fetchMessages, setMessages } = useSetChatData();
   const [hasLoaded, setHasLoaded] = useState(false);
   const [typedMessage, setTypedMessage] = useState('');
+  const chatData = useChatData();
 
-  console.log('Messages:', messages);
-  console.log('Selected chat:', selectedChat);
-  console.log('Current user:', currentUser);
+  const chat = chatData?.chat?.results.find(chat => chat.id === selectedChat);
 
+  // console.log('Messages:', messages[selectedChat]?.results);
+  // console.log('Selected chat:', selectedChat);
+  // console.log('Current user:', currentUser);
+  // console.log('Chat data:', chat)
+  // console.log("Fetching more messages from:", messages[selectedChat]?.next);
+
+
+  
+  const fetchCallback = useCallback(async (chatId) => {
+    setHasLoaded(false);
+    await fetchMessages(chatId);
+    setHasLoaded(true);
+  }, [fetchMessages, ]);
 
   useEffect(() => {
     if (selectedChat) {
-      setHasLoaded(false);
-      fetchMessages(selectedChat).then(() => setHasLoaded(true))
+      fetchCallback(selectedChat);
     }
-  }, [selectedChat]);
-
+  }, [selectedChat, fetchCallback]);
 
   useEffect(() => {
     const intervalTimer = setInterval(() => {
-      saveMessageToLocalStorage(typedMessage);
       if (selectedChat) {
-        fetchMessages(selectedChat).then(() => setHasLoaded(true))
+        fetchCallback(selectedChat);
       }
     }, 300000); // 5 minutes interval
 
     return () => {
-      setTypedMessage(getMessageFromLocalStorage());
-      removeMessageFromLocalStorage();
       clearInterval(intervalTimer);
     }
-  }, [selectedChat, fetchMessages, typedMessage]);
+  }, [selectedChat, fetchCallback]);
 
   const handleExitChat = () => {
     setSelectedChat(null);
-  };  
+  };
   return (
     currentUser && selectedChat ? (
-    <Container className={`${appStyles.Content} ${styles.SmallComponent}
-    ${styles.LargeScreen} text-center d-flex flex-column`} 
-    >
-      <div className="d-flex justify-content-center align-items-center">
-        <h4 className={chatStyles.MessengerHeader}>Messenger</h4>
-        <Button
-          onClick={handleExitChat}
-          className={`${btnStyles.Button}
+      <Container className={`${appStyles.Content} ${styles.SmallComponent}
+    ${styles.LargeScreen} ${chatStyles.MessengerComponent} text-center d-flex flex-column`}
+      >
+        <div className="d-flex justify-content-center align-items-center">
+          <Avatar
+            src={chat?.receiver_username === currentUser?.username ?
+              chat?.sender_image : chat?.receiver_image}
+            height={35} width={40}
+          />
+          <h4 className={chatStyles.MessengerHeader}>Messenger</h4>
+          <Button
+            onClick={handleExitChat}
+            className={`${btnStyles.Button}
           ${btnStyles.CloseButton} ${btnStyles.HexButton}
           ml-auto`}>
             <i className="fas fa-times" />
-        </Button>
+          </Button>
         </div>
-          {hasLoaded ? (
-            <React.Fragment>
-            <div className={chatStyles.Messages}>
-              {messages?.results?.length === 0 ? (
-              (messages?.results?.map((message) => (
-                <div
-                  key={message?.id}
-                  className={`text-left ${message.sender === currentUser.username ? chatStyles.SentMessage : chatStyles.ReceivedMessage}`}
-                >
-                  <Avatar
-                    src={message?.receiver_username === currentUser?.username ?
-                    message?.sender_image : message?.receiver_image}
-                    height={35} width={40}
-                  />
-                  <p>{message?.message}</p>
-                </div>
-              )))
-            ) : (
-                  <p>You have no messages with this user... yet</p>
+        {hasLoaded ? (
+          <React.Fragment>
+            <div key={"chat" + selectedChat} className={chatStyles.Messages}>
+              {messages[selectedChat]?.results?.length > 0 ? (
+                <InfiniteScroll
+                  children={
+                    (messages[selectedChat]?.results?.map((message) => (
+                      <React.Fragment
+                      key={message?.id}>
+                      <div
+                        className={`text-left d-flex ${message?.sender === currentUser?.username ? chatStyles.SentMessage : chatStyles.ReceivedMessage}`}
+                      >
+                        <p>{message?.message}</p>
+                        <small className="text-right">{message?.seen === true ? <i className="fas fa-check-double" /> : null}</small>
+                      </div>
+
+                      </React.Fragment>
+                    )))
+                  }
+                  dataLength={messages[selectedChat]?.results?.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!messages[selectedChat]?.next}
+                  next={() => fetchMoreMessages(selectedChat, messages[selectedChat], setMessages)}
+                />
+              ) : (
+                <p>You have no messages with this user... yet</p>
               )}
             </div>
             <div className={`mt-auto ${chatStyles.MessageForm}`}>
-              <MessageForm typedMessage={typedMessage} setTypedMessage={setTypedMessage} />
+              <MessageForm typedMessage={typedMessage} setTypedMessage={setTypedMessage} fetchCallback={fetchCallback} />
             </div>
-            </React.Fragment>
-          ) : (
-            <Asset spinner />
-          )}
-    </Container>
+          </React.Fragment>
+        ) : (
+          <Asset spinner />
+        )}
+      </Container>
 
     ) : null
   )
