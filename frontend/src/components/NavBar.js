@@ -1,22 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
-
-import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
-import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Icon } from '@iconify/react';
 
-import Avatar from './Avatar';
+import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
+import { useSetSelectedChat } from '../contexts/SelectChatContext';
+import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
+import { removeCurrentUserFromLocalStorage, removeTokenTimestamp } from '../utils/utils';
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { Icon } from '@iconify/react';
+
 import styles from '../styles/NavBar.module.css';
-import { removeCurrentUserFromLocalStorage, removeTokenTimestamp } from '../utils/utils';
-import { useSetSelectedChat } from '../contexts/SelectChatContext';
+
+import Avatar from './Avatar';
 
 
 const NavBar = () => {

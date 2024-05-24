@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import useFriendRequestAction from '../../hooks/useFriendRequestAction';
 
-import { Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/Profile.module.css';
 import btnStyles from '../../styles/Button.module.css';
 
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import Avatar from '../../components/Avatar';
 import Asset from '../../components/Asset';
-import useFriendRequestAction from '../../hooks/useFriendRequestAction';
 
 const Profile = ({ profile, mobile }) => {
   const { id, friend_id, owner, image } = profile;

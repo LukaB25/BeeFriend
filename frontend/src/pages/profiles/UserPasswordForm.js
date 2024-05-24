@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { axiosRes } from "../../api/axiosDefaults";
+import { toast } from "react-toastify";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -7,15 +11,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
-import { useHistory, useParams } from "react-router-dom";
-import { axiosRes } from "../../api/axiosDefaults";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-
 import styles from "../../styles/PostCreateEditForm.module.css";
 import profileStyles from "../../styles/ProfilePage.module.css";
-import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
-import { toast } from "react-toastify";
+import btnStyles from "../../styles/Button.module.css";
 
 const UserPasswordForm = () => {
   const history = useHistory();

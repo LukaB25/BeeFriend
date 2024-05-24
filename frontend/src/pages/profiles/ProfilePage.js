@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { toast } from 'react-toastify';
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useProfileData, useSetProfileData } from '../../contexts/ProfileDataContext';
+import { useFriendData } from '../../contexts/FriendDataContext';
+import { useSelectedChat } from '../../contexts/SelectChatContext';
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
+import { fetchMoreData } from '../../utils/utils';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -12,22 +19,15 @@ import styles from '../../styles/ProfilePage.module.css';
 import appStyles from '../../App.module.css';
 
 import Asset from '../../components/Asset';
-import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import noResults from '../../assets/no_results.png';
-import { fetchMoreData } from '../../utils/utils';
+
+import FriendButtons from '../../components/Buttons';
+import Inbox from '../../components/Inbox';
+import Messenger from '../../components/Messenger';
 
 import RecommendedProfiles from './RecommendedProfiles';
 import FriendProfiles from './FriendProfiles';
 import Post from '../posts/Post';
-import FriendButtons from '../../components/Buttons';
-
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import { useProfileData, useSetProfileData } from '../../contexts/ProfileDataContext';
-import { useFriendData } from '../../contexts/FriendDataContext';
-import Inbox from '../../components/Inbox';
-import Messenger from '../../components/Messenger';
-import { useSelectedChat } from '../../contexts/SelectChatContext';
-import { toast } from 'react-toastify';
 
 
 function ProfilePage() {

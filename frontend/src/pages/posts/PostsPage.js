@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useLocation, useHistory, Link } from 'react-router-dom';
-import { useRedirect } from '../../hooks/useRedirect';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-import { fetchMoreData } from '../../utils/utils';
+import { toast } from 'react-toastify';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useFriendData } from '../../contexts/FriendDataContext';
+import { useSelectedChat } from '../../contexts/SelectChatContext';
 import { FilterDropdown } from '../../components/FilterDropdown';
+import { fetchMoreData } from '../../utils/utils';
+import { useRedirect } from '../../hooks/useRedirect';
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -23,11 +25,8 @@ import FriendProfiles from '../profiles/FriendProfiles';
 import Asset from '../../components/Asset';
 
 import noResults from "../../assets/no_results.png";
-import { useFriendData } from '../../contexts/FriendDataContext';
 import Inbox from '../../components/Inbox';
-import { useSelectedChat } from '../../contexts/SelectChatContext';
 import Messenger from '../../components/Messenger';
-import { toast } from 'react-toastify';
 
 function PostsPage({ message, filter = "" }) {
   const currentUser = useCurrentUser();

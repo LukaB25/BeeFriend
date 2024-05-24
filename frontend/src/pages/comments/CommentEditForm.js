@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { axiosRes } from "../../api/axiosDefaults";
+import { toast } from "react-toastify";
 
 import styles from "../../styles/CommentCreateEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import { toast } from "react-toastify";
 
 function CommentEditForm(props) {
   const { id, body, setShowEditForm, setComments } = props;

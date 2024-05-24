@@ -1,10 +1,10 @@
 import React from 'react';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 
 import styles from '../../styles/PageNotFound.module.css';
-
 
 import NotFound from '../../assets/404_Not_Found.jpg'
 

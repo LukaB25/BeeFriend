@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { axiosRes } from "../../api/axiosDefaults";
+import { toast } from "react-toastify";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -7,18 +11,11 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-import { useHistory, useParams } from "react-router-dom";
-import { axiosRes } from "../../api/axiosDefaults";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../../contexts/CurrentUserContext";
 
 import styles from "../../styles/PostCreateEditForm.module.css";
+import appStyles from "../../App.module.css";
 import profileStyles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import appStyles from "../../App.module.css";
-import { toast } from "react-toastify";
 
 const UsernameForm = () => {
   const [username, setUsername] = useState("");

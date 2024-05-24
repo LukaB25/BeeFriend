@@ -2,13 +2,13 @@ import React from 'react';
 import { useSelectedChat } from '../../contexts/SelectChatContext';
 import { useRedirect } from '../../hooks/useRedirect';
 
-import Inbox from '../../components/Inbox';
-import Messenger from '../../components/Messenger';
-
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import appStyles from '../../App.module.css';
+
+import Inbox from '../../components/Inbox';
+import Messenger from '../../components/Messenger';
 
 const InboxPage = () => {
   useRedirect('loggedOut');

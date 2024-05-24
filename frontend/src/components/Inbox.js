@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { axiosReq } from '../api/axiosDefaults';
+import { toast } from 'react-toastify';
 import { useChatData, useSetChatData } from '../contexts/ChatDataContext';
 import { useProfileData } from '../contexts/ProfileDataContext';
+import { useSetSelectedChat } from '../contexts/SelectChatContext';
 import { getCurrentUserFromLocalStorage } from '../utils/utils';
+import { MessageDropdown } from './MoreDropdown';
 
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 import styles from '../styles/PostsPage.module.css';
 import chatStyles from '../styles/Chat.module.css';
@@ -17,9 +22,6 @@ import appStyles from '../App.module.css';
 import Asset from './Asset';
 import noResults from '../assets/no_results.png';
 import Avatar from './Avatar';
-import { useSetSelectedChat } from '../contexts/SelectChatContext';
-import { MessageDropdown } from './MoreDropdown';
-import { toast } from 'react-toastify';
 
 const Inbox = ({ InboxPage }) => {
   const { chat } = useChatData();

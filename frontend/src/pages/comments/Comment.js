@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { axiosRes } from '../../api/axiosDefaults';
 import { toast } from 'react-toastify';
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { MoreDropdown } from '../../components/MoreDropdown';
 
 import Media from 'react-bootstrap/Media';
 import Container from 'react-bootstrap/Container';
 
 import styles from '../../styles/Comment.module.css';
 import Avatar from '../../components/Avatar';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import { MoreDropdown } from '../../components/MoreDropdown';
 
 import CommentEditForm from "./CommentEditForm";
 

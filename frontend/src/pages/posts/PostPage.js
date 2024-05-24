@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { axiosReq } from '../../api/axiosDefaults';
+import { toast } from 'react-toastify';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useSelectedChat } from '../../contexts/SelectChatContext';
+import { fetchMoreData } from '../../utils/utils';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,15 +16,11 @@ import styles from '../../styles/CommentCreateEditForm.module.css';
 import Post from './Post';
 import CommentCreateForm from '../comments/CommentCreateForm';
 import Comment from '../comments/Comment';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import Asset from '../../components/Asset';
-import { fetchMoreData } from '../../utils/utils';
 import FriendProfiles from '../profiles/FriendProfiles';
 import RecommendedProfiles from '../profiles/RecommendedProfiles';
 import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
-import { useSelectedChat } from '../../contexts/SelectChatContext';
-import { toast } from 'react-toastify';
 
 function PostPage() {
   const currentUser = useCurrentUser();

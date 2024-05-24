@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { axiosReq } from "../../api/axiosDefaults";
+import { toast } from "react-toastify";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -9,18 +12,11 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
-import { axiosReq } from "../../api/axiosDefaults";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../../contexts/CurrentUserContext";
-
 import styles from "../../styles/PostCreateEditForm.module.css";
 import profileStyles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 import assetStyles from "../../styles/Asset.module.css";
-import { toast } from "react-toastify";
 
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();

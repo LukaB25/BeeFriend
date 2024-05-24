@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useHistory } from 'react-router';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRedirect } from '../../hooks/useRedirect';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +19,6 @@ import assetStyles from '../../styles/Asset.module.css';
 
 import Upload from '../../assets/upload.png';
 import Asset from '../../components/Asset';
-import { useRedirect } from '../../hooks/useRedirect';
 
 
 

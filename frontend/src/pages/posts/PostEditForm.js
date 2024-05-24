@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -11,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import { Image } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
 
 import styles from '../../styles/PostCreateEditForm.module.css';

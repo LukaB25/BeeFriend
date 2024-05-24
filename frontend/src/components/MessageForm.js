@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useSetChatData } from '../contexts/ChatDataContext';
 import { useSelectedChat } from '../contexts/SelectChatContext';
-import { toast } from 'react-toastify';
+
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import styles from '../styles/Chat.module.css';
 import btnStyles from '../styles/Button.module.css';

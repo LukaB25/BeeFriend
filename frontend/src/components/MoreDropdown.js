@@ -1,7 +1,9 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
-import styles from '../styles/MoreDropdown.module.css';
 import { useHistory } from "react-router";
+
+import Dropdown from 'react-bootstrap/Dropdown'
+;
+import styles from '../styles/MoreDropdown.module.css';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu

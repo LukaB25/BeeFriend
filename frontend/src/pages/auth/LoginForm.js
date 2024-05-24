@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import styles from '../../styles/LoginRegisterForm.module.css';
-import btnStyles from '../../styles/Button.module.css';
+import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
+import { setCurrentUserInLocalStorage, setTokenTimestamp } from '../../utils/utils';
+import { useRedirect } from '../../hooks/useRedirect';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -15,8 +13,10 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
-import { useRedirect } from '../../hooks/useRedirect';
-import { setCurrentUserInLocalStorage, setTokenTimestamp } from '../../utils/utils';
+
+import styles from '../../styles/LoginRegisterForm.module.css';
+import btnStyles from '../../styles/Button.module.css';
+
 
 const LoginForm = () => {
     const setCurrentUser = useSetCurrentUser();

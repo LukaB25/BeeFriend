@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useCurrentUser } from '../contexts/CurrentUserContext';
+import { useProfileData } from '../contexts/ProfileDataContext';
+import useFriendRequestAction from '../hooks/useFriendRequestAction';
 
 import Button from 'react-bootstrap/Button';
 
 import btnStyles from '../styles/Button.module.css';
 
-import { useCurrentUser } from '../contexts/CurrentUserContext';
-
-import useFriendRequestAction from '../hooks/useFriendRequestAction';
-import { useProfileData } from '../contexts/ProfileDataContext';
 import Asset from './Asset';
 
 const FriendButtons = () => {
