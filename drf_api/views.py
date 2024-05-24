@@ -17,10 +17,8 @@ def root_route(request):
         'for likes': '/likes/',
         'for friends': '/friends/',
         'for chats': '/chats/',
-        'for notifications': '/notifications/',
         'to access specific chat messages': '/chats/<chat_id>/messages/',
         'for admins to access the admin panel': '/admin/',
-        'for notifications !! still under maintanance !!': '/notifications/'
         }
     }
     return Response(response_data)

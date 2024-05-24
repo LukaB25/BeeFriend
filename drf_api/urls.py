@@ -31,7 +31,6 @@ urlpatterns = [
     path('api/', include('likes.urls')),
     path('api/', include('friends.urls')),
     path('api/', include('chats.urls')),
-    path('', include('notifications.urls')),
 ]
 
 handler404 = TemplateView.as_view(template_name='index.html')
