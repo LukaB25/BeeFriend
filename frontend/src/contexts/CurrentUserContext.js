@@ -27,6 +27,11 @@ export const CurrentUserProvider = ({children}) => {
 
   useEffect(() => {
     handleMount();
+
+    return () => {
+      setCurrentUser(null);
+      setCurrentUserInLocalStorage(null);
+    }
   }, []);
 
   useMemo(() => {

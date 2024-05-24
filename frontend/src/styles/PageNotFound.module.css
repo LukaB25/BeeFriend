@@ -1,7 +1,21 @@
 .PageNotFound {
-  background-color: var(--offwhite--color--transparent);
+  background-color: var(--offwhite--color);
   font-size: 1.2rem;
   padding: 1.5rem;
   margin: 1.5rem 0;
   border-radius: 1.5rem;
+  width: 100%;
+}
+
+.PageNotFound h1 {
+  font-size: 2rem;
+  margin: 1.5rem 0;
+}
+
+.Image {
+  width: 90%;
+  height: auto;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+
 }

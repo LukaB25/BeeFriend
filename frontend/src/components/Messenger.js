@@ -94,7 +94,7 @@ const Messenger = ({ InboxPage }) => {
                           }`}
                       >
                         <p>{message?.message}</p>
-                        {/* <small className="text-right">{message?.seen ? <i className="fas fa-check-double" /> : null}</small> */}
+                        <small className="text-right">{message?.created_at}</small>
                       </div>
                     )))
                   }

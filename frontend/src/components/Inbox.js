@@ -37,6 +37,7 @@ const Inbox = ({ InboxPage }) => {
       await axiosReq.delete(`/chats/${chatId}/`);
       const { data } = await axiosReq.get('/chats/');
       setChat(data);
+      setSelectedChat(null);
     } catch (err) {
       toast.error("Error deleting chat");
     }

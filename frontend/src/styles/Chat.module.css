@@ -68,7 +68,7 @@
 .SentMessage small, .ReceivedMessage small{
   color: var(--charcoal--color);
   position: absolute;
-  top: 0.5rem;
+  bottom: 0.5rem;
   right: 0.5rem;
 }
 
