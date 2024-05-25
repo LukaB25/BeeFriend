@@ -88,7 +88,7 @@
     margin: 0.5rem 8rem;
   }
   .SmallDeviceInbox .MessageInput {
-    width: 100%;
+    width: 100vw;
     height: 10rem !important;
   }
   .SmallDeviceInbox .SentMessage p, .SmallDeviceInbox  .ReceivedMessage p {
