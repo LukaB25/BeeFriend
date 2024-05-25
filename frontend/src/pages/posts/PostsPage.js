@@ -57,9 +57,15 @@ function PostsPage({ message, filter = "" }) {
         <Col xs={3}>
           <Link
             to="/posts/create"
-            className={`${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton}`}
+            className={`d-none d-lg-inline ${btnStyles.Button} ${btnStyles.FormButton}`}
           >
             Add Post
+          </Link>
+          <Link
+            to="/posts/create"
+            className={`d-inline-flex justify-content-center d-lg-none ${btnStyles.Button} ${btnStyles.FormButton} ${btnStyles.NewPostButton}`}
+          >
+            <i className="fas fa-plus-square"></i>
           </Link>
         </Col>
         <Col xs={6}>

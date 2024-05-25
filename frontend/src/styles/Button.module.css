@@ -30,6 +30,13 @@
     margin: 1rem 0 0 2rem;
 }
 
+.NewPostButton {
+    font-size: 1.4rem;
+    width: 5rem;
+    padding: 0.5rem 1rem;
+    margin: 0;
+}
+
 .FormButton:hover, .PostButton:hover, .FriendButton:hover {
     font-weight: 600;
     color: var(--charcoal--color);
