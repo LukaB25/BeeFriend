@@ -81,11 +81,14 @@
     height: 80vh;
     font-size: 1.6rem;
   }
+}
+
+@media screen and (max-width: 1024px) {
   .SmallDeviceInbox .MessengerHeader {
     margin: 0.5rem 8rem;
   }
   .SmallDeviceInbox .MessageInput {
-    width: 35rem;
+    width: 100%;
     height: 10rem !important;
   }
   .SmallDeviceInbox .SentMessage p, .SmallDeviceInbox  .ReceivedMessage p {
