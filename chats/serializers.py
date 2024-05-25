@@ -3,20 +3,20 @@ from rest_framework import serializers
 from .models import Chat, Message
 
 
-
 class ChatSerializer(serializers.ModelSerializer):
     """
     Chat model serialzier.
     Creates a new chat instance so users can send messages to each other.
     First message sent to the user creates the chat instance.
     Validates that the user can't send a message to themselves.
-    Each message sent to the user is connected to the previous chats they shared
-    but the messages are connected to the chat id.
+    Each message sent to the user is connected to the previous chats they
+    shared but the messages are connected to the chat id.
     """
     sender = serializers.ReadOnlyField(source='sender.username')
     sender_image = serializers.ReadOnlyField(source='sender.profile.image.url')
     receiver_username = serializers.ReadOnlyField(source='receiver.username')
-    receiver_image = serializers.ReadOnlyField(source='receiver.profile.image.url')
+    receiver_image = serializers.ReadOnlyField(
+        source='receiver.profile.image.url')
     last_message = serializers.SerializerMethodField()
     unread_message_count = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
@@ -24,16 +24,15 @@ class ChatSerializer(serializers.ModelSerializer):
     def get_last_message(self, obj):
         last_message = obj.messages.order_by('-created_at').first()
         return last_message.message if last_message else None
-    
+
     def get_unread_message_count(self, obj):
         user = self.context['request'].user
-        message_count = obj.messages.filter(chat=obj, chat__sender=user, seen=False).count()
+        message_count = obj.messages.filter(
+            chat=obj, chat__sender=user, seen=False).count()
         return message_count
 
-    
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
-    
 
     class Meta:
         model = Chat
@@ -57,7 +56,6 @@ class MessageSerializer(serializers.ModelSerializer):
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
-
 
     class Meta:
         model = Message

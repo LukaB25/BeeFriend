@@ -17,15 +17,13 @@ class Chat(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     class Meta:
         ordering = ['-created_at']
         unique_together = ['sender', 'receiver'], ['receiver', 'sender']
 
-    
     def __str__(self):
         return f'Message {self.receiver}'
-    
+
 
 class Message(models.Model):
     """
@@ -43,16 +41,14 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     seen = models.BooleanField(default=False)
 
-
     class Meta:
         ordering = ['created_at']
-    
 
     def __str__(self):
         return f'{self.sender} has sent a message to {self.chat.receiver}.'
-    
+
     def get_receiver(self):
         return self.chat.receiver
-    
+
     def get_receiver_username(self):
         return self.chat.receiver.username
