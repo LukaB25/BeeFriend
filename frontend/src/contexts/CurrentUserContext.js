@@ -21,9 +21,13 @@ export const CurrentUserProvider = ({children}) => {
     setCurrentUser(data);
     setCurrentUserInLocalStorage(data);
     } catch (err) {
-      toast.error('Error fetching user data');
+      if (err.response?.status === 401) {
+        setCurrentUser(null);
+        removeCurrentUserFromLocalStorage();
+      } else {
+        toast.error('An error occurred while trying to fetch the current user');
     }
-  }
+  }}
 
   useEffect(() => {
     handleMount();

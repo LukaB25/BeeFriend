@@ -14,16 +14,15 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     class Meta:
         ordering = ['-created_at']
         unique_together = ['owner', 'post']
-
 
     def __str__(self):
         return f'{self.owner} liked {self.post}'
 
     def save(self, *args, **kwargs):
         if Like.objects.filter(owner=self.owner, post=self.post).exists():
-            raise IntegrityError({'detail': 'You have already liked this post.'})
+            raise IntegrityError({
+                'detail': 'You have already liked this post.'})
         super().save(*args, **kwargs)

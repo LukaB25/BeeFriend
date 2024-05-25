@@ -18,7 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
 
     def validate_image(self, value):
-        if value.size > 1024 *1024 *2:
+        if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError(
                 'Image size is too big, it must be less than 2MB'
             )
@@ -35,7 +35,7 @@ class PostSerializer(serializers.ModelSerializer):
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
-    
+
     def get_like_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
@@ -47,7 +47,7 @@ class PostSerializer(serializers.ModelSerializer):
             else:
                 return None
         return None
-    
+
     def get_comment_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
@@ -59,13 +59,12 @@ class PostSerializer(serializers.ModelSerializer):
             else:
                 return None
         return None
-    
+
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
-    
+
     def get_updated_at(self, obj):
         return naturaltime(obj.updated_at)
-
 
     class Meta:
         model = Post

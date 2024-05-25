@@ -10,7 +10,6 @@ class LikeSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     title = serializers.ReadOnlyField(source='post.title')
 
-
     class Meta:
         model = Like
         fields = [

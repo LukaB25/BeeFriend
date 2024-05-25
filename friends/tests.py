@@ -12,15 +12,19 @@ class FriendListViewTests(APITestCase):
         User.objects.create_user(username='tester', password='test123')
         User.objects.create_user(username='tester2', password='test321')
         User.objects.create_user(username='tester3', password='test456')
-        Friend.objects.create(owner=User.objects.get(username='tester'), friend=User.objects.get(username='tester2'), accepted=True)
-    
+        Friend.objects.create(owner=User.objects.get(username='tester'),
+                              friend=User.objects.get(username='tester2'),
+                              accepted=True)
+
     def test_user_can_lookup_all_friend_requests(self):
         response = self.client.get('/friends/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_logged_in_user_can_send_a_friend_request(self):
         self.client.login(username='tester', password='test123')
-        response = self.client.post('/friends/', {'friend': User.objects.get(username='tester3').id})
+        response = self.client.post(
+            '/friends/', {'friend': User.objects.get(
+                username='tester3').id})
         count = Friend.objects.count()
         print(count)
         self.assertEqual(count, 2)
@@ -28,23 +32,31 @@ class FriendListViewTests(APITestCase):
 
     def test_logged_in_user_cant_send_a_friend_request_to_themselves(self):
         self.client.login(username='tester', password='test123')
-        response = self.client.post('/friends/', {'friend': User.objects.get(username='tester').id})
+        response = self.client.post(
+            '/friends/', {'friend': User.objects.get(
+                username='tester').id})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_logged_in_user_cant_send_a_friend_request_twice(self):
         self.client.login(username='tester', password='test123')
-        response = self.client.post('/friends/', {'friend': User.objects.get(username='tester2').id})
+        response = self.client.post(
+            '/friends/', {'friend': User.objects.get(
+                username='tester2').id})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_logged_in_user_cant_send_a_friend_request_to_an_existing_friend(self):
-        Friend.objects.create(owner=User.objects.get(username='tester2'), friend=User.objects.get(username='tester3'), accepted=True)
+    def test_logged_in_user_cant_send_a_request_to_an_existing_friend(self):
+        Friend.objects.create(
+            owner=User.objects.get(username='tester2'),
+            friend=User.objects.get(username='tester3'), accepted=True)
         self.client.login(username='tester3', password='test456')
-        response = self.client.post('/friends/', {'friend': User.objects.get(username='tester2').id})
+        response = self.client.post(
+            '/friends/', {'friend': User.objects.get(
+                username='tester2').id})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
 
     def test_logged_out_user_cant_send_a_friend_request(self):
-        response = self.client.post('/friends/', {'friend': User.objects.get(username='tester3').id})
+        response = self.client.post(
+            '/friends/', {'friend': User.objects.get(username='tester3').id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
@@ -56,8 +68,12 @@ class FriendDetailViewTests(APITestCase):
         User.objects.create_user(username='tester', password='test123')
         User.objects.create_user(username='tester2', password='test321')
         User.objects.create_user(username='tester3', password='test456')
-        Friend.objects.create(owner=User.objects.get(username='tester'), friend=User.objects.get(username='tester2'))
-        Friend.objects.create(owner=User.objects.get(username='tester2'), friend=User.objects.get(username='tester3'), accepted=True)
+        Friend.objects.create(
+            owner=User.objects.get(username='tester'),
+            friend=User.objects.get(username='tester2'))
+        Friend.objects.create(
+            owner=User.objects.get(username='tester2'),
+            friend=User.objects.get(username='tester3'), accepted=True)
 
     def test_user_can_view_a_friend_request_using_valid_id(self):
         response = self.client.get('/friends/1/')

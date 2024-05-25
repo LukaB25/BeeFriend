@@ -17,8 +17,6 @@ class ProfileListViewTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-
-
 class ProfileDetailViewTests(APITestCase):
     """
     Tests for the ProfileDetail view.

@@ -15,23 +15,25 @@ class FriendSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     owner_profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    owner_profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    owner_profile_image = serializers.ReadOnlyField(
+        source='owner.profile.image.url')
     friend_username = serializers.ReadOnlyField(source='friend.username')
     friend_profile_id = serializers.ReadOnlyField(source='friend.profile.id')
-    friend_profile_image = serializers.ReadOnlyField(source='friend.profile.image.url')
+    friend_profile_image = serializers.ReadOnlyField(
+        source='friend.profile.image.url')
     created_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context.get('request')
         return obj.owner == request.user
-    
+
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
 
     def create(self, validated_data):
         user = self.context.get('request').user
         friend = validated_data.get('friend')
-        
+
         if user == friend:
             raise serializers.ValidationError({
                 'detail': 'You cannot send a friend request to yourself.'
@@ -39,21 +41,21 @@ class FriendSerializer(serializers.ModelSerializer):
 
         if Friend.objects.filter(owner=user, friend=friend).exists():
             raise serializers.ValidationError({
-                'detail': 'You have already sent a friend request to this user.'
+                'detail':
+                    'You have already sent a friend request to this user.'
             })
 
         if Friend.objects.filter(owner=friend, friend=user).exists():
             raise serializers.ValidationError({
                 'detail': 'You are already friends with this user.'
             })
-        
+
         try:
             return super().create(validated_data)
         except IntegrityError:
             raise serializers.ValidationError({
-                'detail': 'An error occurred while processing your request. Please try again.'
+                'detail': 'An error occurred while processing your request.'
             })
-
 
     class Meta:
         model = Friend
@@ -105,7 +107,7 @@ class FriendDetailSerializer(FriendSerializer):
     def create(self, validated_data):
         user = self.context.get('request').user
         friend = validated_data.get('friend')
-    
+
     def validate(self, data):
         request = self.context.get('request')
         if self.instance.owner == request.user:
@@ -128,4 +130,3 @@ class FriendDetailSerializer(FriendSerializer):
             'friend',
             'is_friend',
         ]
-

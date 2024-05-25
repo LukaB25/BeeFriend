@@ -34,8 +34,10 @@ class PostDetailViewTests(APITestCase):
     Tests for the PostDetail view.
     """
     def setUp(self):
-        tester = User.objects.create_user(username='tester', password='test123')
-        tester2 = User.objects.create_user(username='tester2', password='test321')
+        tester = User.objects.create_user(
+            username='tester', password='test123')
+        tester2 = User.objects.create_user(
+            username='tester2', password='test321')
         Post.objects.create(
             owner=tester, title='Test title'
         )

@@ -31,7 +31,7 @@ class PostList(generics.ListCreateAPIView):
         'title',
         'content',
     ]
-    filterset_fields =[
+    filterset_fields = [
         'owner',
         'owner__profile',
         'owner__friend__owner',
@@ -42,11 +42,11 @@ class PostList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-    
+
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve, update or delete a post instance. 
+    Retrieve, update or delete a post instance.
     """
     serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]

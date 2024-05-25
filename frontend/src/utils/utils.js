@@ -15,7 +15,7 @@ export const fetchMoreData = async (resource, setResource) => {
       }, prevResource.results)
     }))
   } catch (err) {
-    toast.error(`Error fetching more data: ${err}`);
+    toast.error(`Error fetching more data.`);
   }
 }
 

@@ -25,7 +25,6 @@ class FriendList(generics.ListCreateAPIView):
         'friend',
         'accepted',
     ]
-    
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -57,7 +56,7 @@ class CurrentUserFriendList(generics.ListAPIView):
             accepted=True,
         )
 
-    
+
 class FriendDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve, update or delete a friend instance.

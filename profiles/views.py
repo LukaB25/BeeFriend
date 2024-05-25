@@ -13,11 +13,10 @@ class ProfileList(generics.ListAPIView):
     created using django signals.
     """
     queryset = Profile.objects.annotate(
-        post_count = Count('owner__post', distinct=True),
-        post_interaction_count = Count(
+        post_count=Count('owner__post', distinct=True),
+        post_interaction_count=Count(
             'owner__post__like', distinct=True
-        ) + Count('owner__post__comment', distinct=True
-        )
+        ) + Count('owner__post__comment', distinct=True)
     ).order_by('-created_at')
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly,
@@ -38,7 +37,7 @@ class ProfileList(generics.ListAPIView):
         'name',
         'bio',
     ]
-    filterset_fields =[
+    filterset_fields = [
         'owner__owner__owner',
         'owner__friend__owner',
     ]
@@ -50,13 +49,11 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
-        post_count = Count('owner__post', distinct=True),
-        friend_count = Count(
-            'owner__friend', distinct=True
-        ),
-        post_interaction_count = Count(
+        post_count=Count('owner__post', distinct=True),
+        friend_count=Count(
+            'owner__friend', distinct=True),
+        post_interaction_count=Count(
             'owner__post__like', distinct=True
-        ) + Count('owner__post__comment', distinct=True
-        )
+        ) + Count('owner__post__comment', distinct=True)
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
