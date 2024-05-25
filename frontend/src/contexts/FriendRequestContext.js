@@ -56,7 +56,7 @@ export const FriendRequestProvider = ({ children }) => {
         results: [...prevState.results, data]
       }));
     } catch (err) {
-      toast.error(`Error sending friend request. ${err.response?.data}`);
+      toast.error(`Error sending friend request.`);
     }
   }
 
@@ -79,7 +79,7 @@ export const FriendRequestProvider = ({ children }) => {
         results: [prevState.results.filter(request => request.id !== id)]
       }));
     } catch (err) {
-      toast.error(`Error accepting friend request. ${err.response?.data}`);
+      toast.error(`Error accepting friend request.`);
     }
   }
 
@@ -99,7 +99,7 @@ export const FriendRequestProvider = ({ children }) => {
         results: prevState.results.filter(request => request.id !== id)
       }));
     } catch (err) {
-      toast.error(`Error denying friend request. ${err.response?.data}`);
+      toast.error(`Error denying friend request.`);
     }
   }
 

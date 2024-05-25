@@ -25,7 +25,7 @@ export const CurrentUserProvider = ({children}) => {
         setCurrentUser(null);
         removeCurrentUserFromLocalStorage();
       } else {
-        toast.error('An error occurred while trying to fetch the current user');
+        toast.error('You are not logged in!');
     }
   }}
 

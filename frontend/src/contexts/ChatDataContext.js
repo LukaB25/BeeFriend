@@ -22,7 +22,7 @@ export const ChatDataProvider = ({ children }) => {
         const { data } = await axiosReq.get('/chats/');
         setChat(data);
       } catch (err) {
-        toast.error(`Error fetching chats. ${err.response?.data}`);
+        toast.error(`Error fetching chats.`);
       }
     };
 
@@ -39,7 +39,7 @@ export const ChatDataProvider = ({ children }) => {
         [chatId]: data,
       }));
     } catch (err) {
-      toast.error(`Error fetching messages. ${err.response?.data}`);
+      toast.error(`Error fetching messages.`);
     }
   }, []);
 
@@ -59,7 +59,7 @@ export const ChatDataProvider = ({ children }) => {
         [chatId]: Array.isArray(prevState[chatId]) ? [...prevState[chatId], data] : [data],
       }));
     } catch (err) {
-      toast.error(`Error sending message ${err.response?.data}`);
+      toast.error(`Error sending message.`);
     }
   };
 
