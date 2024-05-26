@@ -95,13 +95,13 @@ const UserPasswordForm = () => {
               className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
               onClick={() => history.goBack()}
             >
-              cancel
+              <i className="fas fa-arrow-alt-circle-left"> Cancel</i>
             </Button>
             <Button
               type="submit"
               className={`${btnStyles.Button} ${btnStyles.FormButton}`}
             >
-              save
+              Save <i className="fas fa-save"></i>
             </Button>
           </Form>
         </Container>

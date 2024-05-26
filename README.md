@@ -144,9 +144,10 @@ Inbox
 - Messenger is located on the right beneath the Inbox on large screens, after the chat is selected inside the Inbox, it is hidden on medium and smaller screens and is located with the Inbox on the special page.
 - Messenger is only shown while user is logged in, and is hidden when user is logged out. Additionally it is hidden until user select a chat or when they exit the chat they are currently in.
 - Messenger consists of the existing messages, received on the left and sent on the right of the component, with time indicating how long ago has the message been received, and the message input text area with a send button (plane inside a hex box).
+- Currently the individual messages can not be deleted. Will be added in the future updates, was skipped due to time constraint for the project.
 - If a user wants to send a message to a different user, they can click onto the different user in the Inbox and switch to the selected user, or they can exit opened chat by pressing the X in the top right corner.
 - Small avatar image will be displayed in the top left corner of the component, indicating which user are you messaging with.
-- Messenger stays open even when the user switches between the pages, but is closed when user logs out.
+- Messenger stays open even when the user switches between the pages, but is closed when user logs out or clicks exit button.
 - Messenger is displayed on Home page, Profile page and each of the Post pages
 
 Inbox - Messenger
@@ -222,3 +223,74 @@ Profile Page - Info, Stats and Bio
 - The project was secured using Django Rest permissions and React redirect hook which are protecting the views to write and edit posts and comments, users cannot bypass and type in a write/edit urls to make changes to the site content.
 - Regular users can't access the admin panel, only superusers are allowed the access to the admin panel.
 - SECRET_KEY, DATABASE_URL and CLOUDINARY_URL were stored inside the env.py and config vars the whole time, and were not leaked in the github repository.
+
+## Testing
+
+|           Action            |        Expectation                           | Outcome |
+| :-------------------------: |   :-------------------------------------:    | :-----: |
+|           Homepage        |   The homepage loads on page start        |  Pass   |
+|       Navigation bar      |   The navigation bar responds to screen size change |  Pass   |
+|       Logo       |        When clicked User is taken to homepage          |  Pass   |
+|       Nav link - home     |      When clicked User is taken to homepage    |  Pass   |
+|   Nav link - Friends   |      When clicked User is taken to friends page  |  Pass   |
+|          Friends Page       |   The friends page loads without issues    |  Pass   |
+|       Nav link - Profile  |      When clicked User is taken to the profile page   |  Pass   |
+|           Profile Page        |   The profile page loads without issues        |  Pass   |
+|       Nav link - Register  |      When clicked User is taken to register page, if user is logged in, they are redirected to the homepage   |  Pass   |
+|           Register        |   The register page loads without issues, on successful registration redirects user to the login page        |  Pass   |
+|       Nav link - Log In    |      When clicked User is taken to login page, if user is logged in, they are redirected to the homepage   |  Pass   |
+|           Log In        |   The login page loads without issues, on sucessful login redirects user to the homepage       |  Pass   |
+|       Nav link - Log Out   |      When clicked User is logged out, after which they are redirected to the homepage   |  Pass   |
+|       Navigation bar:active link    |   The navigation bar link is underlined when user is on matching page |  Pass   |
+|       Navigation bar - small screens     |   The navigation bar links are collapsed into a toggle switch, that when clicked displays list of links |  Pass   |
+|       Navigation bar links:hover     |   The navigation bar links change color to orange when hovered and the icon is bouncing to indicate hovered on element |  Pass   |
+|       Navigation bar - logged out     |   The navigation bar displays Home, Log In and Register links when user is not logged in |  Pass   |
+|       Navigation bar - logged in     |   The navigation bar displays Home, Friends, Profile and Log Out links when user is logged in |  Pass   |
+|       Navigation bar - logged in - small screen     |   The navigation bar displays additional link Inbox when user is logged in and on medium or smaller screen device |  Pass   |
+|       User status message     |   User status message pops up as a fleeting alert upon successful log in  |  Pass   |
+|       Background image        |        Loads successfully upon page open. Responds with screen size change          |  Pass   |
+|       Homepage - logged out        |        The additional features are hidden until user logs in, displays a search bar and posts on screen take up more space than when logged in.       |  Pass   |
+|       Homepage - logged in        |        The additional features are displayed as soon as the user logs in, displays a advanced search bar, posts, recommended and friends profiles along with inbox components        |  Pass   |
+|       Recommended profiles        |         Displays correctly and Avatars, usernames and buttons are visible. Displays on the top left beneath the navbar on both large and small screens          |  Pass   |
+|       Recommended profiles - buttons       |         Buttons display depending on the different friends status. When clicked th button either adds, accepts, denies, cancels or removes a friend, depending ot he button type          |  Pass   |
+|       Friends profiles        |         Displays correctly and Avatars, usernames and buttons are visible. Displays on the top left beneath the recommended profiles on large and on the right beneath the navbar on small screens          |  Pass   |
+|       Friends profiles - buttons       |         Unfriend buttons are displayed correctly. Removes friend from list when button is clicked          |  Pass   |
+|       Search Bar       |        Displays in the top center, beneath the navbar on large screens and beneath recommended and friends profiles on small screens. On input filters the content by username, title or body content          |  Pass   |
+|       Search Bar - logged out      |        When user is logged out only displays the search bar along the full width of the content bar          |  Pass   |
+|       Search Bar - logged in      |        When logged in the search bar displays New Post button to the left, search bar in the middle and filter dropdown on the right          |  Pass   |
+|       Inbox       |        Displayed only on large screen devices in the top right, beneath the navbar while user is logged in. Displays a input bar, submit button and list of existing chats and user avatar and username.           |  Pass   |
+|       Inbox - input field      |        On input and submit (***enter or press on the button***), checks typed username against existing profiles and existing chat instances and if user exists and chat instance doesn't creates a new chat.           |  Pass   |
+|       Inbox - existing chat      |        When user clicks on the existing chat instance, the messenger component is generated and displayed beneath the Inbox component.           |  Pass   |
+|       Inbox - delete option      |        If a user is the owner/creator of the chat instance, they can delete the chat and all of the messages within it.           |  Pass   |
+|       Messenger      |        If there are no messages, user is informed of it via message. Received messages are displayed on the left and sent messages on the right of the component. On submit, the messages are sent and saved in the database. Avatar image is visible in the top right corner, to inform user on whom they are messagin with.           |  Pass   |
+|       Messenger - exit       |       When exit button is clicked the messenger stops and is not visible on the screen. The messenger is automatically closed when user logs out.          |  Pass   |
+|           Add Post        |   On click, redirects logged in user to the create post page, where they can decide to add an image, title and/or body. Title field is mandatory, image and body are not mandatory fields, letting user post an image, or just a brief status.       |  Pass   |
+|           Add Post - buttons       |   Create post page is supplied with two buttons, cancel which redirect user back to the previous page, and Post button, which saves the post to the database and redirects user to the published post page.       |  Pass   |
+|           Post Page       |   Displays the selected or just published post on the page, with all of the comments beneath it. If current user is the owner of the post, they have Post Dropdown, that lets them either edit or delete post       |  Pass   |
+|           Post Page - Edit button      |   On click, redirects user to the edit page, automatically filling the existing post data fields(image for existing image post, title for title and body for body content)       |  Pass   |
+|           Edit Post        |   User they can decide to change or add an image, title and/or body. Title field is mandatory, image and body are not mandatory fields.       |  Pass   |
+|           Edit Post - buttons       |   Create post page is supplied with two buttons, cancel which redirect user back to the previous page, and Post button, which saves the edits existing post in the database and redirects user to the published post page.       |  Pass   |
+|           Post Page -delete button       |   On click deletes the post and all of the connected likes and comments from the database       |  Pass   |
+|           Post Page - like      |   Logged in user can like the post they do not own and unlike previously liked posts, same as on rest of the pages. When post is liked or unliked, like count is incremented, reflecting the correct count        |  Pass   |
+|           Post Page - comment      |   While on post page, any user can read and view existing comments, logged in users can add new, edit or delete their existing comments. when comment is added or deleted the comment count is incremented, reflecting the correct count, updated comments do not change the comment count.       |  Pass   |
+|           Post Page - comment add      |   New comment is posted and displayed at the top of the comment section, current time is posted as post date(how long ago was the post made)       |  Pass   |
+|           Post Page - comment edit      |   Edited comment is posted and displayed at the same position in the comment section, the posted time is displayed, indicating that the post has been updated      |  Pass   |
+|           Post Page - comment delete      |   Deleted comment is removed from the database and no longer exists or displays underneath the post      |  Pass   |
+|       Profile Page       |       On open the profile page displays larger user avatar image, profile owner username, stats, conditionally bio and posts they have made.          |  Pass   |
+|       Profile Page - stats       |        Stats displayed are: Post count, Post interactions (liked and commented posts count), and Friends count. The counts change and update with changes         |  Pass   |
+|       Profile Page - bio       |        Bio is displayed only if a user added a bio, it is located beneath the stats         |  Pass   |
+|       Profile Page - Posts       |        Posts are displayed beneath the Profile info section in descending order         |  Pass   |
+|       Profile Page - Owner       |        Profile owner can see Dropdown menu at the top right corner of the info section.          |  Pass   |
+|       Profile Page - Owner Dropdown      |        Dropdown displays: Edit profile, Change username and Change password options. Each of the three options have cancel, redirect users to previous page, and save, updates the information in the database and displayed data on the front end, buttons          |  Pass   |
+|       Profile Page - Owner Edit profile      |         Edit profile allows for the user to change their Profile Image and/or Bio         |  Pass   |
+|       Profile Page - Owner change username      |         Change username lets users choose a different username, username has to be unique.         |  Pass   |
+|       Profile Page - Owner change username      |         Change username lets users choose a different username, username has to be unique.         |  Pass   |
+|       Profile Page - Not owner       |        If user is viewing another users profile, they will see a button to send, remove, accept, deny or cancel a friend request to the profile owner.         |  Pass   |
+|       Inbox page        |       Inbox page link is hidden on the large screen, but displayed on medium or smaller screens. When accessed on large screen, user can see a message indicating it is dedicated for smaller screens. Displays inbox and when chat is selected messenger together so messenger can be used on smaller screens as well as larger ones.           |  Pass   |
+|      User Profile CRUD functionalities      |        Users can create a profile by registering, and logged in users can update their profiles, while all users can read the profile data.          |  Pass   |
+|      User Post CRUD functionalities      |        Logged in users can create, read, update and delete their own posts, while logged out users can only read existing posts          |  Pass   |
+|      User Like CRUD functionalities     |         Logged in users can create, read and delete their likes on other users posts          |  Pass   |
+|      User Comment CRUD functionalities      |        Logged in users can create, read, update and delete their own comments on their own or other users posts.          |  Pass   |
+|      User Inbox CRUD functionalities      |        Logged in users can create, read and delete their chats with other users          |  Pass   |
+|      User Messenger CRUD functionalities      |        Logged in users can create and read all of the messages they have shared with another user          |  Pass   |
+|      DRF API functionalities      |        Users can have restricted access to the DRF API and can't access confidential data, like private chats from other users, they can only view their own chats.          |  Pass   |

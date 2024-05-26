@@ -130,7 +130,7 @@ const Profile = ({ profile, mobile }) => {
                         className={`${btnStyles.Button} ${btnStyles.FriendButton}`}
                         onClick={() => handleSendFriendRequest(profile?.id)}
                       >
-                        BeFriend
+                        BeeFriend
                       </Button>
                     ) : null
                   }

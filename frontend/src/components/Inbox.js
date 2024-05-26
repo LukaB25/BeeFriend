@@ -97,7 +97,9 @@ const Inbox = ({ InboxPage }) => {
       <h4>Inbox</h4>
       {currentUser ? (
         <React.Fragment>
-          <Form className={`d-flex ${styles.SearchBar}`}>
+          <Form
+            className={`d-flex ${styles.SearchBar}`}
+            onSubmit={handleStartNewChat}>
             <OverlayTrigger placement="top" overlay={<Tooltip>Type in a username and click Chat, to create a new chat.</Tooltip>}>
               <Form.Control
                 type="text"
@@ -105,7 +107,6 @@ const Inbox = ({ InboxPage }) => {
                 name="newChat"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                onSubmit={(event) => handleStartNewChat(event)}
               />
             </OverlayTrigger>
             <Button

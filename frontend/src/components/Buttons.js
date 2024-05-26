@@ -112,7 +112,7 @@ const FriendButtons = () => {
                 className={`${btnStyles.Button} ${btnStyles.FriendButton}`}
                 onClick={() => handleSendFriendRequest(profile?.id)}
               >
-                BeFriend
+                BeeFriend
               </Button>
             ) : null
           }

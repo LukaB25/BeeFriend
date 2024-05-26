@@ -49,6 +49,10 @@ const FriendProfiles = ({ mobile }) => {
       )
   ));
   
+  const currentUserInAcceptedFriendRequests = acceptedFriendRequests?.results?.find((request) => (
+    request?.friend === currentUser?.profile_id ||
+    request?.owner_profile_id === currentUser?.profile_id
+  ));
   
   return (
     <Container
@@ -57,7 +61,7 @@ const FriendProfiles = ({ mobile }) => {
         ${mobile && "d-lg-none"} text-center`}>
       <h4>Friends</h4>
       {hasLoaded ? (
-        currentUser && acceptedFriendRequests ? (
+        currentUser && currentUserInAcceptedFriendRequests ? (
           <>
             {mobile ? (
               <div className="d-flex justify-content-around">
@@ -84,14 +88,11 @@ const FriendProfiles = ({ mobile }) => {
                   )
                 ))}
               </div>
-            ) : (
-              friendProfiles
-            )}
+            ) : friendProfiles
+            }
           </>
-        ) : currentUser ? (
-          <Asset src={noResults} message="You haven't made any friends... yet." />
         ) : (
-        <Asset src={noResults} message="Log in to see your friends!" />
+          <Asset src={noResults} message="You haven't made any friends... yet." />
         )
       ) : (
         <Asset spinner className="text-center" />
