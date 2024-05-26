@@ -45,7 +45,6 @@
     box-shadow: 0 0 1rem .25rem var(--glow--yellow--color),
                 0 0 4rem 2rem var(--glow--yellow--spread--color),
                 inset 0 0 .75em .25rem var(--glow--yellow--color);
-    border-color: var(--enhanced--glow--yellow--color);
 }
 
 .FormButton:active, .FormButton:focus,
@@ -57,13 +56,12 @@
     box-shadow: 0 0 0.6rem .25rem var(--glow--yellow--color),
                 0 0 2.5rem 2rem var(--glow--yellow--spread--color),
                 inset 0 0 .5rem .25rem var(--glow--yellow--color);
-    border-color: var(--enhanced--glow--yellow--color);
 }
 
 
 .CancelButton, .UnfriendButton, .CloseButton {
     border-color: var(--burgundy--color);
-    background-color: var(--black--color);
+    background-color: var(--charcoal--color);
     color: #d10739;
     box-shadow: 0 0 1rem .25rem var(--burgundy--color),
                 0 0 4rem 1rem #26000a,
@@ -100,7 +98,6 @@
     box-shadow: 0 0 0.6rem .25rem #26000a,
                 0 0 2.5rem 2rem #66001a,
                 inset 0 0 .5rem .25rem var(--dark--burgundy--color);
-    border-color: var(--burgundy--color);
 }
 
 .HexButton {
@@ -130,5 +127,4 @@
     box-shadow: 0 0 1rem .25rem var(--aquamarine--blue--color),
                 0 0 4rem 2rem var(--dark--aquamarine--color),
                 inset 0 0 .75em .25rem var(--aquamarine--blue--color);
-    border-color: var(--aquamarine--blue--color);
 }

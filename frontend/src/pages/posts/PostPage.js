@@ -83,6 +83,7 @@ function PostPage() {
                 <Comment
                   key={comment.id}
                   {...comment}
+                  aria-label={`comment ${comment.id} on a post ${post.id}`}
                   setPost={setPost}
                   setComments={setComments}
                 />

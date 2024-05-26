@@ -8,7 +8,6 @@ import { useFriendData } from '../../contexts/FriendDataContext';
 import { useSelectedChat } from '../../contexts/SelectChatContext';
 import { FilterDropdown } from '../../components/FilterDropdown';
 import { fetchMoreData } from '../../utils/utils';
-import { useRedirect } from '../../hooks/useRedirect';
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -38,8 +37,7 @@ function PostsPage({ message, filter = "" }) {
 
   const [query, setQuery] = useState("");
 
-  const history = useHistory()
-  useRedirect('loggedOut');
+  const history = useHistory();
 
   const handleSelectFilter = (filter) => {
     if (filter === "all") {
@@ -164,7 +162,7 @@ function PostsPage({ message, filter = "" }) {
               <InfiniteScroll
                 children={
                   posts.results.map((post) => (
-                    <Post key={post.id} {...post} setPosts={setPosts} />
+                    <Post key={post.id} {...post} setPosts={setPosts}  aria-label={`post ${post.id}`} />
                   ))
                 }
                 dataLength={posts.results.length}

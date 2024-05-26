@@ -209,8 +209,19 @@ Profile Page - Info, Stats and Bio
 - ***Login*** - After registering and creating an account the user is redirected to the login page, where they can log in and start writing posts, commenting on existing posts or like them. On successful log in user will be taken to the home page.
 - ***Logout*** - While logged in a user can decide to logout at any point, when the logout is clicked, it will log user out and redirect user to the home page. While logged out user is restricted from using the site fully. 
 
-### Features left to implement
-- 
+### React Toastify
+- Toast messages were used to create user response messages that dissapear on their own after couple of seconds. The messages respond to most of the user interactions on the site.
+- Some of which are:
+    * Registering
+    * Logging in
+    * Logging out
+    * Adding a new post
+    * Updating or deleting existing post
+    * Writing a comment on a post
+    * Updating or deleting a comment
+    * Creating a message instance
+    * Sending a message
+    * Or their error counterparts
 
 ### Possible future features
 - ***Notifications*** - Automatic notification creation on sent, accepted/denied friend request, liked or commented posts, new messages, etc.
@@ -274,7 +285,7 @@ Profile Page - Info, Stats and Bio
 |           Post Page - like      |   Logged in user can like the post they do not own and unlike previously liked posts, same as on rest of the pages. When post is liked or unliked, like count is incremented, reflecting the correct count        |  Pass   |
 |           Post Page - comment      |   While on post page, any user can read and view existing comments, logged in users can add new, edit or delete their existing comments. when comment is added or deleted the comment count is incremented, reflecting the correct count, updated comments do not change the comment count.       |  Pass   |
 |           Post Page - comment add      |   New comment is posted and displayed at the top of the comment section, current time is posted as post date(how long ago was the post made)       |  Pass   |
-|           Post Page - comment edit      |   Edited comment is posted and displayed at the same position in the comment section, the posted time is displayed, indicating that the post has been updated      |  Pass   |
+|           Post Page - comment edit      |   Edited comment is posted and displayed at the same position in the comment section, the posted time stays the same      |  Pass   |
 |           Post Page - comment delete      |   Deleted comment is removed from the database and no longer exists or displays underneath the post      |  Pass   |
 |       Profile Page       |       On open the profile page displays larger user avatar image, profile owner username, stats, conditionally bio and posts they have made.          |  Pass   |
 |       Profile Page - stats       |        Stats displayed are: Post count, Post interactions (liked and commented posts count), and Friends count. The counts change and update with changes         |  Pass   |
@@ -294,3 +305,119 @@ Profile Page - Info, Stats and Bio
 |      User Inbox CRUD functionalities      |        Logged in users can create, read and delete their chats with other users          |  Pass   |
 |      User Messenger CRUD functionalities      |        Logged in users can create and read all of the messages they have shared with another user          |  Pass   |
 |      DRF API functionalities      |        Users can have restricted access to the DRF API and can't access confidential data, like private chats from other users, they can only view their own chats.          |  Pass   |
+
+## Troubleshooting
+
+- While creating the project I had couple of issues I spent time troubleshooting and resolving.
+- I started the project by building the complete DRF API first, while creating it the biggest issue I came across was while I was building the Notifications app. I tried to create notifications automatically as soon as the friend request, like, comment and message instances were created, I spent some time exploring my options and tried to create them by using Django Signals, after spending some time trying to get them working and creating and removing them couple of times, I was unsuccessful in it, so I decided to come back to it towards the end of the project. After progressing with the project, and submission date approaching, I decided to remove them and focus on finalising my project, and leave the notifications for future updates. My mentor mentioned WebSockets, but that it is best to focus on finishing the project and then exploring them if I have time.
+- When I started with the frontend using React it was relatively similar to the learning material, I was creating my components slowly and had minor troubleshooting in order to get all of the parts to display the way I envisioned them and sketched them out in wireframes and figma.
+- I was commenting out the code trying to locate the errors, and refactoring and changing the code when I found them.
+- I was gettin errors on log in and log out that I couldn't understand, so I spent some time checking the slack and stackoverflow and finding out that there was an issue with the CSRF token and that it was not stored/read properly, after which I followed one of the advices on stackoverflow and adding it to the Log Out handler which ended up fixing the issue.
+- I had an error that kept displaying user as logged out on some of the pages, which after spending a lot of time, I noticed I was missing / on my user contexts and requests to 'dj-rest-auth/user/'. Simple mistake that I kept overlooking.
+- The biggest and longest issue I had to troubleshoot was handling the friend requests and it's status. As I wanted to have multiple options for the friend requests (Sending a friend request, Cancelling existing sent request, Accepting or Denying received request or Unfriending existing friend). I spent days trying to troubleshoot and work on the code to have a proper button displayed. I kept adding, changing, removing and commenting out the code trying to fix it, without success. I managed to have sending friend request work, but other ones were working, but didn't auto update, but required page refresh. I decided to continue and come back to it. While working on a Inbox component I had an idea what I could try and do, which was updating the friend request contexts to handle all of the updates in each component, i.e. for deny component to update all three request types(sent, received and accepted requests). Which ended up fixing the component not updating when user denies, cancels or unfriends a user. But one issue remained which was the accepted friend request still doesn't update the components, and requires page refresh to start working.
+- Due to slow loading of currentUser and/or it missing occasionally on Inbox and Messenger, I decided to store the currentUser data inside of the localStorage in order to speed up and solve the issue.
+- I was trying to set up the filters for the friends posts page, and was unable to figure out on how to do it directly from the DRF API, so I created my own React function that is taking the data, extracting necessary posts and displays them in the descending order on the friends posts page that is available when user is logged in and when they have made some friends on the site.
+
+### Unfixed bugs
+
+- **Accepting a friend request** when a user accepts a friend requests, they need to refresh the site, as the component is not being refreshed by it's self
+
+## Validator testing
+### Performance
+
+Logged Out Lighthouse Performance
+![Logged Out Lighthouse Performance](frontend/public/images/BeeFriend-Lighthouse-Performance-Logged-Out.avif)
+
+Logged In Lighthouse Performance
+![Logged In Lighthouse Performance](frontend/public/images/BeeFriend-Lighthouse-Performance-Logged-In.avif)
+
+### HTML Validating
+
+- HTML is fully valid and passes all of the tests without any errors, there are couple of infos about 'Trailing slash on void elements'
+
+![HTML Validator](frontend/public/images/BeeFriend-HTML-Validator.avif)
+
+CSS Validating
+- CSS is fully valid, couple of warnings detected that were corrected regarding the background color and border color being the same on some of the buttons, as well as visibility shown on index.css body.
+
+### JS React
+
+- There were no JS React errors and it is fully valid
+
+### Python
+
+- Python code passes without any errors, when checked in the linter I received couple of errors due to line length and trailing whitespaces, but all errors were corrected to fix the layout of the code.
+
+## Deployment
+
+### Create a list of requirements
+- in terminal write command: pip3 freeze > requirements.txt
+- requirements.txt is updated. 
+- commit changes and push to github
+
+### Login or Create account with Heroku
+- Signup - fill out the form, as a role select student
+- Confirm your email
+- Login - enter login details
+
+### Create new app
+- select create new app button
+- select the name, name has to be unique
+- select region, Europe for me
+
+#### Settings
+- go to Config Vars and set them up by writing you key value pairs
+    * Key: SECRET_KEY, Value: SECRET_KEY_VALUE
+        - You will get your secret key from settings.py file, it will be created automatically by django. If you accidentaly leak your api, you can make your own or use online SECRET_KEY generator that will generate completely random key you can save as your new SECRET_KEY to your env.py file and config vars
+    * Key: DATABASE_URL, Value: DATABASE_URL_VALUE
+        - DATABASE_URL will be your postgreSQL database url you will receive when you register for the database on elephantSQL or Code Institute postgreSQL database
+    * Key: CLOUDINARY_URL, Value: CLOUDINARY_URL_VALUE
+        - This will be your own personal CLOUDINARY_URL that you can find on your Cloudinary Dashboard
+- It is highly important you keep your Config Vars a complete secret and not publish them on your github repo or your live site as it will compromise your site and leave it vulnerable.
+
+#### Deploy
+- go down to Deployment method section, select GitHub as a method
+- copy the name of your repository, click on search button
+- click on connect button to link up the repository
+- scroll down to automatic deploys, select it to enable automatic deployment of any changes made to GitHub repository or you can do manual deployments yourself each time, which gives you more control over the app.
+- in Manual deploy section, click on Deploy Branch button.
+- the app will run the logs while creating
+- when the app is created the app was successfully deployed message and the view button will appear
+- the app is built, open the app and test it to make sure there are no errors.
+- in case you are making any changes to the files after deployment, you will need to redeploy manually after each push to github
+- If you are making any changes to the static files, you will need collect them and push them to Github same as any other changes in order to take effect
+
+## Credits
+
+### Used Front End libraries
+- testing libraries (jest-dom, react and user event) - used to create and run tests to test React components.
+- axios - HTTP client used to make HTTP requests
+- jwt-decode - library used to decode JSON Web Tokens
+- react - JS library used for building user interfaces
+- react-bootstrap - Bootstrap components built with React 
+- bootstrap - front end framework for building responsive websites, using CSS and JS
+- react-dom - enty point to the DOM and server rendering for React
+- react-infinite-scroll - React component that adds infinite scrolling to the application, helps avoid using the next page each time.
+- react-router-dom - Navigation components that help with routing
+- react-toastify - React library used to add notifications and fleeting notifications to the application
+
+### Media
+- All of the media was downloaded from [Unsplash](https://unsplash.com/) and [FREEPIK](https://www.freepik.com/icons/user)
+- Icons used were taken from [FontAwesome](https://fontawesome.com/)
+- Hexagon shape for assets and buttons was taken from  https://bennettfeely.com/
+- Bee Icon for a logo was used from [iconify](https://iconify.design/)
+- Inspiration for the buttons was taken from [UIVERSE](https://uiverse.io/)
+- Google fonts were used for the fonts
+
+### Content
+- In the beginning of the project I relied a lot on the Code Institute learning materials and I kept going back and forth making sure I get ideas and implement code
+- Help and solution with the Login/Logout errors was found on [StackOverflow](https://stackoverflow.com/questions/26639169/csrf-failed-csrf-token-missing-or-incorrect)
+- During the project build I used couple of tutorials in order to better understand Django Rest Framework API, and refresh my knowledge on JavaScript and Python, as well as React. Some of which are following videos but also accounts I used to learn a bit more:
+- [Dennis Ivy](https://www.youtube.com/watch?v=cJveikta)
+- [Tech With Tim](https://www.youtube.com/watch?v=t-uAgI-AUxc)
+- [Tech With Tim Tutorials](https://www.youtube.com/watch?v=JD-age0BPVo)
+- [Bro Code](https://www.youtube.com/watch?v=CgkZ7MvWUAA&t=2229s)
+- [Programming with Mosh](https://www.youtube.com/watch?v=Ke90Tje7VS0)
+- And simmilar
+
+### The end

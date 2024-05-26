@@ -27,7 +27,7 @@ const Post = (props) => {
     image,
     like_id,
     like_count,
-    // comment_id,
+    comment_id,
     comment_count,
     updated_at,
     postPage,
@@ -127,7 +127,7 @@ const Post = (props) => {
               <i className={`far fa-heart ${styles.Like}`} />
             </OverlayTrigger>
           )}
-          <Link to={`/posts/${id}`} className={styles.Comment}>
+          <Link to={`/posts/${id}`} className={styles.Comment} aria-label={`comment ${comment_id}`}>
             <i className="far fa-comment" />
           </Link>
           {comment_count > 0 ? (<span className={styles.CommentCount}>{comment_count}</span>) : 0}

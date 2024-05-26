@@ -19,7 +19,7 @@ const Comment = (props) => {
     profile_image,
     owner,
     body,
-    updated_at,
+    created_at,
     id,
     setPost,
     setComments,
@@ -58,7 +58,7 @@ const Comment = (props) => {
         <Media.Body>
           <Container className="d-flex justify-content-between">
           <span className={styles.Owner}>{owner}</span>
-          <span className={styles.Date}>{updated_at} <i className="fas fa-calendar-alt"></i></span>
+          <span className={styles.Date}>{created_at} <i className="fas fa-calendar-alt"></i></span>
           </Container>
           {showEditForm ? (
             <CommentEditForm

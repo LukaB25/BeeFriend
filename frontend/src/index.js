@@ -12,7 +12,6 @@ import { ChatDataProvider } from './contexts/ChatDataContext';
 import { SelectedChatProvider } from './contexts/SelectChatContext';
 
 ReactDOM.render(
-  <React.StrictMode>
     <Router>
       <CurrentUserProvider>
         <ProfileDataProvider>
@@ -27,8 +26,7 @@ ReactDOM.render(
           </FriendRequestProvider>
         </ProfileDataProvider>
       </CurrentUserProvider>
-    </Router>
-  </React.StrictMode>,
+    </Router>,
   document.getElementById('root')
 );
 
