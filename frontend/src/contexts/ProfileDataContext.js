@@ -12,6 +12,8 @@ export const useProfileData = () => useContext(ProfileDataContext);
 export const useSetProfileData = () => useContext(SetProfileDataContext);
 
 export const ProfileDataProvider = ({ children }) => {
+  // ProfileDataProvider context used to fetch and store profile data
+  // and provide it to the rest of the application
   const [profileData, setProfileData] = useState({
     pageProfile: { results: [] },
     recommendedProfiles: { results: [] },

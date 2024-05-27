@@ -3,6 +3,7 @@ import { axiosReq } from "../api/axiosDefaults";
 import { toast } from "react-toastify";
 
 export const fetchMoreData = async (resource, setResource) => {
+  // Fetch more data from the next url in the resource object
   try {
     const { data } = await axiosReq.get(resource.next);
     setResource((prevResource) => ({
@@ -20,6 +21,7 @@ export const fetchMoreData = async (resource, setResource) => {
 }
 
 export const fetchMoreMessages = async (chatId, resource, setMessages) => {
+  // Fetch more messages from the next url in the resource object
   try {
     const { data } = await axiosReq.get(resource.next);
     setMessages((prevState) => ({
@@ -36,40 +38,34 @@ export const fetchMoreMessages = async (chatId, resource, setMessages) => {
 };
 
 export const setTokenTimestamp = (data) => {
+  // Set the token timestamp in local storage
   const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
   localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
 };
 
 export const shouldRefreshToken = () => {
+  // Check if the token should be refreshed
   return !!localStorage.getItem("refreshTokenTimestamp");
 };
 
 export const removeTokenTimestamp = () => {
+  // Remove the token timestamp from local storage
   localStorage.removeItem("refreshTokenTimestamp");
 };
 
 export const setCurrentUserInLocalStorage = (data) => {
+  // Set the current user in local storage
   const currentUserString = JSON.stringify(data);
   localStorage.setItem("currentUser", currentUserString);
 };
 
 export const getCurrentUserFromLocalStorage = () => {
+  // Get the current user from local storage
   const currentUserString = localStorage.getItem("currentUser");
   return currentUserString ? JSON.parse(currentUserString) : null;
 };
 
 export const removeCurrentUserFromLocalStorage = () => {
+  // Remove the current user from local storage
   localStorage.removeItem("currentUser");
 };
-
-export const saveMessageToLocalStorage = (message) => {
-  localStorage.setItem("typedMessage", message);
-}
-
-export const getMessageFromLocalStorage = () => {
-  return localStorage.getItem("typedMessage");
-}
-
-export const removeMessageFromLocalStorage = () => {
-  localStorage.removeItem("typedMessage");
-}

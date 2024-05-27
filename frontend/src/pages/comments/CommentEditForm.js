@@ -7,6 +7,8 @@ import styles from "../../styles/CommentCreateEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 function CommentEditForm(props) {
+  // CommentEditForm component used to render a form to edit a comment on a post
+  // handles form submission and updates the comment with the new body
   const { id, body, setShowEditForm, setComments } = props;
 
   const [formBody, setFormBody] = useState(body);

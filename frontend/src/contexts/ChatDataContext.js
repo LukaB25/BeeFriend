@@ -12,6 +12,9 @@ export const useChatData = () => useContext(ChatDataContext);
 export const useSetChatData = () => useContext(SetChatDataContext);
 
 export const ChatDataProvider = ({ children }) => {
+  // ChatDataProvider context used to fetch send and store chat data
+  // and provide it to the rest of the application
+  // Manages gathering chat and messages data and sending messages
   const currentUser = useCurrentUser();
   const [chat, setChat] = useState([]);
   const [messages, setMessages] = useState({});

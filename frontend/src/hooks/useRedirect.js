@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 export const useRedirect = (userAuthStatus) => {
+  // Redirect hook to redirect users to the home page if they are logged in
+  // or logged out
   const history = useHistory();
 
   useEffect(() => {

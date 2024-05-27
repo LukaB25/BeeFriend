@@ -19,6 +19,9 @@ import btnStyles from '../../styles/Button.module.css';
 
 
 const LoginForm = () => {
+    // LoginForm component used to render and allow users to log in to the application
+    // handles form submission and redirects user to the home page on successful login
+    // or displays error message if login fails with reasons for failure
     const setCurrentUser = useSetCurrentUser();
     useRedirect('loggedIn');
 

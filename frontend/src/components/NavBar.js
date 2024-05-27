@@ -20,6 +20,11 @@ import Avatar from './Avatar';
 
 
 const NavBar = () => {
+  // NavBar component used to display navigation links and user profile image
+  // runs a conditional check to display different links based on user authentication
+  // if user is logged out only Home, login and register links are displayed
+  // if user is logged in Home, Friends, Inbox(on medium or smaller screens),
+  // Profile and Logout links are displayed
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
 

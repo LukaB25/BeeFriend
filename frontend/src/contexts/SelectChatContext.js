@@ -9,6 +9,7 @@ export const useSelectedChat = () => useContext(SelectedChatContext);
 export const useSetSelectedChat = () => useContext(SetSelectedChatContext);
 
 export const SelectedChatProvider = ({ children }) => {
+  // Manages selected chat data and provides it to the rest of the application
   const [selectedChat, setSelectedChat] = useState(null);
 
   return (

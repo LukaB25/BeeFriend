@@ -14,6 +14,8 @@ import Profile from './Profile';
 
 
 const RecommendedProfiles = ({ mobile }) => {
+  // RecommendedProfiles component used to display recommended profiles to the logged in user
+  // handles fetching recommended profiles data and displaying recommended profiles
   const { recommendedProfiles } = useProfileData();
 
   const currentUser = useCurrentUser();

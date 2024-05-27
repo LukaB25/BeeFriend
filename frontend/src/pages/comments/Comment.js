@@ -14,6 +14,8 @@ import Avatar from '../../components/Avatar';
 import CommentEditForm from "./CommentEditForm";
 
 const Comment = (props) => {
+  // Comment component used to render a single comment on a post
+  // handles delete comment and edit comment functionality for the comment owner
   const {
     profile_id,
     profile_image,

@@ -17,6 +17,9 @@ import { MoreDropdown } from '../../components/MoreDropdown';
 
 
 const Post = (props) => {
+  // Post component used to render a single post on the page
+  // handles edit and delete post for the owner and like, unlike functionality for other users
+  // displays like and comment count and allows users to navigate to the post detail page
   const {
     id,
     owner,

@@ -17,6 +17,8 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 const UserPasswordForm = () => {
+  // UserPasswordForm component used to render a form to change a password for current user
+  // handles form submission and updates the password if current user is logged in and profile owner
   const history = useHistory();
   const { id } = useParams();
   const currentUser = useCurrentUser();

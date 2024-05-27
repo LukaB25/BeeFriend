@@ -16,6 +16,9 @@ import styles from '../../styles/LoginRegisterForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
 
 const RegisterForm = () => {
+    // RegisterForm component used to render and allow users to register for the application
+    // handles form submission and redirects user to the login page on successful registration
+    // or displays error message if registration fails with reasons for failure
     useRedirect('loggedIn');
     const [registerData, setRegisterData] = useState({
         username: '',

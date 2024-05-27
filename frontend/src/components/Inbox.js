@@ -24,6 +24,8 @@ import noResults from '../assets/no_results.png';
 import Avatar from './Avatar';
 
 const Inbox = ({ InboxPage }) => {
+  // Inbox component used to create new and display existing chats from the current user's
+  // and handle delete chat functionality for the chat owner/creator
   const { chat } = useChatData();
   const { setChat } = useSetChatData();
   const [query, setQuery] = useState('');

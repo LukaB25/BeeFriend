@@ -24,6 +24,9 @@ import Asset from '../../components/Asset';
 
 
 const PostCreateForm = () => {
+  // PostCreateForm component used to render a form to create a new post 
+  // handles new post submission and redirects user to the new post page on successful post creation
+  // redirect to home page if user is not logged in
   useRedirect('loggedOut');
   const [postData, setPostData] = useState({
     title: '',

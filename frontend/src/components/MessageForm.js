@@ -10,6 +10,7 @@ import styles from '../styles/Chat.module.css';
 import btnStyles from '../styles/Button.module.css';
 
 const MessageForm = ({ typedMessage, setTypedMessage, fetchCallback }) => {
+  // MessageForm component used to create and send messages inside selected chat
   const selectedChat = useSelectedChat();
   const { sendMessage } = useSetChatData();
 
@@ -33,7 +34,6 @@ const MessageForm = ({ typedMessage, setTypedMessage, fetchCallback }) => {
       fetchCallback(selectedChat)
       toast.success('Message sent!');
     } catch (err) {
-      toast.error('There was an error sending your message. Please try again.');
       toast.error('Error sending message');
     }
   };

@@ -19,6 +19,7 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
 ));
 
 export const MoreDropdown = ({handleEdit, handleDelete}) => {
+  //  MoreDropdown component used to edit and delete posts
   return (
     <Dropdown className="ml-auto" drop="left">
     <Dropdown.Toggle as={ThreeDots} />
@@ -46,6 +47,7 @@ export const MoreDropdown = ({handleEdit, handleDelete}) => {
 };
 
 export function ProfileEditDropdown({ id }) {
+  // ProfileEditDropdown component used to edit profile(image or bio), username, and password
   const history = useHistory();
   return (
     <Dropdown className={` px-3 ${styles.Absolute}`} drop="left">

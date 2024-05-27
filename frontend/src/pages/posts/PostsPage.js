@@ -28,6 +28,8 @@ import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
 
 function PostsPage({ message, filter = "" }) {
+  // PostsPage component used to render all posts, search the posts or filter posts
+  // handles fetching posts data and displaying posts
   const currentUser = useCurrentUser();
   const { friendsData } = useFriendData();
   const [posts, setPosts] = useState({ results: [] });

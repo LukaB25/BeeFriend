@@ -13,6 +13,9 @@ export const useFriendRequestData = () => useContext(FriendRequestContext);
 export const useSetFriendRequestData = () => useContext(SetFriendRequestContext);
 
 export const FriendRequestProvider = ({ children }) => {
+  // FriendRequestProvider context used to fetch, store and update friend request data
+  // and provide it to the rest of the application
+  // Manages friend requests by storing and updating sent, received and accepted requests by the current user
   const currentUser = useCurrentUser();
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
   const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
@@ -62,8 +65,7 @@ export const FriendRequestProvider = ({ children }) => {
 
   const acceptFriendRequest = async (id) => {
     try {
-      const { data } = await axiosReq.put(`/friends/${id}/`, {
-        friend: currentUser?.profile_id,
+      const { data } = await axiosReq.patch(`/friends/${id}/`, {
         accepted: true
       });
       setAcceptedFriendRequests(prevState => ({

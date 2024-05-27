@@ -31,6 +31,8 @@ import Post from '../posts/Post';
 
 
 function ProfilePage() {
+  // ProfilePage component used to render a profile page with user's profile data and posts
+  // handles fetching and displaying profile data and users posts
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const { id } = useParams();

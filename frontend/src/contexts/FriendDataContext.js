@@ -12,6 +12,8 @@ export const useFriendData = () => useContext(FriendDataContext);
 export const useSetFriendData = () => useContext(SetFriendDataContext);
 
 export const FriendDataProvider = ({ children }) => {
+  // FriendDataProvider context used to fetch and store friend data
+  // and provide it to the rest of the application
   const [friendsData, setFriendsData] = useState({
     friends: { results: [] },
   });

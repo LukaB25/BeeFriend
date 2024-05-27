@@ -12,6 +12,10 @@ export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
 export const CurrentUserProvider = ({children}) => {
+  // CurrentUserProvider context used to fetch and store the current user data
+  // and provide it to the rest of the application
+  // Manages the current user data by storing and updating the current user
+  // on login and logout
   const [currentUser, setCurrentUser] = useState(null);
 
   const history = useHistory();

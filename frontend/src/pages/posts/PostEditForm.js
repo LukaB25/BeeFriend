@@ -19,11 +19,16 @@ import assetStyles from '../../styles/Asset.module.css';
 
 import Upload from '../../assets/upload.png';
 import Asset from '../../components/Asset';
+import { useRedirect } from '../../hooks/useRedirect';
 
 
 
 
 const PostEditForm = () => {
+  // PostEditForm component used to render a form to edit a post
+  // handles form submission and updates the post with the new data if user is logged in
+  // and is the owner of the post, otherwise redirects to the home page
+  useRedirect('loggedOut');
   const [postData, setPostData] = useState({
     title: '',
     content: '',

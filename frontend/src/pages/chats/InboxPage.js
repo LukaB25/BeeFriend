@@ -11,6 +11,10 @@ import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
 
 const InboxPage = () => {
+  // InboxPage component used to render the Inbox and Messenger components
+  // on smaller devices and display a message on larger devices
+  // informing the user that the Inbox page is only available on smaller devices
+  // as they are available on the home page as their own components
   useRedirect('loggedOut');
   const selectedChat = useSelectedChat();
   return (

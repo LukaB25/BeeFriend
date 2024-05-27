@@ -10,6 +10,7 @@ import btnStyles from '../styles/Button.module.css';
 import Asset from './Asset';
 
 const FriendButtons = () => {
+  // FriendButtons component used to display friend request buttons on the profile page
   const currentUser = useCurrentUser();
 
   const { pageProfile } = useProfileData();

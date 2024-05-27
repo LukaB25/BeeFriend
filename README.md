@@ -237,6 +237,17 @@ Profile Page - Info, Stats and Bio
 
 ## Testing
 
+### Back-End Testing
+- I created automatic backend tests for all of the views while building a Django Rest Framework API, making sure all of them are working.
+- While creating and after finishing with the DRF API, but before creating the Front-End I performed manual tests, making sure all of the CRUD functions are working, storing and updating the data and not throwing any errors.
+- There were no errors and functions were working properly, during the build I made minor changes to the friends and chat serializers in order to be able to extract necessary data for the front end.
+- CRUD functionalities are secured by using permissions that allow changes or deletion only to owners; owners and friend in friend request instances; otherwise users have just read opriton, except for chats and messages where only sender and recepient in the chats can view or change chats
+- Error and response handling is in place and responds to frontend requests
+
+### Front-End Testing
+- Frontend is working perfectly, necessary data is being displayed to the user, error handling is in place to handle no data from the backend or possible errors in user interaction.
+- User can see relevant messages as a response using short term auto close alerts (React Toastify) to: successful registration, login or logout, adding a new post, editing existing post, sending a message, and possible errors.
+
 |           Action            |        Expectation                           | Outcome |
 | :-------------------------: |   :-------------------------------------:    | :-----: |
 |           Homepage        |   The homepage loads on page start        |  Pass   |
@@ -264,7 +275,13 @@ Profile Page - Info, Stats and Bio
 |       Homepage - logged in        |        The additional features are displayed as soon as the user logs in, displays a advanced search bar, posts, recommended and friends profiles along with inbox components        |  Pass   |
 |       Recommended profiles        |         Displays correctly and Avatars, usernames and buttons are visible. Displays on the top left beneath the navbar on both large and small screens          |  Pass   |
 |       Recommended profiles - buttons       |         Buttons display depending on the different friends status. When clicked th button either adds, accepts, denies, cancels or removes a friend, depending ot he button type          |  Pass   |
-|       Friends profiles        |         Displays correctly and Avatars, usernames and buttons are visible. Displays on the top left beneath the recommended profiles on large and on the right beneath the navbar on small screens          |  Pass   |
+|       Recommended profiles - BeeFriend btn       |         Button sends a friend request when clicked, displayed only when user is not a friend with profile owner, component refreshed          |  Pass   |
+|       Recommended profiles - Cancel btn       |         Button deletes sent friend request when clicked, displayed only when logged in user is user that sent friend request, component refreshed          |  Pass   |
+|       Recommended profiles - Accept btn       |         Button accepts received friend request when clicked, displayed only when logged in user received friend request           |  Pass   |
+|       Recommended profiles - Accept btn       |         Component refreshed without reload           |  Fail   |
+|       Recommended profiles - Deny btn       |         Button denies and deletes received friend request when clicked, displayed only when logged in user is user that received friend request, component refreshed          |  Pass   |
+|       Recommended profiles - Unfriend btn       |         Button removes a friend and deletes friend request when clicked, displayed only when logged in user is user that has sent or received the friend request, component refreshed          |  Pass   |
+|       Friends profiles        |         Displays correctly and Avatars, usernames and buttons are visible. Displays on the left beneath the recommended profiles on large and on the right beneath the navbar on small screens, displays only accepted friend requests user is a part of          |  Pass   |
 |       Friends profiles - buttons       |         Unfriend buttons are displayed correctly. Removes friend from list when button is clicked          |  Pass   |
 |       Search Bar       |        Displays in the top center, beneath the navbar on large screens and beneath recommended and friends profiles on small screens. On input filters the content by username, title or body content          |  Pass   |
 |       Search Bar - logged out      |        When user is logged out only displays the search bar along the full width of the content bar          |  Pass   |
@@ -281,7 +298,7 @@ Profile Page - Info, Stats and Bio
 |           Post Page - Edit button      |   On click, redirects user to the edit page, automatically filling the existing post data fields(image for existing image post, title for title and body for body content)       |  Pass   |
 |           Edit Post        |   User they can decide to change or add an image, title and/or body. Title field is mandatory, image and body are not mandatory fields.       |  Pass   |
 |           Edit Post - buttons       |   Create post page is supplied with two buttons, cancel which redirect user back to the previous page, and Post button, which saves the edits existing post in the database and redirects user to the published post page.       |  Pass   |
-|           Post Page -delete button       |   On click deletes the post and all of the connected likes and comments from the database       |  Pass   |
+|           Post Page - delete button       |   On click deletes the post and all of the connected likes and comments from the database       |  Pass   |
 |           Post Page - like      |   Logged in user can like the post they do not own and unlike previously liked posts, same as on rest of the pages. When post is liked or unliked, like count is incremented, reflecting the correct count        |  Pass   |
 |           Post Page - comment      |   While on post page, any user can read and view existing comments, logged in users can add new, edit or delete their existing comments. when comment is added or deleted the comment count is incremented, reflecting the correct count, updated comments do not change the comment count.       |  Pass   |
 |           Post Page - comment add      |   New comment is posted and displayed at the top of the comment section, current time is posted as post date(how long ago was the post made)       |  Pass   |

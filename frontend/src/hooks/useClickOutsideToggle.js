@@ -6,6 +6,7 @@ const useClickOutsideToggle = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Close the dropdown if the user clicks outside of it
       if (ref.current && !ref.current.contains(event.target)){
         setExpanded(false);
       }

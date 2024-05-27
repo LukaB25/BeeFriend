@@ -19,6 +19,9 @@ import appStyles from "../../App.module.css";
 import assetStyles from "../../styles/Asset.module.css";
 
 const ProfileEditForm = () => {
+  // ProfileEditForm component used to render a form to edit a profile
+  // handles form submission and updates the profile with the new data if user is logged in
+  // and is the owner of the profile
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();

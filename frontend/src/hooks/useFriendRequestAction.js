@@ -1,6 +1,7 @@
 import { useFriendRequestData } from "../contexts/FriendRequestContext";
 
 const useFriendRequestAction = () => {
+  // Custom hook to handle friend request actions and provide them to the rest of the application
   const {
     sentFriendRequests,
     receivedFriendRequests,

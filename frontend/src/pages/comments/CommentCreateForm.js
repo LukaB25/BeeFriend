@@ -12,6 +12,8 @@ import btnStyles from "../../styles/Button.module.css";
 import Avatar from "../../components/Avatar";
 
 function CommentCreateForm(props) {
+  // CommentCreateForm component used to render a form to add a new comment on a post
+  // handles form submission and updates the post displays the new comment
   const { post, setPost, setComments, profileImage, profile_id } = props;
   const [body, setBody] = useState("");
 

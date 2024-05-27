@@ -18,6 +18,9 @@ import MessageForm from './MessageForm';
 
 
 const Messenger = ({ InboxPage }) => {
+  // Messenger component used to display messages in the selected chat
+  // handles fetching messages, updating messages every 5 minutes, and
+  // exiting the chat when X button is pressed
   const currentUser = getCurrentUserFromLocalStorage();
   const selectedChat = useSelectedChat();
   const setSelectedChat = useSetSelectedChat();

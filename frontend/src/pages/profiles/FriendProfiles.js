@@ -13,6 +13,8 @@ import Asset from '../../components/Asset';
 import Profile from './Profile';
 
 const FriendProfiles = ({ mobile }) => {
+  // FriendProfiles component used to display the current user's friends
+  // handles fetching friend data and displaying friend profiles
   const { acceptedFriendRequests } = useFriendRequestData();
   const [hasLoaded, setHasLoaded] = useState(false);
   const setFriendsData = useSetFriendData();

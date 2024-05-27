@@ -62,11 +62,11 @@
 .CancelButton, .UnfriendButton, .CloseButton {
     border-color: var(--burgundy--color);
     background-color: var(--charcoal--color);
-    color: #d10739;
+    color: var(--offwhite--color);
     box-shadow: 0 0 1rem .25rem var(--burgundy--color),
                 0 0 4rem 1rem #26000a,
                 inset 0 0 .75rem .25rem #66001a;
-    text-shadow: 0 0 .5rem var(--dark--burgundy--color);
+    text-shadow: 0 0 .5rem var(--offwhite--color);
     transition: all ease-in-out 0.5s;
 }
 
@@ -80,7 +80,7 @@
 
 .CancelButton:hover, .UnfriendButton:hover, .CloseButton:hover {
     font-weight: 600;
-    color: var(--charcoal--color);
+    color: var(--offwhite--color);
     transform: scale3d(1.1, 1.1, 1.1);
     background-color: #d10739;
     box-shadow: 0 0 1rem .25rem #66001a,
@@ -93,7 +93,7 @@
 .UnfriendButton:active, .UnfriendButton:focus,
 .CloseButton:active, .CloseButton:focus{
     font-weight: 600;
-    color: var(--charcoal--color);
+    color: var(--offwhite--color);
     background-color: var(--burgundy--color);
     box-shadow: 0 0 0.6rem .25rem #26000a,
                 0 0 2.5rem 2rem #66001a,

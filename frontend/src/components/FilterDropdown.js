@@ -19,6 +19,7 @@ const Filter = React.forwardRef(({ onClick }, ref) => (
 
 
 export const FilterDropdown = ({ handleSelectFilter }) => {
+  // FilterDropdown component used to filter posts by all, liked, or commented
   return (
     <Dropdown className="ml-auto" drop="left">
     <Dropdown.Toggle as={Filter} />

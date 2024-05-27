@@ -18,6 +18,8 @@ import profileStyles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 const UsernameForm = () => {
+  // UsernameForm component used to render a form to edit a username for current user
+  // handles form submission and updates the username if current user is logged in and profile owner
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
 

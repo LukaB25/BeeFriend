@@ -23,6 +23,8 @@ import Inbox from '../../components/Inbox';
 import Messenger from '../../components/Messenger';
 
 function PostPage() {
+  // PostPage component used to render a single post and its comments
+  // handles fetching post and comments data
   const currentUser = useCurrentUser();
   const profile_image = currentUser?.profile_image;
   const [comments, setComments] = useState({ results: [] });

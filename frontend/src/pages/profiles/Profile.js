@@ -12,6 +12,11 @@ import Avatar from '../../components/Avatar';
 import Asset from '../../components/Asset';
 
 const Profile = ({ profile, mobile }) => {
+  // Profile component used to display a user's profile image and username
+  // displays a button to send a friend request if the user is not the owner of the profile
+  // displays a button to unfriend if the user is friends with the profile owner
+  // displays a button to cancel friend request if the user has sent a friend request to the profile owner
+  // displays a button to accept or deny friend request if the user has received a friend request from the profile owner
   const { id, friend_id, owner, image } = profile;
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
