@@ -209,6 +209,17 @@ Profile Page - Info, Stats and Bio
 - ***Login*** - After registering and creating an account the user is redirected to the login page, where they can log in and start writing posts, commenting on existing posts or like them. On successful log in user will be taken to the home page.
 - ***Logout*** - While logged in a user can decide to logout at any point, when the logout is clicked, it will log user out and redirect user to the home page. While logged out user is restricted from using the site fully. 
 
+### Main Components
+- The wide range of components were used for the project. Main components that were used are:
+    * NavBar - used on all of the pages, displays logo and links used to navigate throughout the whole page.
+    * Recommended Profiles - component that inherits all of the profiles data and displays it on homepage, friends page, each post page and profile page.
+    * Friends - component that is used to display all of the users logged in user is friends with, it is reused on homepage, friends page, each post page and profile page.
+    * SearchBar - component that displays the search bar, new post and filter dropdown, it is reused on homepage and friends page.
+    * Post - component that is used to display single post on post page, all of the posts on the home page, friends posts on friends page, user posts on profile page, etc.
+    * Inbox - component that displays all of the created chats, handles creation of the new chat or sets a clicked chat as selected chat to start the messenger. It is displayed on the homepage, friends page, post page and profile page on large screen devices, and on a separate page on medium or smaller pages.
+    * Messenger - component that displays all of the messages and handles creation and sending of new messages, it is only active when the chat is existing and selected. It is displayed in the same way as Inbox component.
+    * Etc.
+
 ### React Toastify
 - Toast messages were used to create user response messages that dissapear on their own after couple of seconds. The messages respond to most of the user interactions on the site.
 - Some of which are:
@@ -238,8 +249,49 @@ Profile Page - Info, Stats and Bio
 ## Testing
 
 ### Back-End Testing
-- I created automatic backend tests for all of the views while building a Django Rest Framework API, making sure all of them are working.
+- I created automatic backend tests for all of the views while building a Django Rest Framework API, making sure all of them are working, as testing of the back end library is only available in the development process and not on the live site, live site back end was also tested and made sure that users can read the data that is available for all of the users, but the chats are protected and only available to be read by the sender or recepient of the chat.
 - While creating and after finishing with the DRF API, but before creating the Front-End I performed manual tests, making sure all of the CRUD functions are working, storing and updating the data and not throwing any errors.
+- CRUD functionalities tested were:
+
+|           Action         |        Expectation                           | Outcome |
+| :----------------------: |   :-------------------------------------:    | :-----: |
+|         Profile          |      Profile created as soon as users are registered     |  Pass   |
+|         Profile          |      Logged in profile owner can add and update their details     |  Pass   |
+|         Posts            |      Logged in user can create a post   |  Pass   |
+|         Posts            |      Logged out user can't create a post   |  Pass   |
+|         Posts            |      Logged in post owner can edit or delete post   |  Pass   |
+|         Posts            |      Logged out user can't edit or delete posts   |  Pass   |
+|         Posts            |      Posts can be read by all users   |  Pass   |
+|         Like             |      Logged in users can like posts if they are not owner  |  Pass   |
+|         Like             |      Logged in users can't like posts they own  |  Pass   |
+|         Like             |      Logged out users can't like posts  |  Pass   |
+|         Like             |      Logged in users can delete like on a post if they have liked it  |  Pass   |
+|         Like             |      Logged out users can't delete like on a post  |  Pass   |
+|         Like             |      Likes can be read by all users  |  Pass   |
+|         Comment          |      Logged in users can comment on a post     |  Pass   |
+|         Comment          |      Logged out users can't comment on a post     |  Pass   |
+|         Comment          |      Logged in users can edit or delete their comment on a post     |  Pass   |
+|         Comment          |      Logged out users can't edit or delete comment on a post     |  Pass   |
+|         Comment          |      Comments can be read by all users     |  Pass   |
+|         Friend request   |      Logged in users can send a friend request     |  Pass   |
+|         Friend request   |      Logged in users can delete a friend request they have sent     |  Pass   |
+|         Friend request   |      Logged in users can delete a friend request they have received     |  Pass   |
+|         Friend request   |      Logged in users can accept a friend request they have received     |  Pass   |
+|         Friend request   |      Logged in users can't accept a friend request they have sent     |  Pass   |
+|         Friend request   |      Logged out users can't send, delete or accept a friend request     |  Pass   |
+|         Friend request   |      Friend requests can be read by all users     |  Pass   |
+|         Chat             |      Logged in user can create a new chat     |  Pass   |
+|         Chat             |      Logged out user can't create a new chat     |  Pass   |
+|         Chat             |      Logged in user can't create a new chat if one already exists     |  Pass   |
+|         Chat             |      Chats can only be viewed if logged in user is sender or recipient     |  Pass   |
+|         Messages         |      Logged in user can send messages inside existing chat     |  Pass   |
+|         Messages         |      Logged out user can't send messages inside existing chat     |  Pass   |
+|         Messages         |      Logged in user can edit or delete a message inside an existing chat they are a part of     |  Pass   |
+|         Messages         |      Logged in user can't edit or delete a message inside an existing chat they are not a part of     |  Pass   |
+|         Messages         |      Logged out user can't edit or delete a message inside an existing chat     |  Pass   |
+|         Messages         |      Messages can only be viewed if logged in user is sender or recipient     |  Pass   |
+|         Admin          |        Admin page can only be accessed by the logged in user with admin access   |  Pass   |
+
 - There were no errors and functions were working properly, during the build I made minor changes to the friends and chat serializers in order to be able to extract necessary data for the front end.
 - CRUD functionalities are secured by using permissions that allow changes or deletion only to owners; owners and friend in friend request instances; otherwise users have just read opriton, except for chats and messages where only sender and recepient in the chats can view or change chats
 - Error and response handling is in place and responds to frontend requests
