@@ -15,8 +15,8 @@ class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.annotate(
         post_count=Count('owner__post', distinct=True),
         post_interaction_count=Count(
-            'owner__post__like', distinct=True
-        ) + Count('owner__post__comment', distinct=True)
+            'owner__like', distinct=True
+        ) + Count('owner__comment', distinct=True)
     ).order_by('-created_at')
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly,
@@ -53,7 +53,7 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
         friend_count=Count(
             'owner__friend', distinct=True),
         post_interaction_count=Count(
-            'owner__post__like', distinct=True
-        ) + Count('owner__post__comment', distinct=True)
+            'owner__like', distinct=True
+        ) + Count('owner__comment', distinct=True)
     ).order_by('-created_at')
     serializer_class = ProfileSerializer

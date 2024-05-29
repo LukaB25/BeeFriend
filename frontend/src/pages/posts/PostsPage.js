@@ -163,7 +163,7 @@ function PostsPage({ message, filter = "" }) {
             {posts.results.length ? (
               <InfiniteScroll
                 children={
-                  posts.results.map((post) => (
+                  posts?.results?.map((post) => (
                     <Post key={post.id} {...post} setPosts={setPosts}  aria-label={`post ${post.id}`} />
                   ))
                 }

@@ -386,10 +386,11 @@ Profile Page - Info, Stats and Bio
 - The biggest and longest issue I had to troubleshoot was handling the friend requests and it's status. As I wanted to have multiple options for the friend requests (Sending a friend request, Cancelling existing sent request, Accepting or Denying received request or Unfriending existing friend). I spent days trying to troubleshoot and work on the code to have a proper button displayed. I kept adding, changing, removing and commenting out the code trying to fix it, without success. I managed to have sending friend request work, but other ones were working, but didn't auto update, but required page refresh. I decided to continue and come back to it. While working on a Inbox component I had an idea what I could try and do, which was updating the friend request contexts to handle all of the updates in each component, i.e. for deny component to update all three request types(sent, received and accepted requests). Which ended up fixing the component not updating when user denies, cancels or unfriends a user. But one issue remained which was the accepted friend request still doesn't update the components, and requires page refresh to start working.
 - Due to slow loading of currentUser and/or it missing occasionally on Inbox and Messenger, I decided to store the currentUser data inside of the localStorage in order to speed up and solve the issue.
 - I was trying to set up the filters for the friends posts page, and was unable to figure out on how to do it directly from the DRF API, so I created my own React function that is taking the data, extracting necessary posts and displays them in the descending order on the friends posts page that is available when user is logged in and when they have made some friends on the site.
+- Prior to finalizing and submiting my project, I noticed one more bug, the post interaction count stopped working and it needed a quick bug fix, so I added related name to the post inside the like and comment models and changed the relation inside the profiles view, which got it to start working again.
 
 ### Unfixed bugs
 
-- **Accepting a friend request** when a user accepts a friend requests, they need to refresh the site, as the component is not being refreshed by it's self
+- **Accepting a friend request** when a user accepts a friend requests, they need to refresh the site, as the component is not being refreshed by it's self, I couldn't figure out as to where the error is and why it is not updating
 
 ## Validator testing
 ### Performance
